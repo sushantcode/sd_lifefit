@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FDF0F0"
+    android:backgroundTint="#FBF4F4"
+    tools:context=".ProfilePage">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:background="#F6D5D5"
+                android:backgroundTint="#FAF6F6" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="wrap_content"
+                android:layout_height="145dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="138dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="138dp"
+                android:layout_marginBottom="74dp"
+                android:src="@drawable/profimage"
+                app:civ_border_color="#FFFFFF"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:paddingLeft="15sp"
+                android:paddingTop="20sp"
+                android:text="Your Profile"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/fullname"
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:gravity="center"
+            android:paddingLeft="5sp"
+            android:text="Alex Plauda"
+            android:textAlignment="center"
+            android:textColor="#430101"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/genderAge"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:paddingLeft="5sp"
+            android:text="Gender &amp; Age"
+            android:textAlignment="viewStart"
+            android:textColor="#553C3C"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/address1"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:paddingLeft="5sp"
+            android:text="Street Address"
+            android:textAlignment="viewStart"
+            android:textColor="#553C3C"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/address2"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:paddingLeft="5sp"
+            android:text="City,State, Zip"
+            android:textAlignment="viewStart"
+            android:textColor="#553C3C"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/phonenum"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:paddingLeft="5sp"
+            android:text="Phone Number"
+            android:textAlignment="viewStart"
+            android:textColor="#553C3C"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:paddingLeft="5sp"
+            android:text="Email "
+            android:textAlignment="viewStart"
+            android:textColor="#553C3C"
+            android:textSize="18sp" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="134dp">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="182dp"
+                android:layout_height="113dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.077"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/userpoints"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:text="320 pts"
+                    android:textAlignment="center"
+                    android:textColor="#730F0F"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Your score"
+                    android:textAlignment="center"
+                    android:textColor="#605C5C"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="182dp"
+                android:layout_height="113dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.908"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.533">
+
+                <TextView
+                    android:id="@+id/goalpoints"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:text="850 pts"
+                    android:textAlignment="center"
+                    android:textColor="#730303"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Your goal"
+                    android:textAlignment="center"
+                    android:textColor="#605C5C"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <lecho.lib.hellocharts.view.LineChartView
+            android:id="@+id/showGraph"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+
+            <Button
+                android:id="@+id/button_weightlog"
+                android:layout_width="129dp"
+                android:layout_height="39dp"
+                android:layout_marginStart="140dp"
+                android:layout_marginEnd="140dp"
+                android:background="@drawable/weight_log"
+                android:text="Weight log"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="500dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_sign_in"
+            app:layout_constraintTop_toBottomOf="@+id/button_sign_in">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="409dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="9dp"
+                android:layout_marginBottom="467dp"
+                android:paddingLeft="15sp"
+                android:text="Badges"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="56dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="213dp"
+                android:layout_marginBottom="252dp"
+                android:text="Novice Run 1km"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.103"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                tools:ignore="MissingConstraints"
+                tools:text="Novice Run 1km" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="56dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="188dp"
+                android:layout_marginTop="155dp"
+                android:layout_marginEnd="165dp"
+                android:layout_marginBottom="251dp"
+                android:text="Runner Run 5km"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                tools:ignore="MissingConstraints"
+                tools:text="Runner Run 5km" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="69dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="308dp"
+                android:layout_marginTop="217dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="247dp"
+                android:text="Athlete Run 10 km"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints"
+                tools:text="Athlete Run 10 km" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="86dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="409dp"
+                android:layout_marginEnd="288dp"
+                android:layout_marginBottom="55dp"
+                android:text="Marathoner Run 15km"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints"
+                tools:text="Marathoner Run 15km" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="70dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="188dp"
+                android:layout_marginTop="409dp"
+                android:layout_marginEnd="151dp"
+                android:layout_marginBottom="59dp"
+                android:text="Forrest Run 25 km"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints"
+                tools:text="Forrest Run 25 km" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="86dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="291dp"
+                android:layout_marginTop="408dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="56dp"
+                android:text="Unstoppable Run 50km"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints"
+                tools:text="Unstoppable Run 50km" />
+
+            <com.sdsmdg.harjot.vectormaster.VectorMasterView
+                android:id="@+id/imageView10"
+                android:layout_width="126dp"
+                android:layout_height="159dp"
+                android:layout_marginStart="132dp"
+                android:layout_marginTop="59dp"
+                android:layout_marginEnd="134dp"
+                android:layout_marginBottom="282dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:vector_src="@drawable/ic_badge_2" />
+
+            <com.sdsmdg.harjot.vectormaster.VectorMasterView
+                android:id="@+id/imageView9"
+                android:layout_width="126dp"
+                android:layout_height="159dp"
+                android:layout_marginTop="59dp"
+                android:layout_marginEnd="267dp"
+                android:layout_marginBottom="282dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:vector_src="@drawable/ic_badge1k"
+                tools:ignore="MissingConstraints" />
+
+            <com.sdsmdg.harjot.vectormaster.VectorMasterView
+                android:id="@+id/imageView12"
+                android:layout_width="126dp"
+                android:layout_height="159dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="262dp"
+                android:layout_marginEnd="267dp"
+                android:layout_marginBottom="79dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                app:vector_src="@drawable/ic_badge_4"
+                tools:ignore="MissingConstraints" />
+
+            <com.sdsmdg.harjot.vectormaster.VectorMasterView
+                android:id="@+id/imageView13"
+                android:layout_width="126dp"
+                android:layout_height="159dp"
+                android:layout_marginStart="132dp"
+                android:layout_marginTop="265dp"
+                android:layout_marginEnd="134dp"
+                android:layout_marginBottom="76dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:vector_src="@drawable/ic_badge_6"
+                tools:ignore="MissingConstraints" />
+
+            <com.sdsmdg.harjot.vectormaster.VectorMasterView
+                android:id="@+id/imageView14"
+                android:layout_width="126dp"
+                android:layout_height="159dp"
+                android:layout_marginStart="267dp"
+                android:layout_marginTop="263dp"
+                android:layout_marginBottom="78dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:vector_src="@drawable/ic_badge_4"
+                tools:ignore="MissingConstraints" />
+
+            <com.sdsmdg.harjot.vectormaster.VectorMasterView
+                android:id="@+id/imageView11"
+                android:layout_width="126dp"
+                android:layout_height="159dp"
+                android:layout_marginStart="267dp"
+                android:layout_marginTop="59dp"
+                android:layout_marginBottom="282dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:vector_src="@drawable/ic_badge_3" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+</ScrollView>
