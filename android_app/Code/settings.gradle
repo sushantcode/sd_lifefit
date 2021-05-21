@@ -1,0 +1,3 @@
+include ':fitapp',':app'
+rootProject.name='My Application'
+
