@@ -1,0 +1,80 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+        android:selectable="false"
+        app:title="Settings">
+    </Preference>
+
+    <PreferenceCategory
+        app:title="Connections">
+
+        <SwitchPreferenceCompat
+            android:id="@+id/Spotifyconnect"
+            app:icon="@drawable/spotifyicon"
+            app:key="sync"
+            app:title="Connect to Spotify" />
+        <SwitchPreferenceCompat
+            android:id="@+id/GoogleConnect"
+            app:icon="@drawable/google"
+            app:key="sync"
+            app:title="Connect to Google" />
+        <SwitchPreferenceCompat
+            android:id="@+id/GoogleFitConnect"
+            app:icon="@drawable/googlefitlogo"
+            app:key="sync"
+            app:title="Connect to Google Fit" />
+        <SwitchPreferenceCompat
+            android:id="@+id/AppleConnect"
+            app:icon="@drawable/applelogo"
+            app:key="sync"
+            app:title="Connect to Apple" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="System">
+
+        <Preference
+            android:id="@+id/tracking"
+            app:title="Tracking">
+        </Preference>
+        <Preference
+            android:id="@+id/notification"
+            app:title="Notification">
+        </Preference>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="Account">
+
+        <Preference
+            android:id="@+id/viewprofile"
+            app:title="Profile"
+            android:summary="Click to view your profile information">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetPackage="com.example.myapplication"
+                android:targetClass="com.example.myapplication.ProfilePage" />
+        </Preference>
+
+        <Preference
+            android:id="@+id/fitbitconnect"
+            app:title="Sync with Fitbit"
+            android:summary="Click to sync your Fitbit watch">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetPackage="com.example.myapplication"
+                android:targetClass="com.example.myapplication.FitBitActivity"
+                />
+        </Preference>
+
+        <Preference
+            android:id="@+id/signout"
+            app:title="Sign Out">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetPackage="com.example.myapplication"
+                android:targetClass="com.example.myapplication.SignOut" />
+        </Preference>
+    </PreferenceCategory>
+</PreferenceScreen>
