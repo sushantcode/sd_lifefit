@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+<<<<<<< HEAD
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.auth.AuthUser;
@@ -19,6 +20,10 @@ import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.AmplifyModelProvider;
+=======
+import com.amplifyframework.auth.AuthUser;
+import com.amplifyframework.core.Amplify;
+>>>>>>> final implementation
 import com.example.myapplication.LoginStuff.Login;
 
 public class Welcomescreen extends AppCompatActivity {
@@ -31,6 +36,7 @@ public class Welcomescreen extends AppCompatActivity {
         // On create start
         super.onCreate(savedInstanceState);
 
+<<<<<<< HEAD
         try {
             AmplifyModelProvider modelProvider = AmplifyModelProvider.getInstance();
             Amplify.addPlugin(new AWSDataStorePlugin(modelProvider));
@@ -56,6 +62,52 @@ public class Welcomescreen extends AppCompatActivity {
             slide.excludeTarget(android.R.id.navigationBarBackground, true);
             window.setEnterTransition(slide);
             window.setReturnTransition(slide);
+=======
+        // check is user is logged in
+        AuthUser currentUser = Amplify.Auth.getCurrentUser();
+
+        if (currentUser == null) {
+            setContentView(R.layout.activity_welcomescreen);
+
+            Window window = getWindow();
+            Slide slide = new Slide();
+            slide.setInterpolator(new LinearInterpolator());
+            slide.setSlideEdge(Gravity.RIGHT);
+            slide.excludeTarget(android.R.id.statusBarBackground, true);
+            slide.excludeTarget(android.R.id.navigationBarBackground, true);
+            window.setEnterTransition(slide);
+            window.setReturnTransition(slide);
+
+            login = findViewById(R.id.button_login);
+            signup = findViewById(R.id.button_signup);
+            login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(Welcomescreen.this, com.example.myapplication.LoginStuff.Login.class));
+                    overridePendingTransition(R.anim.bottom_up,R.anim.no_animation);
+                }
+            });
+
+            signup.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(Welcomescreen.this, com.example.myapplication.LoginStuff.Registration.class));
+                    overridePendingTransition(R.anim.bottom_up,R.anim.no_animation);
+                }
+            });
+        }
+        else {
+            //If the Login is Successfull then take the user to the homescreen.
+            Intent intent = new Intent(Welcomescreen.this, homescreen.class);
+
+            //When we close and comeback we don't want user to see the login page.
+            //So, we need to set the flag.
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }
+    }
+>>>>>>> final implementation
 
             login = findViewById(R.id.button_login);
             signup = findViewById(R.id.button_signup);

@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.amplifyframework.auth.AuthException;
+<<<<<<< HEAD
 import com.amplifyframework.auth.cognito.AWSCognitoAuthSession;
 import com.amplifyframework.auth.result.AuthSignInResult;
 import com.amplifyframework.core.Amplify;
@@ -23,6 +24,10 @@ import com.amplifyframework.datastore.DataStoreChannelEventName;
 import com.amplifyframework.datastore.DataStoreException;
 import com.amplifyframework.datastore.generated.model.UserDetails;
 import com.amplifyframework.hub.HubChannel;
+=======
+import com.amplifyframework.auth.result.AuthSignInResult;
+import com.amplifyframework.core.Amplify;
+>>>>>>> final implementation
 import com.example.myapplication.R;
 import com.example.myapplication.SharedPrefManager;
 import com.example.myapplication.homescreen;
@@ -97,14 +102,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         if (!checkInput(userName, password)) {
             return;
         } else {
+<<<<<<< HEAD
             progressBar.setVisibility(View.VISIBLE);
             buttonText.setText("Please Wait");
+=======
+>>>>>>> final implementation
             Amplify.Auth.signIn(
                     userName,
                     password,
                     this::onLoginSuccess,
                     this::onLoginError
             );
+<<<<<<< HEAD
 
         }
     }
@@ -123,6 +132,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
 
+=======
+>>>>>>> final implementation
 
     private void queryForRemoteData() {
         start();
@@ -133,6 +144,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+<<<<<<< HEAD
     private void queryAfterReady() {
         Amplify.Hub.subscribe(HubChannel.DATASTORE,
                 hubEvent -> DataStoreChannelEventName.SYNC_QUERIES_READY.toString().equals(hubEvent.getName()),
@@ -236,6 +248,26 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         );
         progressBar.setVisibility(View.GONE);
         buttonText.setText("Login");
+=======
+    private void onLoginError(AuthException e) {
+        //handle the error response if the user credentials doesn't match
+        Log.e("Login", "Sign in failed", e);
+        Login.this.runOnUiThread(() -> showCustomAlertDialog("Login Error", e.getLocalizedMessage()));
+        progressBar.setVisibility(View.GONE);
+        buttonText.setText("Login");
+    }
+
+    private void onLoginSuccess(AuthSignInResult authSignInResult) {
+        progressBar.setVisibility(View.GONE);
+
+        //If the Login is Successfull then take the user to the homescreen.
+        Intent intent = new Intent(Login.this, homescreen.class);
+
+        //When we close and comeback we don't want user to see the login page.
+        //So, we need to set the flag.
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+>>>>>>> final implementation
     }
 
 

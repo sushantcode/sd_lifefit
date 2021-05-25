@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 type FitbitTokens @model @auth(rules: [{allow: public}]) {
   id: ID!
   access_token: String
@@ -23,3 +24,21 @@ type UserDetails @model @auth(rules: [{allow: public}]) {
   score: Int
 }
  
+=======
+type UserDetails
+    @model
+    @auth(rules: [{allow: owner, operations: [create, delete, update] } ] ) {
+    id: ID!
+    username: String!
+    email: String!
+    fName: String!
+    lName: String!
+    phone: String
+    street: String
+    city: String
+    state: String
+    zipcode: String
+    gender: String
+    profile_pic: AWSURL
+}
+>>>>>>> final implementation

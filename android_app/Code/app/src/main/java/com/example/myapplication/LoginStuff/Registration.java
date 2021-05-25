@@ -169,6 +169,10 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     /** checks if all data is entered or not and processes it for submission */
     private void processRegistration() {
+<<<<<<< HEAD
+=======
+        //RegisterUser userRequest = new RegisterUser();
+>>>>>>> final implementation
         String username = editTextUsername.getEditText().getText().toString().trim();
         String password = editTextPassword.getEditText().getText().toString().trim();
         String fname = editTextFname.getEditText().getText().toString().trim();
@@ -184,6 +188,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             return;
         } else {
 
+<<<<<<< HEAD
             progressBar.setVisibility(View.VISIBLE);
             buttonText.setText("Please Wait");
 //            onSignUpSuccess();
@@ -194,6 +199,30 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                     this::onSignUpSuccess,
                     this::onSignUpError
             );
+=======
+//            userRequest.setUname(username);
+//            userRequest.setPassword(password);
+//            userRequest.setFname(fname);
+//            userRequest.setLname(lname);
+//            userRequest.setPhoneNumber(phoneNumber);
+//            userRequest.setEmail(email);
+//            userRequest.setAddress(address);
+//            userRequest.setCity(city);
+//            userRequest.setState(state);
+//            userRequest.setZipcode(zipcode);
+//            userRequest.setGender(gender);
+//            submit_Registration(userRequest);
+            progressBar.setVisibility(View.VISIBLE);
+            buttonText.setText("Please Wait");
+            onSignUpSuccess();
+//            Amplify.Auth.signUp(
+//                    username,
+//                    password,
+//                    AuthSignUpOptions.builder().userAttribute(AuthUserAttributeKey.email(), email).build(),
+//                    this::onSignUpSuccess,
+//                    this::onSignUpError
+//            );
+>>>>>>> final implementation
         }
     }
 
@@ -204,9 +233,14 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         buttonText.setText("Submit");
     }
 
+<<<<<<< HEAD
     private void onSignUpSuccess(AuthSignUpResult authSignUpResult) {
         // Start new Email verification activity on success
          Log.i("Signup", "Result: " + authSignUpResult.toString());
+=======
+    private void onSignUpSuccess() {
+        // Start new Email verification activity on success
+>>>>>>> final implementation
         Intent intent = new Intent(Registration.this, EmailVerification.class);
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
@@ -225,7 +259,10 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 gender
         };
         intent.putExtra("userInfo", userInfo);
+<<<<<<< HEAD
         //progressBar.setVisibility(View.GONE);
+=======
+>>>>>>> final implementation
         startActivity(intent);
     }
 
