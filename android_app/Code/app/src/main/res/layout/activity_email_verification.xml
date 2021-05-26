@@ -23,19 +23,6 @@
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/registration_close"
-        android:clickable="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_close"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="8dp"
-        android:textColor="@color/white"
-        android:textSize="12dp"
-        android:fontFamily="@font/quicksand_medium">
-    </TextView>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -56,7 +43,7 @@
                 android:textColor="@color/black"
                 android:text="Hi Username!"
                 android:gravity="center"
-                android:textSize="15dp"
+                android:textSize="17dp"
                 android:fontFamily="@font/quicksand_medium">
             </TextView>
 
@@ -69,7 +56,7 @@
                 android:textColor="@color/black"
                 android:gravity="center"
                 android:text="Thank You for signing up with us. Please check your email as shown below to get the verification code."
-                android:textSize="15dp"
+                android:textSize="17dp"
                 android:fontFamily="@font/quicksand_medium">
             </TextView>
 
@@ -82,7 +69,7 @@
                 android:textColor="@color/black"
                 android:gravity="center"
                 android:text="abcde@gmail.com"
-                android:textSize="15dp"
+                android:textSize="17dp"
                 android:textStyle="bold"
                 android:fontFamily="@font/quicksand_medium">
             </TextView>
@@ -91,7 +78,7 @@
                 android:id="@+id/emailverifyCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:hint="Your Verification Code"
                 app:hintTextColor="@color/colorPrimaryDark"
                 app:boxStrokeColor="@color/colorPrimaryDark">

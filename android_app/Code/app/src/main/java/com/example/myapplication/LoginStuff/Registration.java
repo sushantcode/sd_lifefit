@@ -32,10 +32,6 @@ import com.google.gson.Gson;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class Registration extends AppCompatActivity implements View.OnClickListener {
 
     private TextInputLayout editTextUsername, editTextPassword, editTextFname, editTextLname, editTextPhoneNumber, editTextEmail, editTextAddress, editTextCity, editTextState, editTextZipcode, editTextGender;
@@ -173,7 +169,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     /** checks if all data is entered or not and processes it for submission */
     private void processRegistration() {
-        //RegisterUser userRequest = new RegisterUser();
         String username = editTextUsername.getEditText().getText().toString().trim();
         String password = editTextPassword.getEditText().getText().toString().trim();
         String fname = editTextFname.getEditText().getText().toString().trim();
@@ -188,32 +183,17 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         if (!checkInput(username, password, fname, lname, phoneNumber, email, address, city, state, zipcode)) {
             return;
         } else {
-            int radioId = radioGroup.getCheckedRadioButtonId();
-            radioButton = findViewById(radioId);
-            String gender = (String) radioButton.getText();
 
-//            userRequest.setUname(username);
-//            userRequest.setPassword(password);
-//            userRequest.setFname(fname);
-//            userRequest.setLname(lname);
-//            userRequest.setPhoneNumber(phoneNumber);
-//            userRequest.setEmail(email);
-//            userRequest.setAddress(address);
-//            userRequest.setCity(city);
-//            userRequest.setState(state);
-//            userRequest.setZipcode(zipcode);
-//            userRequest.setGender(gender);
-//            submit_Registration(userRequest);
             progressBar.setVisibility(View.VISIBLE);
             buttonText.setText("Please Wait");
-            onSignUpSuccess();
-//            Amplify.Auth.signUp(
-//                    username,
-//                    password,
-//                    AuthSignUpOptions.builder().userAttribute(AuthUserAttributeKey.email(), email).build(),
-//                    this::onSignUpSuccess,
-//                    this::onSignUpError
-//            );
+//            onSignUpSuccess();
+            Amplify.Auth.signUp(
+                    username,
+                    password,
+                    AuthSignUpOptions.builder().userAttribute(AuthUserAttributeKey.email(), email).build(),
+                    this::onSignUpSuccess,
+                    this::onSignUpError
+            );
         }
     }
 
@@ -224,8 +204,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         buttonText.setText("Submit");
     }
 
-    private void onSignUpSuccess() {
+    private void onSignUpSuccess(AuthSignUpResult authSignUpResult) {
         // Start new Email verification activity on success
+         Log.i("Signup", "Result: " + authSignUpResult.toString());
         Intent intent = new Intent(Registration.this, EmailVerification.class);
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
@@ -244,6 +225,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 gender
         };
         intent.putExtra("userInfo", userInfo);
+        //progressBar.setVisibility(View.GONE);
         startActivity(intent);
     }
 
