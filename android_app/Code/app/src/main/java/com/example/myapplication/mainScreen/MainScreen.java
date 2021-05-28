@@ -373,35 +373,35 @@ public class MainScreen extends Fragment implements View.OnClickListener, SwipeR
      * Get user's health score for the server.
      */
     public void getHealthScore() {
-        // Set up call objects
-        Retrofit retro = new Retrofit.Builder()
-                .baseUrl(RetrofitClient.BASE_URL) // Web server url
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ScoreAPI api = retro.create(ScoreAPI.class); // Build API interface
-        int id = SharedPrefManager.getInstance(view.getContext()).getUser().getUser_id();
-        id = 218817; //testing purpose 'remove this'
-
-        Call<Score> call = api.getUserScore(id); // Build API call
-
-        // Make call
-        call.enqueue(new Callback<Score>() {
-            @Override
-            public void onResponse(Call<Score> call, Response<Score> response) {
-                if (response.isSuccessful()) {
-                    Log.i("Score", "Health score: " + response.body().getScore());
-                    SharedPrefManager.getInstance(view.getContext()).saveScore(response.body().getScore());
-                    showHealthScore();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Score> call, Throwable t) {
-                Log.e("Score", "Score call failed");
-                SharedPrefManager.getInstance(view.getContext()).saveScore(0);
-            }
-        });
+//        // Set up call objects
+//        Retrofit retro = new Retrofit.Builder()
+//                .baseUrl(RetrofitClient.BASE_URL) // Web server url
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        ScoreAPI api = retro.create(ScoreAPI.class); // Build API interface
+//        int id = SharedPrefManager.getInstance(view.getContext()).getUser().getUser_id();
+//        id = 218817; //testing purpose 'remove this'
+//
+//        Call<Score> call = api.getUserScore(id); // Build API call
+//
+//        // Make call
+//        call.enqueue(new Callback<Score>() {
+//            @Override
+//            public void onResponse(Call<Score> call, Response<Score> response) {
+//                if (response.isSuccessful()) {
+//                    Log.i("Score", "Health score: " + response.body().getScore());
+//                    SharedPrefManager.getInstance(view.getContext()).saveScore(response.body().getScore());
+//                    showHealthScore();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Score> call, Throwable t) {
+//                Log.e("Score", "Score call failed");
+//                SharedPrefManager.getInstance(view.getContext()).saveScore(0);
+//            }
+//        });
     }
 
     @Override

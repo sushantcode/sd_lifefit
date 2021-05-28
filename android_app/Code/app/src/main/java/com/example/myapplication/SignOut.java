@@ -37,12 +37,16 @@ public class SignOut extends AppCompatActivity {
     }
 
     private void onSignOutError(AuthException e) {
-        Log.e("AuthQuickstart", e.toString());
+        Log.e("SignOut", e.toString());
         progressBar.cancel();
     }
 
     private void onSignOutSuccess() {
         Intent intent = new Intent(this, Login.class);
+        Amplify.DataStore.clear(
+                () -> Log.i("SignOut", "Datastore is cleared"),
+                failure -> Log.e("SignOut", "Failed to clear datastore")
+        );
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
