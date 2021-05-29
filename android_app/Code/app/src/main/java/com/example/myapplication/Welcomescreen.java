@@ -29,7 +29,7 @@ public class Welcomescreen extends AppCompatActivity {
         // check is user is logged in
         AuthUser currentUser = Amplify.Auth.getCurrentUser();
 
-//        if (currentUser == null) {
+        if (currentUser == null) {
             setContentView(R.layout.activity_welcomescreen);
 
             Window window = getWindow();
@@ -58,16 +58,16 @@ public class Welcomescreen extends AppCompatActivity {
                     overridePendingTransition(R.anim.bottom_up,R.anim.no_animation);
                 }
             });
-//        }
-//        else {
-//            //If the Login is Successfull then take the user to the homescreen.
-//            Intent intent = new Intent(Welcomescreen.this, homescreen.class);
-//
-//            //When we close and comeback we don't want user to see the login page.
-//            //So, we need to set the flag.
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//            startActivity(intent);
-//            finish();
-//        }
+        }
+        else {
+            //If the Login is Successfull then take the user to the homescreen.
+            Intent intent = new Intent(Welcomescreen.this, homescreen.class);
+
+            //When we close and comeback we don't want user to see the login page.
+            //So, we need to set the flag.
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }
     }
 }

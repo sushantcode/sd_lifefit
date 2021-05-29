@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.amplifyframework.auth.AuthException;
+import com.amplifyframework.auth.cognito.AWSCognitoAuthSession;
 import com.amplifyframework.auth.result.AuthSignInResult;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.core.model.query.Where;
@@ -178,6 +179,22 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     userInfo.getId());
             SharedPrefManager.getInstance(Login.this)
                     .saveUser(user);
+            Amplify.Auth.fetchAuthSession(
+                    result -> {
+                        AWSCognitoAuthSession cognitoAuthSession = (AWSCognitoAuthSession) result;
+                        switch(cognitoAuthSession.getIdentityId().getType()) {
+                            case SUCCESS:
+                                LoginResponse loginResponse = new LoginResponse(cognitoAuthSession.getIdentityId().getValue(), "Login Successful", "Logged In");
+                                Log.i("LoginProcess", "IdentityId: " + cognitoAuthSession.getIdentityId().getValue());
+                                SharedPrefManager.getInstance(Login.this).saveLoginResponse(loginResponse);
+                                break;
+                            case FAILURE:
+                                Log.i("LoginProcess", "IdentityId not present because: " + cognitoAuthSession.getIdentityId().getError().toString());
+                        }
+                    },
+                    error -> Log.e("LoginProcess", error.toString())
+            );
+
             //When we close and comeback we don't want user to see the login page.
             //So, we need to set the flag.
             //If the Login is Successfull then take the user to the homescreen.
