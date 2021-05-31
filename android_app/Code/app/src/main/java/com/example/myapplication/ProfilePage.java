@@ -92,9 +92,6 @@ public class ProfilePage extends AppCompatActivity {
         fullname=findViewById(R.id.fullname);
         fullname.setText(user.getFname()+" "+user.getLname());
 
-        //...zip
-        gender = findViewById(R.id.genderAge);
-        gender.setText(fitbitUser.getGender()+ ", "+fitbitUser.getAge() );
 
         //displays address
         address1 = findViewById(R.id.address1);

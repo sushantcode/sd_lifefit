@@ -12,8 +12,13 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.amplifyframework.AmplifyException;
+import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.auth.AuthUser;
+import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.AWSDataStorePlugin;
+import com.amplifyframework.datastore.generated.model.AmplifyModelProvider;
 import com.example.myapplication.LoginStuff.Login;
 
 public class Welcomescreen extends AppCompatActivity {
@@ -25,6 +30,17 @@ public class Welcomescreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // On create start
         super.onCreate(savedInstanceState);
+
+        try {
+            AmplifyModelProvider modelProvider = AmplifyModelProvider.getInstance();
+            Amplify.addPlugin(new AWSDataStorePlugin(modelProvider));
+            Amplify.addPlugin(new AWSCognitoAuthPlugin());
+            Amplify.addPlugin(new AWSApiPlugin());
+            Amplify.configure(getApplicationContext());
+            Log.i("AmplifyConfigure", "Initialized Amplify");
+        } catch (AmplifyException error) {
+            Log.e("AmplifyConfigure", "Could not initialize Amplify", error);
+        }
 
         // check is user is logged in
         AuthUser currentUser = Amplify.Auth.getCurrentUser();
