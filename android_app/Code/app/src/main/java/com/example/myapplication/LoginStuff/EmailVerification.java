@@ -21,6 +21,7 @@ import com.amplifyframework.datastore.DataStoreException;
 import com.amplifyframework.datastore.DataStoreItemChange;
 import com.amplifyframework.datastore.generated.model.UserDetails;
 import com.example.myapplication.R;
+import com.example.myapplication.SharedPrefManager;
 import com.example.myapplication.homescreen;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -159,6 +160,23 @@ public class EmailVerification extends AppCompatActivity {
 
     private <T extends Model> void onSavedSuccess(DataStoreItemChange<T> tDataStoreItemChange) {
         Log.i("SignUpConfirm", "Data Save Success: " + tDataStoreItemChange.toString());
+
+        //save userInfo to local system preference
+        User user = new User(
+                address,
+                city,
+                email,
+                fname,
+                gender,
+                lname,
+                phoneNumber,
+                state,
+                username,
+                zipcode,
+                null,
+                Amplify.Auth.getCurrentUser().getUserId());
+        SharedPrefManager.getInstance(EmailVerification.this)
+                .saveUser(user);
         //If the datasave is Successfull then take the user to the homescreen.
         Intent intent = new Intent(EmailVerification.this, com.example.myapplication.homescreen.class);
 
