@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
-import FitbitAuthentication from "./components/FitbitAuthentication";
-import FitbitCallback from './components/FitbitCallback';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import FitbitAuthentication from "./components/FitbitAuth/FitbitAuthentication";
+import FitbitCallback from './components/FitbitAuth/FitbitCallback';
 
 function App() {
   //const url = window.location.href;
