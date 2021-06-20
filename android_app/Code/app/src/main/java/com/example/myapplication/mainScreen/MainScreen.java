@@ -209,12 +209,15 @@ public class MainScreen extends Fragment implements View.OnClickListener, SwipeR
     }
 
     private void showHealthScore() {
-        valueScore.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getScore()));
+        valueScore.setText(/*String.valueOf(SharedPrefManager.getInstance(getContext()).getScore())*/ "4" );
     }
 
     private void showTodaysData() {
         // Don't pull data if it doesn't exist
         if (ReadHourlyAllData.HourlyAllData.size() > 0) {
+
+            showHealthScore();
+
             updateHealthScoreProgress();
 
             updateFootStepsProgress();
@@ -443,7 +446,8 @@ public class MainScreen extends Fragment implements View.OnClickListener, SwipeR
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onRefresh() {
+    public void onRefresh()
+    {
         new MyTask().execute();
     }
 

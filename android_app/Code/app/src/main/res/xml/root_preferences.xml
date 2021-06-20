@@ -17,17 +17,17 @@
         <SwitchPreferenceCompat
             android:id="@+id/GoogleConnect"
             app:icon="@drawable/google"
-            app:key="sync"
+            app:key="sync2"
             app:title="Connect to Google" />
         <SwitchPreferenceCompat
             android:id="@+id/GoogleFitConnect"
             app:icon="@drawable/googlefitlogo"
-            app:key="sync"
+            app:key="sync3"
             app:title="Connect to Google Fit" />
         <SwitchPreferenceCompat
             android:id="@+id/AppleConnect"
             app:icon="@drawable/applelogo"
-            app:key="sync"
+            app:key="sync4"
             app:title="Connect to Apple" />
     </PreferenceCategory>
 

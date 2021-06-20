@@ -1,5 +1,6 @@
 package com.amplifyframework.datastore.generated.model;
 
+import com.amplifyframework.core.model.temporal.Temporal;
 
 import java.util.List;
 import java.util.UUID;
@@ -48,6 +49,8 @@ public final class UserDetails implements Model {
   private final @ModelField(targetType="String") String zipcode;
   private final @ModelField(targetType="String") String gender;
   private final @ModelField(targetType="AWSURL") String profile_pic;
+  private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
+  private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
       return id;
   }
@@ -96,6 +99,14 @@ public final class UserDetails implements Model {
       return profile_pic;
   }
   
+  public Temporal.DateTime getCreatedAt() {
+      return createdAt;
+  }
+  
+  public Temporal.DateTime getUpdatedAt() {
+      return updatedAt;
+  }
+  
   private UserDetails(String id, String username, String email, String fName, String lName, String phone, String street, String city, String state, String zipcode, String gender, String profile_pic) {
     this.id = id;
     this.username = username;
@@ -130,7 +141,9 @@ public final class UserDetails implements Model {
               ObjectsCompat.equals(getState(), userDetails.getState()) &&
               ObjectsCompat.equals(getZipcode(), userDetails.getZipcode()) &&
               ObjectsCompat.equals(getGender(), userDetails.getGender()) &&
-              ObjectsCompat.equals(getProfilePic(), userDetails.getProfilePic());
+              ObjectsCompat.equals(getProfilePic(), userDetails.getProfilePic()) &&
+              ObjectsCompat.equals(getCreatedAt(), userDetails.getCreatedAt()) &&
+              ObjectsCompat.equals(getUpdatedAt(), userDetails.getUpdatedAt());
       }
   }
   
@@ -149,6 +162,8 @@ public final class UserDetails implements Model {
       .append(getZipcode())
       .append(getGender())
       .append(getProfilePic())
+      .append(getCreatedAt())
+      .append(getUpdatedAt())
       .toString()
       .hashCode();
   }
@@ -168,7 +183,9 @@ public final class UserDetails implements Model {
       .append("state=" + String.valueOf(getState()) + ", ")
       .append("zipcode=" + String.valueOf(getZipcode()) + ", ")
       .append("gender=" + String.valueOf(getGender()) + ", ")
-      .append("profile_pic=" + String.valueOf(getProfilePic()))
+      .append("profile_pic=" + String.valueOf(getProfilePic()) + ", ")
+      .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
+      .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
       .toString();
   }

@@ -19,11 +19,13 @@ public class SharedPrefManager {
     private static SharedPrefManager mInstance;
     private Context mCtx; //to handle Shared Preferences we need context object
 
-    SharedPrefManager(Context mCtx) {
+    SharedPrefManager(Context mCtx)
+    {
         this.mCtx = mCtx;
     }
     //save single instance
-    public static synchronized SharedPrefManager getInstance(Context mCtx) {
+    public static synchronized SharedPrefManager getInstance(Context mCtx)
+    {
         if (mInstance == null) //object is not yet created
         {
             mInstance = new SharedPrefManager(mCtx);
