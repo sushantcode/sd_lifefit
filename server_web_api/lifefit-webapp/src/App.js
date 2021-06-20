@@ -4,12 +4,12 @@ import FitbitCallback from './components/FitbitAuth/FitbitCallback';
 
 function App() {
   //const url = window.location.href;
-  const loggedin = false;
+  //const loggedin = false;
   return (
     <Router>
       <Switch>
         <Route path="/fitbitauthentication" component={FitbitAuthentication} />
-        <Route path="/fitbitcallcall" component={FitbitCallback} />
+        <Route path="/fitbitcallback" component={FitbitCallback} />
       </Switch>
     </Router>
   );

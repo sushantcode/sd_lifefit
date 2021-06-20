@@ -1,13 +1,63 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react';
+import FitbitGetData from './FitbitGetData';
 
-const FitbitCallback = (props) => {
-  return (
-    <div>
-      <h2>
-        {props.loc}
-      </h2>
-    </div>
-  )
+const FitbitCallback = () => {
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [items, setItems] = useState([]);
+  // get the url 
+  var callbackUrl = window.location.href;
+  const code = callbackUrl.split("#")[0].split("=")[1];
+  var endpointURL = 'https://api.fitbit.com/oauth2/token';
+  var params = 'client_id=23B8HB' + 
+                '&grant_type=authorization_code&' + 
+                'redirect_uri=http://localhost:3000/fitbitcallback' + 
+                '&code=' + code;
+  endpointURL = endpointURL + '?' + params;
+  var client_id = '23B8HB';
+  var client_secret = '6f49618da8da741629d35f179eae8eca';
+  var encoded = window.btoa(client_id + ':' + client_secret);
+  useEffect(() => {
+    fetch(
+      endpointURL, {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Basic ' + encoded,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+      .then(response => response.json())
+      .then(result => {
+        setIsLoaded(true);
+        setItems(result);
+      },
+      err => {
+        setIsLoaded(true);
+        setError(err);
+      })
+      .catch (err => {
+        setIsLoaded(true);
+        setError(err);
+      })
+  }, [])
+  
+  if (error) {
+    return (
+      <h1>
+        {error.message}
+      </h1>
+    )
+  } 
+  else {
+    return (
+      <FitbitGetData err={false} 
+      access_token={items.access_token} 
+      refresh_token={items.refresh_token} 
+      expires_in={items.expires_in} 
+      user_id={items.user_id}
+      token_type={items.token_type} />
+      )
+  }
 }
 
-export default FitbitCallback
+export default FitbitCallback;
