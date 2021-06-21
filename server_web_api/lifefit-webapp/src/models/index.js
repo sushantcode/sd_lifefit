@@ -4,8 +4,9 @@ import { schema } from './schema';
 
 
 
-const { UserDetails } = initSchema(schema);
+const { FitbitTokens, UserDetails } = initSchema(schema);
 
 export {
+  FitbitTokens,
   UserDetails
 };

@@ -4,6 +4,18 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
+export declare class FitbitTokens {
+  readonly id: string;
+  readonly access_token?: string;
+  readonly refresh_token?: string;
+  readonly user_id?: string;
+  readonly expires_in?: number;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<FitbitTokens>);
+  static copyOf(source: FitbitTokens, mutator: (draft: MutableModel<FitbitTokens>) => MutableModel<FitbitTokens> | void): FitbitTokens;
+}
+
 export declare class UserDetails {
   readonly id: string;
   readonly username: string;
