@@ -11,7 +11,7 @@ const FitbitCallback = () => {
   var endpointURL = 'https://api.fitbit.com/oauth2/token';
   var params = 'client_id=23B8HB' + 
                 '&grant_type=authorization_code&' + 
-                'redirect_uri=http://localhost:3000/fitbitcallback' + 
+                'redirect_uri=https://lifefitapp-19fa8.web.app/fitbitcallback' + 
                 '&code=' + code;
   endpointURL = endpointURL + '?' + params;
   var client_id = '23B8HB';
@@ -39,7 +39,7 @@ const FitbitCallback = () => {
         setIsLoaded(true);
         setError(err);
       })
-  }, [])
+  }, []);
   
   if (error) {
     return (
@@ -48,6 +48,13 @@ const FitbitCallback = () => {
       </h1>
     )
   } 
+  else if (!isLoaded) {
+    return (
+      <h1>
+        Loading...
+      </h1>
+    )
+  }
   else {
     return (
       <FitbitGetData err={false} 

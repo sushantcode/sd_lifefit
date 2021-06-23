@@ -11,28 +11,32 @@ const FitbitGetData = (props) => {
   var token_type = props.token_type;
 
   var endpointURL = "https://api.fitbit.com/1/user/" + user_id + "/profile.json";
+
   useEffect(() => {
-    fetch(
-      endpointURL, {
-        method: 'GET',
-        headers: {
-          'Authorization': 'Bearer ' + access_token
-        }
-      })
-      .then(response => response.json())
-      .then(result => {
-        setIsLoaded(true);
-        setItems(result);
-      },
-      err => {
-        setIsLoaded(true);
-        setError(err);
-      })
-      .catch (err => {
-        setIsLoaded(true);
-        setError(err);
-      })
-  }, [])
+    if (access_token && user_id) {
+      fetch(
+        endpointURL, {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + access_token
+          }
+        })
+        .then(response => response.json())
+        .then(result => {
+          setIsLoaded(true);
+          setItems(result);
+        },
+        err => {
+          setIsLoaded(true);
+          setError(err);
+        })
+        .catch (err => {
+          setIsLoaded(true);
+          setError(err);
+        })
+    }
+  }, [endpointURL, access_token])
+  
   return (
     <div>
       <p>
@@ -40,6 +44,6 @@ const FitbitGetData = (props) => {
       </p>
     </div>
   )
-  }
+}
 
 export default FitbitGetData;

@@ -15,7 +15,7 @@ const FitbitAuthentication = ({history}) => {
     return (
       <div>
         <button>
-          <a href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=23B8HB&redirect_uri=http://localhost:3000/fitbitcallback&scope=activity%20nutrition%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight">
+          <a href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=23B8HB&redirect_uri=https://lifefitapp-19fa8.web.app/fitbitcallback&scope=activity%20nutrition%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight">
           Login to Fitbit
           </a>
       </button>
