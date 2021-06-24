@@ -67,7 +67,7 @@ export const schema = {
                     "properties": {
                         "rules": [
                             {
-                                "allow": "private",
+                                "allow": "public",
                                 "operations": [
                                     "create",
                                     "update",
@@ -167,6 +167,20 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "age": {
+                    "name": "age",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "score": {
+                    "name": "score",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -196,15 +210,13 @@ export const schema = {
                     "properties": {
                         "rules": [
                             {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
+                                "allow": "public",
                                 "operations": [
                                     "create",
+                                    "update",
                                     "delete",
-                                    "update"
-                                ],
-                                "identityClaim": "cognito:username"
+                                    "read"
+                                ]
                             }
                         ]
                     }
@@ -214,5 +226,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "80a3285c5708cbd50210c451a116f83c"
+    "version": "ec3efd7c030a2a0cd97caf7aa3c2cf8b"
 };

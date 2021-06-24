@@ -3,12 +3,10 @@ import React, {useState, useEffect} from 'react';
 const FitbitGetData = (props) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState([]);
-  var access_token = props.access_token;
-  var refresh_token = props.refresh_token;
-  var expires_in = props.expires_in;
-  var user_id = props.user_id;
-  var token_type = props.token_type;
+  const [items, setItems] = useState(null);
+
+  var access_token = props.accessToken;
+  var user_id = props.userId;
 
   var endpointURL = "https://api.fitbit.com/1/user/" + user_id + "/profile.json";
 
@@ -33,17 +31,30 @@ const FitbitGetData = (props) => {
         .catch (err => {
           setIsLoaded(true);
           setError(err);
-        })
+        });
     }
   }, [endpointURL, access_token])
-  
-  return (
-    <div>
-      <p>
+
+  if (error) {
+    return (
+      <div>
+        <p>
+          Error: {JSON.stringify(error)}
+        </p>
+      </div>
+    )
+  }
+  else {
+    return (
+      <div>
+        <p>
+        Success : Your Fitbit Profile is : <br />
         {JSON.stringify(items)}
-      </p>
-    </div>
-  )
+        </p>
+      </div>
+    )
+  }
+  
 }
 
 export default FitbitGetData;

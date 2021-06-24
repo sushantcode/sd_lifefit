@@ -1,11 +1,5 @@
 {
   "AppSyncApiName": "sdlifefitappAPI",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false,
-  "AuthCognitoUserPoolId": {
-    "Fn::GetAtt": [
-      "authsdlifefitappAuth",
-      "Outputs.UserPoolId"
-    ]
-  }
+  "DynamoDBEnableServerSideEncryption": false
 }
