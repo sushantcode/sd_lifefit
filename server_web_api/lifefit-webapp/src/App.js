@@ -1,17 +1,22 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import FitbitAuthentication from "./components/FitbitAuth/FitbitAuthentication";
-import FitbitCallback from './components/FitbitAuth/FitbitCallback';
+import FitbitAuthentication from "./components/fitbitAuth/FitbitAuthentication";
+import FitbitCallback from './components/fitbitAuth/FitbitCallback';
+import Login from './components/appAuth/Login';
+import Navbar from './components/appUtils/Navbar';
+import Welcome from './components/pages/Welcome'
 
 function App() {
-  //const url = window.location.href;
-  //const loggedin = false;
   return (
-    <Router>
+      <Router>
+      <Navbar />
       <Switch>
+        <Route exact path="/" component={Welcome} />
         <Route path="/fitbitauthentication" component={FitbitAuthentication} />
         <Route path="/fitbitcallback" component={FitbitCallback} />
+        <Route path="/login" component={Login} />
       </Switch>
     </Router>
+    
   );
 }
 
