@@ -29,6 +29,8 @@ export declare class UserDetails {
   readonly zipcode?: string;
   readonly gender?: string;
   readonly profile_pic?: string;
+  readonly age?: number;
+  readonly score?: number;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<UserDetails>);
