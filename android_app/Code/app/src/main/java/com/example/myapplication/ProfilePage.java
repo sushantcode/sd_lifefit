@@ -91,6 +91,14 @@ public class ProfilePage extends AppCompatActivity {
         FitbitUser fitbitUser = FitbitPref.getInstance(this).getfitbitUser();
         fullname=findViewById(R.id.fullname);
         fullname.setText(user.getFname()+" "+user.getLname());
+        //display gender and age
+        fullname=findViewById(R.id.genderAge);
+        if (user.getAge() != 0) {
+            fullname.setText(user.getGender()+", "+user.getAge());
+        }
+        else {
+            fullname.setText(user.getGender()+", "+"N/A");
+        }
 
 
         //displays address

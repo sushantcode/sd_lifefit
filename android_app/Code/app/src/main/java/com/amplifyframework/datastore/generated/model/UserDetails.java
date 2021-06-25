@@ -1,5 +1,6 @@
 package com.amplifyframework.datastore.generated.model;
 
+import com.amplifyframework.core.model.temporal.Temporal;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,7 +22,7 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 /** This is an auto generated class representing the UserDetails type in your schema. */
 @SuppressWarnings("all")
 @ModelConfig(pluralName = "UserDetails", authRules = {
-  @AuthRule(allow = AuthStrategy.OWNER, ownerField = "owner", identityClaim = "cognito:username", operations = { ModelOperation.CREATE, ModelOperation.DELETE, ModelOperation.UPDATE })
+  @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
 public final class UserDetails implements Model {
   public static final QueryField ID = field("UserDetails", "id");
@@ -36,6 +37,8 @@ public final class UserDetails implements Model {
   public static final QueryField ZIPCODE = field("UserDetails", "zipcode");
   public static final QueryField GENDER = field("UserDetails", "gender");
   public static final QueryField PROFILE_PIC = field("UserDetails", "profile_pic");
+  public static final QueryField AGE = field("UserDetails", "age");
+  public static final QueryField SCORE = field("UserDetails", "score");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String username;
   private final @ModelField(targetType="String", isRequired = true) String email;
@@ -48,6 +51,10 @@ public final class UserDetails implements Model {
   private final @ModelField(targetType="String") String zipcode;
   private final @ModelField(targetType="String") String gender;
   private final @ModelField(targetType="AWSURL") String profile_pic;
+  private final @ModelField(targetType="Int") Integer age;
+  private final @ModelField(targetType="Int") Integer score;
+  private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
+  private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
       return id;
   }
@@ -96,7 +103,23 @@ public final class UserDetails implements Model {
       return profile_pic;
   }
   
-  private UserDetails(String id, String username, String email, String fName, String lName, String phone, String street, String city, String state, String zipcode, String gender, String profile_pic) {
+  public Integer getAge() {
+      return age;
+  }
+  
+  public Integer getScore() {
+      return score;
+  }
+  
+  public Temporal.DateTime getCreatedAt() {
+      return createdAt;
+  }
+  
+  public Temporal.DateTime getUpdatedAt() {
+      return updatedAt;
+  }
+  
+  private UserDetails(String id, String username, String email, String fName, String lName, String phone, String street, String city, String state, String zipcode, String gender, String profile_pic, Integer age, Integer score) {
     this.id = id;
     this.username = username;
     this.email = email;
@@ -109,6 +132,8 @@ public final class UserDetails implements Model {
     this.zipcode = zipcode;
     this.gender = gender;
     this.profile_pic = profile_pic;
+    this.age = age;
+    this.score = score;
   }
   
   @Override
@@ -130,7 +155,11 @@ public final class UserDetails implements Model {
               ObjectsCompat.equals(getState(), userDetails.getState()) &&
               ObjectsCompat.equals(getZipcode(), userDetails.getZipcode()) &&
               ObjectsCompat.equals(getGender(), userDetails.getGender()) &&
-              ObjectsCompat.equals(getProfilePic(), userDetails.getProfilePic());
+              ObjectsCompat.equals(getProfilePic(), userDetails.getProfilePic()) &&
+              ObjectsCompat.equals(getAge(), userDetails.getAge()) &&
+              ObjectsCompat.equals(getScore(), userDetails.getScore()) &&
+              ObjectsCompat.equals(getCreatedAt(), userDetails.getCreatedAt()) &&
+              ObjectsCompat.equals(getUpdatedAt(), userDetails.getUpdatedAt());
       }
   }
   
@@ -149,6 +178,10 @@ public final class UserDetails implements Model {
       .append(getZipcode())
       .append(getGender())
       .append(getProfilePic())
+      .append(getAge())
+      .append(getScore())
+      .append(getCreatedAt())
+      .append(getUpdatedAt())
       .toString()
       .hashCode();
   }
@@ -168,7 +201,11 @@ public final class UserDetails implements Model {
       .append("state=" + String.valueOf(getState()) + ", ")
       .append("zipcode=" + String.valueOf(getZipcode()) + ", ")
       .append("gender=" + String.valueOf(getGender()) + ", ")
-      .append("profile_pic=" + String.valueOf(getProfilePic()))
+      .append("profile_pic=" + String.valueOf(getProfilePic()) + ", ")
+      .append("age=" + String.valueOf(getAge()) + ", ")
+      .append("score=" + String.valueOf(getScore()) + ", ")
+      .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
+      .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
       .toString();
   }
@@ -208,6 +245,8 @@ public final class UserDetails implements Model {
       null,
       null,
       null,
+      null,
+      null,
       null
     );
   }
@@ -224,7 +263,9 @@ public final class UserDetails implements Model {
       state,
       zipcode,
       gender,
-      profile_pic);
+      profile_pic,
+      age,
+      score);
   }
   public interface UsernameStep {
     EmailStep username(String username);
@@ -256,6 +297,8 @@ public final class UserDetails implements Model {
     BuildStep zipcode(String zipcode);
     BuildStep gender(String gender);
     BuildStep profilePic(String profilePic);
+    BuildStep age(Integer age);
+    BuildStep score(Integer score);
   }
   
 
@@ -272,6 +315,8 @@ public final class UserDetails implements Model {
     private String zipcode;
     private String gender;
     private String profile_pic;
+    private Integer age;
+    private Integer score;
     @Override
      public UserDetails build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
@@ -288,7 +333,9 @@ public final class UserDetails implements Model {
           state,
           zipcode,
           gender,
-          profile_pic);
+          profile_pic,
+          age,
+          score);
     }
     
     @Override
@@ -361,6 +408,18 @@ public final class UserDetails implements Model {
         return this;
     }
     
+    @Override
+     public BuildStep age(Integer age) {
+        this.age = age;
+        return this;
+    }
+    
+    @Override
+     public BuildStep score(Integer score) {
+        this.score = score;
+        return this;
+    }
+    
     /** 
      * WARNING: Do not set ID when creating a new object. Leave this blank and one will be auto generated for you.
      * This should only be set when referring to an already existing object.
@@ -384,7 +443,7 @@ public final class UserDetails implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String username, String email, String fName, String lName, String phone, String street, String city, String state, String zipcode, String gender, String profilePic) {
+    private CopyOfBuilder(String id, String username, String email, String fName, String lName, String phone, String street, String city, String state, String zipcode, String gender, String profilePic, Integer age, Integer score) {
       super.id(id);
       super.username(username)
         .email(email)
@@ -396,7 +455,9 @@ public final class UserDetails implements Model {
         .state(state)
         .zipcode(zipcode)
         .gender(gender)
-        .profilePic(profilePic);
+        .profilePic(profilePic)
+        .age(age)
+        .score(score);
     }
     
     @Override
@@ -452,6 +513,16 @@ public final class UserDetails implements Model {
     @Override
      public CopyOfBuilder profilePic(String profilePic) {
       return (CopyOfBuilder) super.profilePic(profilePic);
+    }
+    
+    @Override
+     public CopyOfBuilder age(Integer age) {
+      return (CopyOfBuilder) super.age(age);
+    }
+    
+    @Override
+     public CopyOfBuilder score(Integer score) {
+      return (CopyOfBuilder) super.score(score);
     }
   }
   
