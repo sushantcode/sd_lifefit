@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
+import FitbitAddAge from './FitbitAddAge';
 
 const FitbitGetData = (props) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState(null);
+  const [age, setAge] = useState(0);
 
   var access_token = props.accessToken;
   var user_id = props.userId;
@@ -22,7 +23,7 @@ const FitbitGetData = (props) => {
         .then(response => response.json())
         .then(result => {
           setIsLoaded(true);
-          setItems(result);
+          setAge(result.user.age);
         },
         err => {
           setIsLoaded(true);
@@ -33,7 +34,7 @@ const FitbitGetData = (props) => {
           setError(err);
         });
     }
-  }, [endpointURL, access_token])
+  }, [endpointURL, access_token, user_id])
 
   if (error) {
     return (
@@ -44,14 +45,23 @@ const FitbitGetData = (props) => {
       </div>
     )
   }
+  else if (!isLoaded) {
+    return (
+      <h1>
+        User Data is loading...
+      </h1>
+    )
+  }
   else {
     return (
-      <div>
-        <p>
-        Success : Your Fitbit Profile is : <br />
-        {JSON.stringify(items)}
-        </p>
-      </div>
+      <FitbitAddAge
+      age={age} />
+      // <div>
+      //   <p>
+      //   Success : Your Fitbit Profile is : <br />
+      //   {age}
+      //   </p>
+      // </div>
     )
   }
   
