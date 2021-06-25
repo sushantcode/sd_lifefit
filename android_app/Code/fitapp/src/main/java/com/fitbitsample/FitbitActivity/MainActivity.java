@@ -1,6 +1,7 @@
 package com.fitbitsample.FitbitActivity;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkStatus() {
         //check for previous authorization
+        Context context = getApplicationContext();
+        AppPreference.init(context);
         boolean haveToken = AppPreference.getInstance().getBoolean(PrefConstants.HAVE_AUTHORIZATION, false);
         if (!haveToken) {
             //show fitbit login page

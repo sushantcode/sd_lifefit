@@ -28,6 +28,7 @@ android {
         }
     }
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -84,6 +85,16 @@ dependencies {
     implementation 'com.amazonaws:aws-android-sdk-cognito:2.16.13'
     implementation 'com.amazonaws:aws-android-sdk-s3:2.16.13'
     implementation 'com.amazonaws:aws-android-sdk-ddb:2.16.13'
+
+    // Amplify core dependency
+    implementation 'com.amplifyframework:core:1.17.4'
+
+    // Support for Java 8 features
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+
+    implementation 'com.amplifyframework:aws-api:1.17.4'
+    implementation 'com.amplifyframework:aws-datastore:1.17.4'
+    implementation 'com.amplifyframework:aws-auth-cognito:1.17.4'
 
     //graphing library
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'

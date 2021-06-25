@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -18,6 +19,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.amplifyframework.auth.AuthException;
+import com.amplifyframework.auth.AuthUserAttributeKey;
+import com.amplifyframework.auth.options.AuthSignUpOptions;
+import com.amplifyframework.auth.result.AuthSignUpResult;
+import com.amplifyframework.core.Amplify;
 import com.example.myapplication.R;
 import com.example.myapplication.Welcomescreen;
 import com.google.android.material.textfield.TextInputLayout;
@@ -25,10 +31,6 @@ import com.google.gson.Gson;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener {
 
@@ -167,7 +169,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     /** checks if all data is entered or not and processes it for submission */
     private void processRegistration() {
-        RegisterUser userRequest = new RegisterUser();
         String username = editTextUsername.getEditText().getText().toString().trim();
         String password = editTextPassword.getEditText().getText().toString().trim();
         String fname = editTextFname.getEditText().getText().toString().trim();
@@ -182,63 +183,50 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         if (!checkInput(username, password, fname, lname, phoneNumber, email, address, city, state, zipcode)) {
             return;
         } else {
-            int radioId = radioGroup.getCheckedRadioButtonId();
-            radioButton = findViewById(radioId);
-            String gender = (String) radioButton.getText();
 
-            userRequest.setUname(username);
-            userRequest.setPassword(password);
-            userRequest.setFname(fname);
-            userRequest.setLname(lname);
-            userRequest.setPhoneNumber(phoneNumber);
-            userRequest.setEmail(email);
-            userRequest.setAddress(address);
-            userRequest.setCity(city);
-            userRequest.setState(state);
-            userRequest.setZipcode(zipcode);
-            userRequest.setGender(gender);
-            submit_Registration(userRequest);
+            progressBar.setVisibility(View.VISIBLE);
+            buttonText.setText("Please Wait");
+//            onSignUpSuccess();
+            Amplify.Auth.signUp(
+                    username,
+                    password,
+                    AuthSignUpOptions.builder().userAttribute(AuthUserAttributeKey.email(), email).build(),
+                    this::onSignUpSuccess,
+                    this::onSignUpError
+            );
         }
     }
 
-    private void submit_Registration(RegisterUser userRequest) {
+    private void onSignUpError(AuthException e) {
+        Log.e("Signup", "Sign Up Failed", e);
+        Registration.this.runOnUiThread(() -> showCustomAlertDialog("Registration Error", e.getMessage(),false,true));
+        progressBar.setVisibility(View.GONE);
+        buttonText.setText("Submit");
+    }
 
-        progressBar.setVisibility(View.VISIBLE);
-        buttonText.setText("Please Wait");
-
-        Call<RegistrationResponse> registerResponse = RetrofitClient.getInstance().getApi().submitRegistration(userRequest);
-
-        registerResponse.enqueue(new Callback<RegistrationResponse>() {
-            @Override
-            public void onResponse(Call<RegistrationResponse> call, Response<RegistrationResponse> response) {
-                if (response.isSuccessful()) {
-                    RegistrationResponse registrationResponse = response.body();
-
-                    if (registrationResponse.getStatus().equals("success")) {
-                        showCustomAlertDialog("Registration", registrationResponse.getMessage(),true,false);
-
-                        finish(); //finish the intent after succesful registration
-
-                        startActivity(new Intent(Registration.this, com.example.myapplication.LoginStuff.Login.class));
-                    }
-                }
-                else {
-                    //handle the error response if the user credentials doesn't match
-                    APIError message = new Gson().fromJson(response.errorBody().charStream(), APIError.class);
-                    showCustomAlertDialog("Registration Error", message.getMessage(),false,true);
-                    progressBar.setVisibility(View.GONE);
-                    buttonText.setText("Submit");
-                }
-            }
-
-            /** if unable to connect to the server shows failure message to the screen */
-            @Override
-            public void onFailure(Call<RegistrationResponse> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
-                buttonText.setText("Submit");
-                showCustomAlertDialog("Server Error","Unable to Register\n Failed to connect to the server",false,true);
-            }
-        });
+    private void onSignUpSuccess(AuthSignUpResult authSignUpResult) {
+        // Start new Email verification activity on success
+         Log.i("Signup", "Result: " + authSignUpResult.toString());
+        Intent intent = new Intent(Registration.this, EmailVerification.class);
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(radioId);
+        String gender = (String) radioButton.getText();
+        String [] userInfo = {
+                editTextUsername.getEditText().getText().toString().trim(),
+                editTextPassword.getEditText().getText().toString().trim(),
+                editTextFname.getEditText().getText().toString().trim(),
+                editTextLname.getEditText().getText().toString().trim(),
+                editTextPhoneNumber.getEditText().getText().toString().trim(),
+                editTextEmail.getEditText().getText().toString().trim(),
+                editTextAddress.getEditText().getText().toString().trim(),
+                editTextCity.getEditText().getText().toString().trim(),
+                editTextState.getEditText().getText().toString().trim(),
+                editTextZipcode.getEditText().getText().toString().trim(),
+                gender
+        };
+        intent.putExtra("userInfo", userInfo);
+        //progressBar.setVisibility(View.GONE);
+        startActivity(intent);
     }
 
     private void showCustomAlertDialog(String title, String message, Boolean registrationSuccessful, Boolean registrationUnSuccessful) {

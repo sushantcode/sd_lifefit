@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.amplifyframework.datastore.generated.model.UserDetails;
 import com.example.myapplication.LoginStuff.LoginResponse;
 import com.example.myapplication.LoginStuff.User;
 /*
@@ -43,21 +44,17 @@ public class SharedPrefManager {
         Put all the informattion that we got from User object
          */
         editor.putString("address", user.getAddress());
-        editor.putString("bio", user.getBio());
         editor.putString("city", user.getCity());
         editor.putString("email", user.getEmail());
         editor.putString("fname", user.getFname());
         editor.putString("gender", user.getGender());
         editor.putString("lname", user.getLname());
-        editor.putString("password", user.getPassword());
         editor.putString("phone", user.getPhone());
-        editor.putBoolean("is_admin", user.isIs_admin());
         editor.putString("state", user.getState());
         editor.putString("uname", user.getUname());
         editor.putString("zipcode", user.getZipcode());
-        editor.putBoolean("is_email_verified", user.isIs_email_verified());
-        editor.putBoolean("profile_pic", user.isProfile_pic());
-        editor.putInt("user_id", user.getUser_id());
+        editor.putString("profile_pic", user.isProfile_pic());
+        editor.putString("user_id", user.getUser_id());
         editor.apply();
 
     }
@@ -68,7 +65,7 @@ public class SharedPrefManager {
      */
     public boolean isLoggedIn() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        return sharedPreferences.getInt("user_id", -1) != -1;
+        return sharedPreferences.getString("user_id", null) != null;
     }
 
 
@@ -106,21 +103,17 @@ public class SharedPrefManager {
                 Read the values from SharedPreferences object
                  */
                 sharedPreferences.getString("address", null),
-                sharedPreferences.getString("bio", null),
                 sharedPreferences.getString("city", null),
                 sharedPreferences.getString("email", null),
                 sharedPreferences.getString("fname", null),
                 sharedPreferences.getString("gender", null),
                 sharedPreferences.getString("lname", null),
-                sharedPreferences.getString("password", null),
                 sharedPreferences.getString("phone", null),
                 sharedPreferences.getString("state", null),
                 sharedPreferences.getString("uname", null),
                 sharedPreferences.getString("zipcode", null),
-                sharedPreferences.getBoolean("is_admin",false),
-                sharedPreferences.getBoolean("is_email_verified", true),
-                sharedPreferences.getBoolean("profile_pic", true),
-                sharedPreferences.getInt("user_id", -1)
+                sharedPreferences.getString("profile_pic", null),
+                sharedPreferences.getString("user_id", null)
 
         );
     }

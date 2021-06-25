@@ -1,0 +1,67 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateUserDetails {
+  onCreateUserDetails {
+    id
+    username
+    email
+    fName
+    lName
+    phone
+    street
+    city
+    state
+    zipcode
+    gender
+    profile_pic
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnUpdateUserDetails {
+  onUpdateUserDetails {
+    id
+    username
+    email
+    fName
+    lName
+    phone
+    street
+    city
+    state
+    zipcode
+    gender
+    profile_pic
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnDeleteUserDetails {
+  onDeleteUserDetails {
+    id
+    username
+    email
+    fName
+    lName
+    phone
+    street
+    city
+    state
+    zipcode
+    gender
+    profile_pic
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+    owner
+  }
+}
