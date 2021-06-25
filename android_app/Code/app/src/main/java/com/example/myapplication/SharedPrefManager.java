@@ -48,6 +48,7 @@ public class SharedPrefManager {
         editor.putString("email", user.getEmail());
         editor.putString("fname", user.getFname());
         editor.putString("gender", user.getGender());
+        editor.putInt("age", user.getAge());
         editor.putString("lname", user.getLname());
         editor.putString("phone", user.getPhone());
         editor.putString("state", user.getState());
@@ -55,6 +56,7 @@ public class SharedPrefManager {
         editor.putString("zipcode", user.getZipcode());
         editor.putString("profile_pic", user.isProfile_pic());
         editor.putString("user_id", user.getUser_id());
+        editor.putInt("score", user.getScore());
         editor.apply();
 
     }
@@ -107,13 +109,15 @@ public class SharedPrefManager {
                 sharedPreferences.getString("email", null),
                 sharedPreferences.getString("fname", null),
                 sharedPreferences.getString("gender", null),
+                sharedPreferences.getInt("age", 0),
                 sharedPreferences.getString("lname", null),
                 sharedPreferences.getString("phone", null),
                 sharedPreferences.getString("state", null),
                 sharedPreferences.getString("uname", null),
                 sharedPreferences.getString("zipcode", null),
                 sharedPreferences.getString("profile_pic", null),
-                sharedPreferences.getString("user_id", null)
+                sharedPreferences.getString("user_id", null),
+                sharedPreferences.getInt("score", 0)
 
         );
     }
