@@ -43,7 +43,7 @@ public class Job extends JobService
                     @Override
                     public void run() {
                         Context context = getApplicationContext();
-
+                        AppPreference.init(context);
                         String ID = AppPreference.getInstance().getString(PrefConstants.USER_ID); // Get FitBit user ID
                         if(ID != null) // Defaults to null if not previously set
                         {

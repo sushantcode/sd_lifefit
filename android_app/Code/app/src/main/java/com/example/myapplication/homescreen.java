@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -13,8 +14,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.core.model.query.Where;
+import com.amplifyframework.datastore.DataStoreException;
+import com.amplifyframework.datastore.generated.model.UserDetails;
+import com.example.myapplication.LoginStuff.Login;
+import com.example.myapplication.LoginStuff.User;
 import com.example.myapplication.mainScreen.MainScreen;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.Iterator;
 
 public class homescreen extends AppCompatActivity {
 
@@ -84,15 +93,4 @@ public class homescreen extends AppCompatActivity {
         Log.d(TAG, "Job cancelled ");
     }
 
-
-// commented to go to dashboard without login
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        if(!SharedPrefManager.getInstance(this).isLoggedIn()){
-//            Intent intent = new Intent(this, com.example.myapplication.LoginStuff.Login.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//            startActivity(intent);
-//        }
-//    }
 }

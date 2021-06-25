@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -13,12 +14,22 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.amplifyframework.auth.AuthException;
+import com.amplifyframework.auth.cognito.AWSCognitoAuthSession;
+import com.amplifyframework.auth.result.AuthSignInResult;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.core.model.query.Where;
+import com.amplifyframework.datastore.DataStoreChannelEventName;
+import com.amplifyframework.datastore.DataStoreException;
+import com.amplifyframework.datastore.generated.model.UserDetails;
+import com.amplifyframework.hub.HubChannel;
 import com.example.myapplication.R;
 import com.example.myapplication.SharedPrefManager;
 import com.example.myapplication.homescreen;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 
+import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -30,6 +41,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private TextInputLayout editTextUserName, editTextPassword;
     private TextView buttonText;
     private ProgressBar progressBar;
+    boolean syncQueriesReady = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,11 +97,117 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         if (!checkInput(userName, password)) {
             return;
         } else {
-
-            new MyTask().execute(userName, password);
+            progressBar.setVisibility(View.VISIBLE);
+            buttonText.setText("Please Wait");
+            Amplify.Auth.signIn(
+                    userName,
+                    password,
+                    this::onLoginSuccess,
+                    this::onLoginError
+            );
 
         }
     }
+
+    private void onLoginError(AuthException e) {
+        //handle the error response if the user credentials doesn't match
+        Log.e("LoginProcess", "Sign in failed", e);
+        Login.this.runOnUiThread(() -> showCustomAlertDialog("Login Error", e.getLocalizedMessage()));
+    }
+
+    private void onLoginSuccess(AuthSignInResult authSignInResult) {
+        //progressBar.setVisibility(View.GONE);
+        Log.i("LoginProcess", "User Login: " + authSignInResult.toString());
+        queryForRemoteData();
+    }
+
+    private void queryForRemoteData() {
+        start();
+        if (syncQueriesReady) {
+            saveUser();
+        } else {
+            queryAfterReady();
+        }
+    }
+
+    private void queryAfterReady() {
+        Amplify.Hub.subscribe(HubChannel.DATASTORE,
+                hubEvent -> DataStoreChannelEventName.SYNC_QUERIES_READY.toString().equals(hubEvent.getName()),
+                hubEvent -> {
+                    syncQueriesReady = true;
+                    saveUser();
+                });
+    }
+
+    private void start() {
+        Amplify.DataStore.start(
+                () -> Log.d("LoginProcess", "DataStore has been started.  Subscribe to `SYNC_QUERIES_READY` to know when sync is complete"),
+                error -> Log.e("LoginProcess", "Failure starting DataStore")
+        );
+    }
+
+    private void saveUser() {
+        String uid = Amplify.Auth.getCurrentUser().getUserId();
+        Log.i("LoginProcess", "UserId: " + uid);
+        Amplify.DataStore.query(
+                UserDetails.class,
+                Where.id(uid),
+                this::onQuerySuccess,
+                this::onQueryFailure
+        );
+    }
+
+    private void onQueryFailure(DataStoreException e) {
+        Log.e("LoginProcess", "Could not find the user in database", e);
+    }
+
+    private void onQuerySuccess(Iterator<UserDetails> userDetailsIterator) {
+        if (userDetailsIterator.hasNext()) {
+            UserDetails userInfo = userDetailsIterator.next();
+            User user = new User(
+                    userInfo.getStreet(),
+                    userInfo.getCity(),
+                    userInfo.getEmail(),
+                    userInfo.getFName(),
+                    userInfo.getGender(),
+                    userInfo.getLName(),
+                    userInfo.getPhone(),
+                    userInfo.getState(),
+                    userInfo.getUsername(),
+                    userInfo.getZipcode(),
+                    userInfo.getProfilePic(),
+                    userInfo.getId());
+            SharedPrefManager.getInstance(Login.this)
+                    .saveUser(user);
+            Amplify.Auth.fetchAuthSession(
+                    result -> {
+                        AWSCognitoAuthSession cognitoAuthSession = (AWSCognitoAuthSession) result;
+                        switch(cognitoAuthSession.getIdentityId().getType()) {
+                            case SUCCESS:
+                                LoginResponse loginResponse = new LoginResponse(cognitoAuthSession.getIdentityId().getValue(), "Login Successful", "Logged In");
+                                Log.i("LoginProcess", "IdentityId: " + cognitoAuthSession.getIdentityId().getValue());
+                                SharedPrefManager.getInstance(Login.this).saveLoginResponse(loginResponse);
+                                break;
+                            case FAILURE:
+                                Log.i("LoginProcess", "IdentityId not present because: " + cognitoAuthSession.getIdentityId().getError().toString());
+                        }
+                    },
+                    error -> Log.e("LoginProcess", error.toString())
+            );
+
+            //When we close and comeback we don't want user to see the login page.
+            //So, we need to set the flag.
+            //If the Login is Successfull then take the user to the homescreen.
+            Log.i("LoginProcess", "UserDetails: Retrieved successfully! " + userInfo.toString());
+            Intent intent = new Intent(Login.this, homescreen.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+        else {
+            Log.i("LoginProcess", "UserDetails: Failed to retrieve successfully! ");
+        }
+    }
+
 
     private void showCustomAlertDialog(String title, String message) {
         final Dialog dialog = new Dialog(this);
@@ -114,6 +232,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 t.cancel();
             }
         }, 1500);
+        progressBar.setVisibility(View.GONE);
+        buttonText.setText("Login");
     }
 
     //listens to all click on login screen and calls appropriate function
@@ -126,70 +246,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             case R.id.login_close:
                 showWelcomeScreen();
                 break;
-        }
-    }
-
-    class MyTask extends AsyncTask{
-
-        @Override
-        protected void onPreExecute() {
-            progressBar.setVisibility(View.VISIBLE);
-            buttonText.setText("Please Wait");
-        }
-
-        @Override
-        protected Object doInBackground(Object[] objects) {
-            /** Pass email and password entered by the user.Call LoginResponse that you can get from RetrofitClient  */
-
-            String userName = (String) objects[0];
-            String password = (String) objects[1];
-
-            Call<LoginResponse> call = RetrofitClient.getInstance().getApi().userLogin(userName, password);
-
-            /** To learn about public interface Call <T>
-             *  https://square.github.io/retrofit/2.x/retrofit/retrofit2/Call.html
-             */
-            call.enqueue(new Callback<LoginResponse>() {
-                @Override
-                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                    if(response.isSuccessful()) {
-                        // body will return a loginResponse
-                        LoginResponse loginResponse = response.body();
-                        if (loginResponse.getStatus().equals("success")) {
-                            progressBar.setVisibility(View.GONE);
-                            //If authentication is successfull then save User and save LoginResponse
-                            SharedPrefManager.getInstance(Login.this)
-                                    .saveUser(loginResponse.getUser());
-                            SharedPrefManager.getInstance(Login.this).saveLoginResponse(loginResponse);
-
-                            //If the Login is Successfull then take the user to the homescreen.
-                            Intent intent = new Intent(Login.this, homescreen.class);
-
-                            //When we close and comeback we don't want user to see the login page.
-                            //So, we need to set the flag.
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                        }
-                    }
-                    else{
-                        //handle the error response if the user credentials doesn't match
-                        APIError message = new Gson().fromJson(response.errorBody().charStream(), APIError.class);
-                        showCustomAlertDialog("Login Error", message.getMessage());
-
-                        progressBar.setVisibility(View.GONE);
-                        buttonText.setText("Login");
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<LoginResponse> call, Throwable t) {
-                    progressBar.setVisibility(View.GONE);
-                    buttonText.setText("Login");
-                    showCustomAlertDialog("Server Error","Unable to Login\n Failed to connect to the server");
-                }
-            });
-
-            return null;
         }
     }
 }
