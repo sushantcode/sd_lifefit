@@ -1,53 +1,39 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react';
+import { API } from 'aws-amplify';
+import * as mutations from '../../graphql/mutations';
 
-const FitbitAddAge = () => {
-  const item = { user: {age: 22}};
+const FitbitAddAge = (props) => {
+  const [error, setError] = useState(null);
+  const uid_sushant = "2cb32af6-acd1-43e1-91fe-db8e3b695ff5";
 
   const updateUser = {
     id: uid_sushant,
-    age: 24
-  }
-
-  const newToken = {
-      id: uid_sushant,
-      access_token: "hsjkhskjfhskjgfhjsf",
-      refresh_token: "sghjdgsj76tdsgdhjs78",
-      user_id: "gsdgss",
-      expires_in: 2800
+    age: props.age
   }
 
   useEffect(() => {
+    if (props.age) {
       addAge();
-  }, []);
+    } 
+  }, [props.age]);
 
   async function addAge() {
 	  try {
-		  // const newUserData = await API.graphql({ query: mutations.updateUserDetails, variables: {input: updateUser}});
-      const addFitbitToken = await API.graphql({ query: mutations.createFitbitTokens, variables: {input: newToken}});
+		  const newUserData = await API.graphql({ query: mutations.updateUserDetails, variables: {input: updateUser}});
 	  }
 	  catch (err) {
 		  setError(err);
 	  }
   }
 
-  if (error) {
-    return (
-      <div>
-        <p>
-          Error: {JSON.stringify(error)}
-        </p>
-      </div>
-    )
-  }
-  else {
-    return (
-      <div>
-        <p>
-        Success
-        </p>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <p>
+        Congratulations!!! You have successfully synced your Fitbit watch to our app!!! <br />
+        Now, keep wearing your watch all the time and enjoyed the benefit and perks.
+      </p>
+    </div>
+  )
 }
 
-export default FitbitAddAge
+export default FitbitAddAge;
