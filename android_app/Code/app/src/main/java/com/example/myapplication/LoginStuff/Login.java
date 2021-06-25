@@ -158,7 +158,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void onQueryFailure(DataStoreException e) {
-        Log.e("LoginProcess", "Could not find the user in database", e);
+        Log.e("LoginProcess", "Failed to retrieve user data successfully!", e);
+        signoutUser();
+        Login.this.runOnUiThread(() -> showCustomAlertDialog("Login Error", "Error while getting user Info"));
     }
 
     private void onQuerySuccess(Iterator<UserDetails> userDetailsIterator) {
@@ -206,8 +208,31 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             startActivity(intent);
         }
         else {
-            Log.i("LoginProcess", "UserDetails: Failed to retrieve successfully! ");
+            Log.i("LoginProcess", "UserDetails: Could not find user record in database");
+            signoutUser();
+            Login.this.runOnUiThread(() -> showCustomAlertDialog("Login Error", "Could not find user in database"));
         }
+    }
+
+    private void signoutUser() {
+        Amplify.Auth.signOut(
+                this::onSignOutSuccess,
+                this::onSignOutError
+        );
+    }
+
+    private void onSignOutError(AuthException e) {
+        Log.e("SignOut", e.toString());
+    }
+
+    private void onSignOutSuccess() {
+        SharedPrefManager.getInstance(this).clear();
+        Amplify.DataStore.clear(
+                () -> Log.i("SignOut", "Datastore is cleared"),
+                failure -> Log.e("SignOut", "Failed to clear datastore")
+        );
+        progressBar.setVisibility(View.GONE);
+        buttonText.setText("Login");
     }
 
 
