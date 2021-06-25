@@ -13,7 +13,6 @@ const FitbitAddTokens = (props) => {
   var refresh_token = props.refresh_token;
   var expires_in = props.expires_in;
   var user_id = props.user_id;
-  var token_type = props.token_type;
 
   const newToken = {
       id: uid_sushant,

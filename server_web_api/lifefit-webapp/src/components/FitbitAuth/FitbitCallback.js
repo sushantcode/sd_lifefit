@@ -69,8 +69,7 @@ const FitbitCallback = () => {
       access_token={items.access_token} 
       refresh_token={items.refresh_token} 
       expires_in={items.expires_in} 
-      user_id={items.user_id}
-      token_type={items.token_type} />
+      user_id={items.user_id} />
       )
   }
 }
