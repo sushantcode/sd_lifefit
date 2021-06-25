@@ -8,13 +8,15 @@ Check documentation with the heading POSTMAN RESPONSE to view the response.
 public class User {
 //Creating constructor, getter and setter
     private String address, city, email, fname, gender, lname, phone, state, uname, zipcode, profile_pic, user_id;
+    private int age, score;
 
-    public User(String address, String city, String email, String fname, String gender, String lname, String phone, String state, String uname, String zipcode, String profile_pic, String user_id) {
+    public User(String address, String city, String email, String fname, String gender, int age, String lname, String phone, String state, String uname, String zipcode, String profile_pic, String user_id, int score) {
         this.address = address;
         this.city = city;
         this.email = email;
         this.fname = fname;
         this.gender = gender;
+        this.age = age;
         this.lname = lname;
         this.phone = phone;
         this.state = state;
@@ -22,6 +24,7 @@ public class User {
         this.zipcode = zipcode;
         this.profile_pic = profile_pic;
         this.user_id = user_id;
+        this.score = score;
     }
 
 
@@ -45,6 +48,10 @@ public class User {
         return gender;
     }
 
+    public int getAge() {
+        return age;
+    }
+
     public String getLname() {
         return lname;
     }
@@ -64,10 +71,16 @@ public class User {
     public String getZipcode() {
         return zipcode;
     }
+
     public String isProfile_pic() {
         return profile_pic;
     }
+
     public String getUser_id() {
         return user_id;
+    }
+
+    public int getScore() {
+        return score;
     }
 }
