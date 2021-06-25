@@ -170,13 +170,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     userInfo.getEmail(),
                     userInfo.getFName(),
                     userInfo.getGender(),
+                    userInfo.getAge(),
                     userInfo.getLName(),
                     userInfo.getPhone(),
                     userInfo.getState(),
                     userInfo.getUsername(),
                     userInfo.getZipcode(),
                     userInfo.getProfilePic(),
-                    userInfo.getId());
+                    userInfo.getId(),
+                    userInfo.getScore());
             SharedPrefManager.getInstance(Login.this)
                     .saveUser(user);
             Amplify.Auth.fetchAuthSession(
