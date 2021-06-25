@@ -141,6 +141,8 @@ public class EmailVerification extends AppCompatActivity {
                 .state(state)
                 .zipcode(zipcode)
                 .gender(gender)
+                .age(0)
+                .score(0)
                 .build();
 
         Amplify.DataStore.save(
@@ -162,19 +164,23 @@ public class EmailVerification extends AppCompatActivity {
         Log.i("SignUpConfirm", "Data Save Success: " + tDataStoreItemChange.toString());
 
         //save userInfo to local system preference
+        //unassigned int value for UserDetails model should be 0 or it will throw NullException error while
+        //retrieving from database
         User user = new User(
                 address,
                 city,
                 email,
                 fname,
                 gender,
+                0,
                 lname,
                 phoneNumber,
                 state,
                 username,
                 zipcode,
                 null,
-                Amplify.Auth.getCurrentUser().getUserId());
+                Amplify.Auth.getCurrentUser().getUserId(),
+                0);
         SharedPrefManager.getInstance(EmailVerification.this)
                 .saveUser(user);
         //If the datasave is Successfull then take the user to the homescreen.
