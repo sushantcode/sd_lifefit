@@ -1,5 +1,6 @@
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
+from botocore import endpoint
 import requests
 import base64
 import json
@@ -15,6 +16,10 @@ dynamodb = boto3.resource('dynamodb')
 # values populated until the attributes
 # on the table resource are accessed or its load() method is called.
 table = dynamodb.Table('FitbitTokens-y243fkkjqreqpiwavsqlwjf62a-dev')
+
+def getSleepData(access_token):
+    
+    endpoint = "GET https://api.fitbit.com/1.2/user/-/sleep/date/2017-04-02.json"
 
 def updateToken(newTokens, id):
     table.update_item(
