@@ -600,7 +600,7 @@ public class FitbitPref {
      */
     public void setSleepData(Sleep sleep)
     {
-        if(sleep.getSleep().size() < 1) // Set sleep states to zeros
+        if(sleep.getSleep().size() < 1 || sleep.getSleep() != null) // Set sleep states to zeros error
         {
             setSleepZeros();
             return;

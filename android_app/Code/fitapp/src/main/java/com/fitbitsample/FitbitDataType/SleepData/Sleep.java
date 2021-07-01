@@ -19,11 +19,14 @@ public class Sleep
         @Expose
         private SleepSummary summary;*/
 
-        public List<SleepData> getSleep() {
+        public List<SleepData> getSleep()
+        {
+
             return sleep;
         }
 
-        public void setSleep(List<SleepData> sleep) {
+        public void setSleep(List<SleepData> sleep)
+        {
             this.sleep = sleep;
         }
 
