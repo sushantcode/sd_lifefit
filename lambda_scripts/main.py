@@ -4,6 +4,9 @@ from botocore import endpoint
 import requests
 import base64
 import json
+from datetime import date
+from datetime import timedelta
+import csv
 
 # Global Initialization of AWS dynamoDb
 
@@ -17,9 +20,34 @@ dynamodb = boto3.resource('dynamodb')
 # on the table resource are accessed or its load() method is called.
 table = dynamodb.Table('FitbitTokens-y243fkkjqreqpiwavsqlwjf62a-dev')
 
-def getSleepData(access_token):
-    
-    endpoint = "GET https://api.fitbit.com/1.2/user/-/sleep/date/2017-04-02.json"
+def getSleepData(user_id, access_token, id):
+    print("Getting today's date...")
+    curr_date = date.today()
+    last_date = curr_date - timedelta(days=1)
+    today_date = last_date.strftime("%Y-%m-%d")
+    print("Today's date = ", today_date)
+
+    endpoint = "https://api.fitbit.com/1.2/user/" + user_id + "/sleep/date/" + today_date + ".json"
+    header = {'Authorization': 'Bearer ' + access_token}
+    print("Making api call to get data...")
+    response = requests.get(endpoint, headers=header)
+    print("Received status code = ", response.status_code)
+    if response.status_code == 200:
+        resJson = response.json()
+        fileName = "Date_" + today_date + "_User_id_" + id + "_sleepdata.csv"
+        with open(fileName, "w", newline="") as file:
+            csv_file = csv.writer(file, delimiter=",")
+            csv_file.writerow(["level", "seconds", "time"])
+            if resJson["sleep"]:
+                data = resJson["sleep"][0].levels.data
+                for item in data: 
+                    time = item.datatime.split("T")[1]
+                    level = item.level
+                    seconds = item.seconds
+                    csv_file.writerow([level, seconds, time])
+            else:
+                csv_file.writerow(["", 0, ""])
+        file.close()
 
 def updateToken(newTokens, id):
     table.update_item(
@@ -43,12 +71,28 @@ def getNewTokens(refreshToken):
     header = {'Authorization': 'Basic ' + encodedStr, 'Content-Type': 'application/x-www-form-urlencoded'}
     parameters = {'grant_type': 'refresh_token', 'refresh_token': refreshToken}
     response = requests.post(endPoint, headers=header, params=parameters)
-    jsonRespone = response.json()
-    return jsonRespone
+    if response.status_code == 200:
+        jsonRespone = response.json()
+        return jsonRespone
+    else:
+        return None
 
 if __name__ == "__main__":
     response = table.scan()
     items = response['Items']
     for eachRecord in items:
-        newTokens = getNewTokens(eachRecord['refresh_token'])
-        updateToken(newTokens, eachRecord['id'])
+        # # To update tokens in database
+        # print("Calling for new tokens...")
+        # newTokens = getNewTokens(eachRecord['refresh_token'])
+        # if not newTokens:
+        #     print("Error fetching new tokens. Please check the credentials.")
+        # else:
+        #     print("New tokens received successfully...")
+        #     print("Updating database with new tokens...")
+        #     updateToken(newTokens, eachRecord['id'])
+        #     print("Database updated successfully!!!")
+
+        # To get Sleep data
+        getSleepData(eachRecord['user_id'], eachRecord['access_token'], eachRecord["id"])
+        
+        
