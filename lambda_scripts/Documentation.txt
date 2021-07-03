@@ -1,6 +1,6 @@
 - Hourly Data:
     - Get Activity Levels:
-        Endpoint: https://api.fitbit.com//1/user/[user_id]/activities/calories/date/[date]/1d/15min.json
+        Endpoint: https://api.fitbit.com/1/user/[user-id]/activities/date/[date].json
 
         Method: GET
 
