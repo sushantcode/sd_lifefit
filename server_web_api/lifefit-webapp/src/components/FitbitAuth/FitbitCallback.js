@@ -9,13 +9,13 @@ const FitbitCallback = () => {
   var callbackUrl = window.location.href;
   const code = callbackUrl.split("#")[0].split("=")[1];
   var endpointURL = 'https://api.fitbit.com/oauth2/token';
-  var params = 'client_id=23B8HB' + 
+  var params = 'client_id=22C2J2' + 
                 '&grant_type=authorization_code&' + 
                 'redirect_uri=https://lifefitapp-19fa8.web.app/fitbitcallback' + 
                 '&code=' + code;
   endpointURL = endpointURL + '?' + params;
-  var client_id = '23B8HB';
-  var client_secret = '6f49618da8da741629d35f179eae8eca';
+  var client_id = '22C2J2';
+  var client_secret = 'aea53919e7de0f0ded7e30ea9fa2180b';
   var encoded = window.btoa(client_id + ':' + client_secret);
   useEffect(() => {
     fetch(
