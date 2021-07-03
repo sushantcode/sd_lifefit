@@ -20,21 +20,51 @@ dynamodb = boto3.resource('dynamodb')
 # on the table resource are accessed or its load() method is called.
 table = dynamodb.Table('FitbitTokens-y243fkkjqreqpiwavsqlwjf62a-dev')
 
-def getSleepData(user_id, access_token, id):
-    print("Getting today's date...")
-    curr_date = date.today()
-    last_date = curr_date - timedelta(days=1)
-    today_date = last_date.strftime("%Y-%m-%d")
-    print("Today's date = ", today_date)
-
-    endpoint = "https://api.fitbit.com/1.2/user/" + user_id + "/sleep/date/" + today_date + ".json"
+def getCalories(user_id, access_token, id):
+    print("Getting reporting date...")
+    today_date = date.today()
+    last_day = today_date - timedelta(days=4)
+    curr_date = last_day.strftime("%Y-%m-%d")
+    print("Reporting date = ", curr_date)
+    endpoint = "https://api.fitbit.com/1/user/" + user_id + "activities/calories/date/" + "today" + "/1d.json"
     header = {'Authorization': 'Bearer ' + access_token}
-    print("Making api call to get data...")
+    print("Making api call to get sleep data...")
     response = requests.get(endpoint, headers=header)
     print("Received status code = ", response.status_code)
+    resJson = response.json()
     if response.status_code == 200:
-        resJson = response.json()
-        fileName = "Date_" + today_date + "_User_id_" + id + "_sleepdata.csv"
+        print(resJson)
+        # fileName = "Date_" + curr_date + "_User_id_" + id + "_sleepdata.csv"
+        # with open(fileName, "w", newline="") as file:
+        #     csv_file = csv.writer(file, delimiter=",")
+        #     csv_file.writerow(["level", "seconds", "time"])
+        #     if resJson["sleep"]:
+        #         data = resJson["sleep"][0].levels.data
+        #         for item in data: 
+        #             time = item.datatime.split("T")[1]
+        #             level = item.level
+        #             seconds = item.seconds
+        #             csv_file.writerow([level, seconds, time])
+        # file.close()
+        # print("Sleep data recorded successfully!")
+    else:
+        print("Could not get data. Error type = ", resJson['errors'][0]['errorType'], ". Error Message = ", resJson['errors'][0]['message'])
+
+def getSleepData(user_id, access_token, id):
+    print("Getting reporting date...")
+    today_date = date.today()
+    last_day = today_date - timedelta(days=1)
+    curr_date = last_day.strftime("%Y-%m-%d")
+    print("Reporting date = ", curr_date)
+
+    endpoint = "https://api.fitbit.com/1.2/user/" + user_id + "/sleep/date/" + curr_date + ".json"
+    header = {'Authorization': 'Bearer ' + access_token}
+    print("Making api call to get sleep data...")
+    response = requests.get(endpoint, headers=header)
+    print("Received status code = ", response.status_code)
+    resJson = response.json()
+    if response.status_code == 200:
+        fileName = "Date_" + curr_date + "_User_id_" + id + "_sleepdata.csv"
         with open(fileName, "w", newline="") as file:
             csv_file = csv.writer(file, delimiter=",")
             csv_file.writerow(["level", "seconds", "time"])
@@ -45,9 +75,10 @@ def getSleepData(user_id, access_token, id):
                     level = item.level
                     seconds = item.seconds
                     csv_file.writerow([level, seconds, time])
-            else:
-                csv_file.writerow(["", 0, ""])
         file.close()
+        print("Sleep data recorded successfully!")
+    else:
+        print("Could not get data. Error type = ", resJson['errors'][0]['errorType'], ". Error Message = ", resJson['errors'][0]['message'])
 
 def updateToken(newTokens, id):
     table.update_item(
@@ -63,8 +94,8 @@ def updateToken(newTokens, id):
 
 def getNewTokens(refreshToken):
     endPoint = 'https://api.fitbit.com/oauth2/token'
-    client_id = '23B8HB'
-    client_secret = '6f49618da8da741629d35f179eae8eca'
+    client_id = '22C2J2'
+    client_secret = 'aea53919e7de0f0ded7e30ea9fa2180b'
     combinedStr = client_id + ':' + client_secret
     encodedBytes = base64.b64encode(combinedStr.encode('utf-8'))
     encodedStr = str(encodedBytes, 'utf-8')
@@ -86,13 +117,15 @@ if __name__ == "__main__":
         # newTokens = getNewTokens(eachRecord['refresh_token'])
         # if not newTokens:
         #     print("Error fetching new tokens. Please check the credentials.")
+        #     exit()
         # else:
         #     print("New tokens received successfully...")
         #     print("Updating database with new tokens...")
         #     updateToken(newTokens, eachRecord['id'])
         #     print("Database updated successfully!!!")
 
-        # To get Sleep data
+        # # To get Sleep data
         getSleepData(eachRecord['user_id'], eachRecord['access_token'], eachRecord["id"])
+        # getCalories(eachRecord['user_id'], eachRecord['access_token'], eachRecord["id"])
         
         
