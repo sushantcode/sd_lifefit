@@ -1,0 +1,180 @@
+-------------- Calories ------------------------
+{
+    'activities-calories': 
+    [
+        {
+        'dateTime': '2021-07-02', 
+        'value': '1624'
+        }
+    ], 
+        'activities-calories-intraday': 
+        {
+            'dataset': 
+            [
+                {'level': 0, 'mets': 150, 'time': '00:00:00', 'value': 16.91699981689453}, 
+                {'level': 0, 'mets': 150, 'time': '00:15:00', 'value': 16.91699981689453}, 
+                {'level': 0, 'mets': 150, 'time': '00:30:00', 'value': 16.91699981689453}, 
+                {'level': 0, 'mets': 150, 'time': '00:45:00', 'value': 16.91699981689453}, 
+                {'level': 0, 'mets': 150, 'time': '01:00:00', 'value': 16.91699981689453}, 
+                {'level': 0, 'mets': 150, 'time': '01:15:00', 'value': 16.91699981689453}, 
+                {'level': 0, 'mets': 150, 'time': '01:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '01:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '02:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '02:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '02:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '02:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '03:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '03:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '03:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '03:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '04:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '04:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '04:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '04:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '05:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '05:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '05:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '05:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '06:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '06:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '06:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '06:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '07:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '07:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '07:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '07:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '08:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '08:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 155, 'time': '08:30:00', 'value': 17.480899810791016}, {'level': 0, 'mets': 151, 'time': '08:45:00', 'value': 17.0297794342041}, {'level': 0, 'mets': 150, 'time': '09:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '09:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '09:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '09:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '10:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '10:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '10:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '10:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '11:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '11:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '11:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '11:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '12:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '12:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '12:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '12:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '13:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '13:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '13:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '13:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '14:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '14:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '14:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '14:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '15:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '15:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '15:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '15:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '16:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '16:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '16:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '16:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '17:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '17:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '17:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '17:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '18:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '18:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '18:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '18:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '19:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '19:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '19:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '19:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '20:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '20:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '20:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '20:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '21:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '21:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '21:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '21:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '22:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '22:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '22:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '22:45:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '23:00:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '23:15:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '23:30:00', 'value': 16.91699981689453}, {'level': 0, 'mets': 150, 'time': '23:45:00', 'value': 16.91699981689453}
+            ], 
+        'datasetInterval': 15, 
+        'datasetType': 'minute'
+        }
+}
+
+
+
+------ Steps ---------------
+{
+    'sleep': [
+        {
+            'dateOfSleep': '2021-07-05', 
+            'duration': 28500000, 
+            'efficiency': 91, 
+            'endTime': '2021-07-05T10:07:30.000', 
+            'infoCode': 0, 
+            'isMainSleep': True, 
+            'levels': {
+                'data': [
+                    {'dateTime': '2021-07-05T02:12:00.000', 'level': 'light', 'seconds': 240}, 
+                    {'dateTime': '2021-07-05T02:16:00.000', 'level': 'deep', 'seconds': 1350}, 
+                    {'dateTime': '2021-07-05T02:38:30.000', 'level': 'light', 'seconds': 1140}, 
+                    {'dateTime': '2021-07-05T02:57:30.000', 'level': 'rem', 'seconds': 360}, 
+                    {'dateTime': '2021-07-05T03:03:30.000', 'level': 'light', 'seconds': 240}, 
+                    {'dateTime': '2021-07-05T03:07:30.000', 'level': 'deep', 'seconds': 2400}, 
+                    {'dateTime': '2021-07-05T03:47:30.000', 'level': 'light', 'seconds': 4110}, 
+                    {'dateTime': '2021-07-05T04:56:00.000', 'level': 'rem', 'seconds': 990}, 
+                    {'dateTime': '2021-07-05T05:12:30.000', 'level': 'light', 'seconds': 2640}, 
+                    {'dateTime': '2021-07-05T05:56:30.000', 'level': 'rem', 'seconds': 1560}, 
+                    {'dateTime': '2021-07-05T06:22:30.000', 'level': 'wake', 'seconds': 390}, 
+                    {'dateTime': '2021-07-05T06:29:00.000', 'level': 'light', 'seconds': 120}, 
+                    {'dateTime': '2021-07-05T06:31:00.000', 'level': 'deep', 'seconds': 1440}, 
+                    {'dateTime': '2021-07-05T06:55:00.000', 'level': 'wake', 'seconds': 360}, 
+                    {'dateTime': '2021-07-05T07:01:00.000', 'level': 'light', 'seconds': 2040}, 
+                    {'dateTime': '2021-07-05T07:35:00.000', 'level': 'wake', 'seconds': 600}, {'dateTime': '2021-07-05T07:45:00.000', 'level': 'light', 'seconds': 120}, {'dateTime': '2021-07-05T07:47:00.000', 'level': 'wake', 'seconds': 540}, {'dateTime': '2021-07-05T07:56:00.000', 'level': 'light', 'seconds': 720}, {'dateTime': '2021-07-05T08:08:00.000', 'level': 'wake', 'seconds': 1080}, {'dateTime': '2021-07-05T08:26:00.000', 'level': 'light', 'seconds': 660}, {'dateTime': '2021-07-05T08:37:00.000', 'level': 'wake', 'seconds': 330}, {'dateTime': '2021-07-05T08:42:30.000', 'level': 'light', 'seconds': 1020}, {'dateTime': '2021-07-05T08:59:30.000', 'level': 'rem', 'seconds': 1200}, {'dateTime': '2021-07-05T09:19:30.000', 'level': 'light', 'seconds': 1560}, 
+                    {'dateTime': '2021-07-05T09:45:30.000', 'level': 'wake', 'seconds': 1320}
+                ], 
+                'shortData': [
+                    {'dateTime': '2021-07-05T02:51:00.000', 'level': 'wake', 'seconds': 60}, 
+                    {'dateTime': '2021-07-05T03:46:00.000', 'level': 'wake', 'seconds': 90}, 
+                    {'dateTime': '2021-07-05T03:53:00.000', 'level': 'wake', 'seconds': 30}, 
+                    {'dateTime': '2021-07-05T03:57:00.000', 'level': 'wake', 'seconds': 60}, 
+                    {'dateTime': '2021-07-05T04:26:30.000', 'level': 'wake', 'seconds': 90}, 
+                    {'dateTime': '2021-07-05T05:12:00.000', 'level': 'wake', 'seconds': 30}, {'dateTime': '2021-07-05T05:16:00.000', 'level': 'wake', 'seconds': 30}, {'dateTime': '2021-07-05T05:24:00.000', 'level': 'wake', 'seconds': 30}, {'dateTime': '2021-07-05T05:27:30.000', 'level': 'wake', 'seconds': 30}, {'dateTime': '2021-07-05T05:33:30.000', 'level': 'wake', 'seconds': 30}, {'dateTime': '2021-07-05T07:17:00.000', 'level': 'wake', 'seconds': 30}, {'dateTime': '2021-07-05T07:29:30.000', 'level': 'wake', 'seconds': 90}, {'dateTime': '2021-07-05T08:47:00.000', 'level': 'wake', 'seconds': 30}, {'dateTime': '2021-07-05T08:54:00.000', 'level': 'wake', 'seconds': 120}, {'dateTime': '2021-07-05T09:01:30.000', 'level': 'wake', 'seconds': 30}, {'dateTime': '2021-07-05T09:06:00.000', 'level': 'wake', 'seconds': 30}, {'dateTime': '2021-07-05T09:09:00.000', 'level': 'wake', 'seconds': 30}, {'dateTime': '2021-07-05T09:12:00.000', 'level': 'wake', 'seconds': 90}, 
+                    {'dateTime': '2021-07-05T09:30:30.000', 'level': 'wake', 'seconds': 60}
+                ], 
+                'summary': {
+                    'deep': {'count': 3, 'minutes': 85, 'thirtyDayAvgMinutes': 64}, 
+                    'light': {'count': 25, 'minutes': 232, 'thirtyDayAvgMinutes': 139}, 
+                    'rem': {'count': 8, 'minutes': 65, 'thirtyDayAvgMinutes': 63}, 
+                    'wake': {'count': 26, 'minutes': 93, 'thirtyDayAvgMinutes': 42}
+                }
+            }, 
+            'logId': 32856745492, 
+            'minutesAfterWakeup': 0, 
+            'minutesAsleep': 382, 
+            'minutesAwake': 93, 
+            'minutesToFallAsleep': 0, 
+            'startTime': '2021-07-05T02:12:00.000', 
+            'timeInBed': 475, 'type': 'stages'
+        }
+    ], 
+    'summary': {
+        'stages': {'deep': 85, 'light': 232, 'rem': 65, 'wake': 93}, 
+        'totalMinutesAsleep': 382, 
+        'totalSleepRecords': 1, 
+        'totalTimeInBed': 475
+    }
+}
+
+------------ Distance --------------------
+
+[
+    {'time': '00:00:00', 'value': 0}, 
+    {'time': '00:15:00', 'value': 0}, 
+    {'time': '00:30:00', 'value': 0}, 
+    {'time': '00:45:00', 'value': 0}, {'time': '01:00:00', 'value': 0}, {'time': '01:15:00', 'value': 0}, {'time': '01:30:00', 'value': 0}, {'time': '01:45:00', 'value': 0}, {'time': '02:00:00', 'value': 0}, {'time': '02:15:00', 'value': 0}, {'time': '02:30:00', 'value': 0}, {'time': '02:45:00', 'value': 0}, {'time': '03:00:00', 'value': 0}, {'time': '03:15:00', 'value': 0}, {'time': '03:30:00', 'value': 0}, {'time': '03:45:00', 'value': 0}, {'time': '04:00:00', 'value': 0}, {'time': '04:15:00', 'value': 0}, {'time': '04:30:00', 'value': 0}, {'time': '04:45:00', 'value': 0}, {'time': '05:00:00', 'value': 0}, {'time': '05:15:00', 'value': 0}, {'time': '05:30:00', 'value': 0}, {'time': '05:45:00', 'value': 0}, {'time': '06:00:00', 'value': 0}, {'time': '06:15:00', 'value': 0}, {'time': '06:30:00', 'value': 0}, {'time': '06:45:00', 'value': 0}, {'time': '07:00:00', 'value': 0}, {'time': '07:15:00', 'value': 0}, {'time': '07:30:00', 'value': 0}, {'time': '07:45:00', 'value': 0}, {'time': '08:00:00', 'value': 0}, {'time': '08:15:00', 'value': 0}, {'time': '08:30:00', 'value': 0}, {'time': '08:45:00', 'value': 0}, {'time': '09:00:00', 'value': 0}, {'time': '09:15:00', 'value': 0}, {'time': '09:30:00', 'value': 0}, {'time': '09:45:00', 'value': 0}, {'time': '10:00:00', 'value': 0}, {'time': '10:15:00', 'value': 0}, {'time': '10:30:00', 'value': 0}, {'time': '10:45:00', 'value': 0}, {'time': '11:00:00', 'value': 0}, {'time': '11:15:00', 'value': 0}, {'time': '11:30:00', 'value': 0}, {'time': '11:45:00', 'value': 0}, {'time': '12:00:00', 'value': 0}, {'time': '12:15:00', 'value': 0}, {'time': '12:30:00', 'value': 0}, {'time': '12:45:00', 'value': 0}, {'time': '13:00:00', 'value': 0}, {'time': '13:15:00', 'value': 0}, {'time': '13:30:00', 'value': 0}, {'time': '13:45:00', 'value': 0}, {'time': '14:00:00', 'value': 0}, {'time': '14:15:00', 'value': 0}, {'time': '14:30:00', 'value': 0}, {'time': '14:45:00', 'value': 0}, {'time': '15:00:00', 'value': 0}, {'time': '15:15:00', 'value': 0}, {'time': '15:30:00', 'value': 0}, {'time': '15:45:00', 'value': 0}, {'time': '16:00:00', 'value': 0}, {'time': '16:15:00', 'value': 0}, {'time': '16:30:00', 'value': 0}, {'time': '16:45:00', 'value': 0}, {'time': '17:00:00', 'value': 0}, {'time': '17:15:00', 'value': 0}, {'time': '17:30:00', 'value': 0}, {'time': '17:45:00', 'value': 0}, {'time': '18:00:00', 'value': 0}, {'time': '18:15:00', 'value': 0}, {'time': '18:30:00', 'value': 0}, {'time': '18:45:00', 'value': 0}, {'time': '19:00:00', 'value': 0}, {'time': '19:15:00', 'value': 0}, {'time': '19:30:00', 'value': 0}, {'time': '19:45:00', 'value': 0}, {'time': '20:00:00', 'value': 0}, {'time': '20:15:00', 'value': 0}, {'time': '20:30:00', 'value': 0}, {'time': '20:45:00', 'value': 0}, {'time': '21:00:00', 'value': 0}, {'time': '21:15:00', 'value': 0}, {'time': '21:30:00', 'value': 0}, {'time': '21:45:00', 'value': 0}, {'time': '22:00:00', 'value': 0}, {'time': '22:15:00', 'value': 0}, {'time': '22:30:00', 'value': 0}, {'time': '22:45:00', 'value': 0}, {'time': '23:00:00', 'value': 0}, {'time': '23:15:00', 'value': 0}, {'time': '23:30:00', 'value': 0}, {'time': '23:45:00', 'value': 0}]
+
+------------ Floors ---------------------
+[
+    {'time': '00:00:00', 'value': 0}, 
+    {'time': '00:15:00', 'value': 0}, 
+    {'time': '00:30:00', 'value': 0}, 
+    {'time': '00:45:00', 'value': 0}, {'time': '01:00:00', 'value': 0}, {'time': '01:15:00', 'value': 0}, {'time': '01:30:00', 'value': 0}, {'time': '01:45:00', 'value': 0}, {'time': '02:00:00', 'value': 0}, {'time': '02:15:00', 'value': 0}, {'time': '02:30:00', 'value': 0}, {'time': '02:45:00', 'value': 0}, {'time': '03:00:00', 'value': 0}, {'time': '03:15:00', 'value': 0}, {'time': '03:30:00', 'value': 0}, {'time': '03:45:00', 'value': 0}, {'time': '04:00:00', 'value': 0}, {'time': '04:15:00', 'value': 0}, {'time': '04:30:00', 'value': 0}, {'time': '04:45:00', 'value': 0}, {'time': '05:00:00', 'value': 0}, {'time': '05:15:00', 'value': 0}, {'time': '05:30:00', 'value': 0}, {'time': '05:45:00', 'value': 0}, {'time': '06:00:00', 'value': 0}, {'time': '06:15:00', 'value': 0}, {'time': '06:30:00', 'value': 0}, {'time': '06:45:00', 'value': 0}, {'time': '07:00:00', 'value': 0}, {'time': '07:15:00', 'value': 0}, {'time': '07:30:00', 'value': 0}, {'time': '07:45:00', 'value': 0}, {'time': '08:00:00', 'value': 0}, {'time': '08:15:00', 'value': 0}, {'time': '08:30:00', 'value': 0}, {'time': '08:45:00', 'value': 0}, {'time': '09:00:00', 'value': 0}, {'time': '09:15:00', 'value': 0}, {'time': '09:30:00', 'value': 0}, {'time': '09:45:00', 'value': 0}, {'time': '10:00:00', 'value': 0}, {'time': '10:15:00', 'value': 0}, {'time': '10:30:00', 'value': 0}, {'time': '10:45:00', 'value': 0}, {'time': '11:00:00', 'value': 0}, {'time': '11:15:00', 'value': 0}, {'time': '11:30:00', 'value': 0}, {'time': '11:45:00', 'value': 0}, {'time': '12:00:00', 'value': 0}, {'time': '12:15:00', 'value': 0}, {'time': '12:30:00', 'value': 0}, {'time': '12:45:00', 'value': 0}, {'time': '13:00:00', 'value': 0}, {'time': '13:15:00', 'value': 0}, {'time': '13:30:00', 'value': 0}, {'time': '13:45:00', 'value': 0}, {'time': '14:00:00', 'value': 0}, {'time': '14:15:00', 'value': 0}, {'time': '14:30:00', 'value': 0}, {'time': '14:45:00', 'value': 0}, {'time': '15:00:00', 'value': 0}, {'time': '15:15:00', 'value': 0}, {'time': '15:30:00', 'value': 0}, {'time': '15:45:00', 'value': 0}, {'time': '16:00:00', 'value': 0}, {'time': '16:15:00', 'value': 0}, {'time': '16:30:00', 'value': 0}, {'time': '16:45:00', 'value': 0}, {'time': '17:00:00', 'value': 0}, {'time': '17:15:00', 'value': 0}, {'time': '17:30:00', 'value': 0}, {'time': '17:45:00', 'value': 0}, {'time': '18:00:00', 'value': 0}, {'time': '18:15:00', 'value': 0}, {'time': '18:30:00', 'value': 0}, {'time': '18:45:00', 'value': 0}, {'time': '19:00:00', 'value': 0}, {'time': '19:15:00', 'value': 0}, {'time': '19:30:00', 'value': 0}, {'time': '19:45:00', 'value': 0}, {'time': '20:00:00', 'value': 0}, {'time': '20:15:00', 'value': 0}, {'time': '20:30:00', 'value': 0}, {'time': '20:45:00', 'value': 0}, {'time': '21:00:00', 'value': 0}, {'time': '21:15:00', 'value': 0}, {'time': '21:30:00', 'value': 0}, {'time': '21:45:00', 'value': 0}, {'time': '22:00:00', 'value': 0}, {'time': '22:15:00', 'value': 0}, {'time': '22:30:00', 'value': 0}, {'time': '22:45:00', 'value': 0}, {'time': '23:00:00', 'value': 0}, {'time': '23:15:00', 'value': 0}, {'time': '23:30:00', 'value': 0}, {'time': '23:45:00', 'value': 0}]
+
+--------------- Elevation ----------------
+[
+    {'time': '00:00:00', 'value': 0}, 
+    {'time': '00:15:00', 'value': 0}, 
+    {'time': '00:30:00', 'value': 0}, 
+    {'time': '00:45:00', 'value': 0}, {'time': '01:00:00', 'value': 0}, {'time': '01:15:00', 'value': 0}, {'time': '01:30:00', 'value': 0}, {'time': '01:45:00', 'value': 0}, {'time': '02:00:00', 'value': 0}, {'time': '02:15:00', 'value': 0}, {'time': '02:30:00', 'value': 0}, {'time': '02:45:00', 'value': 0}, {'time': '03:00:00', 'value': 0}, {'time': '03:15:00', 'value': 0}, {'time': '03:30:00', 'value': 0}, {'time': '03:45:00', 'value': 0}, {'time': '04:00:00', 'value': 0}, {'time': '04:15:00', 'value': 0}, {'time': '04:30:00', 'value': 0}, {'time': '04:45:00', 'value': 0}, {'time': '05:00:00', 'value': 0}, {'time': '05:15:00', 'value': 0}, {'time': '05:30:00', 'value': 0}, {'time': '05:45:00', 'value': 0}, {'time': '06:00:00', 'value': 0}, {'time': '06:15:00', 'value': 0}, {'time': '06:30:00', 'value': 0}, {'time': '06:45:00', 'value': 0}, {'time': '07:00:00', 'value': 0}, {'time': '07:15:00', 'value': 0}, {'time': '07:30:00', 'value': 0}, {'time': '07:45:00', 'value': 0}, {'time': '08:00:00', 'value': 0}, {'time': '08:15:00', 'value': 0}, {'time': '08:30:00', 'value': 0}, {'time': '08:45:00', 'value': 0}, {'time': '09:00:00', 'value': 0}, {'time': '09:15:00', 'value': 0}, {'time': '09:30:00', 'value': 0}, {'time': '09:45:00', 'value': 0}, {'time': '10:00:00', 'value': 0}, {'time': '10:15:00', 'value': 0}, {'time': '10:30:00', 'value': 0}, {'time': '10:45:00', 'value': 0}, {'time': '11:00:00', 'value': 0}, {'time': '11:15:00', 'value': 0}, {'time': '11:30:00', 'value': 0}, {'time': '11:45:00', 'value': 0}, {'time': '12:00:00', 'value': 0}, {'time': '12:15:00', 'value': 0}, {'time': '12:30:00', 'value': 0}, {'time': '12:45:00', 'value': 0}, {'time': '13:00:00', 'value': 0}, {'time': '13:15:00', 'value': 0}, {'time': '13:30:00', 'value': 0}, {'time': '13:45:00', 'value': 0}, {'time': '14:00:00', 'value': 0}, {'time': '14:15:00', 'value': 0}, {'time': '14:30:00', 'value': 0}, {'time': '14:45:00', 'value': 0}, {'time': '15:00:00', 'value': 0}, {'time': '15:15:00', 'value': 0}, {'time': '15:30:00', 'value': 0}, {'time': '15:45:00', 'value': 0}, {'time': '16:00:00', 'value': 0}, {'time': '16:15:00', 'value': 0}, {'time': '16:30:00', 'value': 0}, {'time': '16:45:00', 'value': 0}, {'time': '17:00:00', 'value': 0}, {'time': '17:15:00', 'value': 0}, {'time': '17:30:00', 'value': 0}, {'time': '17:45:00', 'value': 0}, {'time': '18:00:00', 'value': 0}, {'time': '18:15:00', 'value': 0}, {'time': '18:30:00', 'value': 0}, {'time': '18:45:00', 'value': 0}, {'time': '19:00:00', 'value': 0}, {'time': '19:15:00', 'value': 0}, {'time': '19:30:00', 'value': 0}, {'time': '19:45:00', 'value': 0}, {'time': '20:00:00', 'value': 0}, {'time': '20:15:00', 'value': 0}, {'time': '20:30:00', 'value': 0}, {'time': '20:45:00', 'value': 0}, {'time': '21:00:00', 'value': 0}, {'time': '21:15:00', 'value': 0}, {'time': '21:30:00', 'value': 0}, {'time': '21:45:00', 'value': 0}, {'time': '22:00:00', 'value': 0}, {'time': '22:15:00', 'value': 0}, {'time': '22:30:00', 'value': 0}, {'time': '22:45:00', 'value': 0}, {'time': '23:00:00', 'value': 0}, {'time': '23:15:00', 'value': 0}, {'time': '23:30:00', 'value': 0}, {'time': '23:45:00', 'value': 0}]
+
+----------------- Heart Rate -----------------
+{
+    'activities-heart': [
+        {
+            'dateTime': '2021-07-04', 
+            'value': {
+                'customHeartRateZones': [], 
+                'heartRateZones': [
+                    {'caloriesOut': 2465.9347, 'max': 127, 'min': 30, 'minutes': 1440, 'name': 'Out of Range'}, 
+                    {'caloriesOut': 0, 'max': 151, 'min': 127, 'minutes': 0, 'name': 'Fat Burn'}, 
+                    {'caloriesOut': 0, 'max': 180, 'min': 151, 'minutes': 0, 'name': 'Cardio'}, 
+                    {'caloriesOut': 0, 'max': 220, 'min': 180, 'minutes': 0, 'name': 'Peak'}
+                ], 
+                'restingHeartRate': 81
+            }
+        }
+    ], 
+    'activities-heart-intraday': {
+        'dataset': [
+            {'time': '06:30:00', 'value': 98}, 
+            {'time': '06:45:00', 'value': 98}, 
+            {'time': '07:00:00', 'value': 104}, 
+            {'time': '07:15:00', 'value': 108}, 
+            {'time': '07:30:00', 'value': 108}, 
+            {'time': '07:45:00', 'value': 104}, {'time': '08:00:00', 'value': 102}, {'time': '08:15:00', 'value': 94}, {'time': '08:30:00', 'value': 97}, {'time': '08:45:00', 'value': 97}, {'time': '09:00:00', 'value': 94}, {'time': '09:15:00', 'value': 94}, {'time': '09:30:00', 'value': 98}, {'time': '09:45:00', 'value': 99}, {'time': '10:00:00', 'value': 105}, {'time': '10:15:00', 'value': 98}, {'time': '10:30:00', 'value': 105}, {'time': '10:45:00', 'value': 110}, {'time': '11:00:00', 'value': 105}, {'time': '11:15:00', 'value': 112}, {'time': '11:30:00', 'value': 101}, {'time': '11:45:00', 'value': 96}, {'time': '12:00:00', 'value': 97}, {'time': '12:15:00', 'value': 91}, {'time': '12:30:00', 'value': 99}, {'time': '12:45:00', 'value': 100}, {'time': '13:00:00', 'value': 107}, {'time': '13:15:00', 'value': 108}, {'time': '13:30:00', 'value': 95}, {'time': '13:45:00', 'value': 102}, {'time': '14:00:00', 'value': 101}, {'time': '14:15:00', 'value': 109}, {'time': '14:30:00', 'value': 109}, {'time': '14:45:00', 'value': 112}, {'time': '15:00:00', 'value': 102}, {'time': '15:15:00', 'value': 96}, {'time': '15:30:00', 'value': 88}, {'time': '21:45:00', 'value': 100}, {'time': '22:00:00', 'value': 99}, {'time': '22:15:00', 'value': 94}, {'time': '22:30:00', 'value': 90}, {'time': '22:45:00', 'value': 104}, {'time': '23:00:00', 'value': 103}, {'time': '23:15:00', 'value': 104}, {'time': '23:30:00', 'value': 98}, 
+            {'time': '23:45:00', 'value': 93}
+        ], 
+        'datasetInterval': 15, 
+        'datasetType': 'minute'
+    }
+}
+
+--------------------- Activities -------------------
+{
+    'activities': [], 
+    'goals': {'activeMinutes': 30, 'caloriesOut': 2631, 'distance': 8.05, 'floors': 10, 'steps': 10000}, 
+    'summary': {
+        'activeScore': -1, 
+        'activityCalories': 1024, 
+        'caloriesBMR': 1624, 
+        'caloriesOut': 2465, 
+        'distances': [
+            {'activity': 'total', 'distance': 3.58}, 
+            {'activity': 'tracker', 'distance': 3.58}, 
+            {'activity': 'loggedActivities', 'distance': 0}, 
+            {'activity': 'veryActive', 'distance': 0}, 
+            {'activity': 'moderatelyActive', 'distance': 0}, 
+            {'activity': 'lightlyActive', 'distance': 3.57}, 
+            {'activity': 'sedentaryActive', 'distance': 0}
+            ], 
+        'elevation': 27.43, 
+        'fairlyActiveMinutes': 0, 
+        'floors': 9, 
+        'heartRateZones': [
+            {'caloriesOut': 485.5179, 'max': 127, 'min': 30, 'minutes': 271, 'name': 'Out of Range'}, 
+            {'caloriesOut': 1071.74834, 'max': 151, 'min': 127, 'minutes': 375, 'name': 'Fat Burn'}, 
+            {'caloriesOut': 0, 'max': 180, 'min': 151, 'minutes': 0, 'name': 'Cardio'}, 
+            {'caloriesOut': 0, 'max': 220, 'min': 180, 'minutes': 0, 'name': 'Peak'}
+            ], 
+        'lightlyActiveMinutes': 267, 
+        'marginalCalories': 505, 
+        'restingHeartRate': 81, 
+        'sedentaryMinutes': 1173, 
+        'steps': 5152, 
+        'veryActiveMinutes': 0
+    }
+}
