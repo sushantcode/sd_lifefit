@@ -8,8 +8,8 @@ from apiCalls import getFloors
 from apiCalls import getElevation
 from apiCalls import getHeart
 
-def getIntraHeart(user_id, access_token, curr_date):
-    heart_list = getHeart(user_id, access_token, curr_date)["activities-heart-intraday"]["dataset"]
+def getIntraHeart(heart):
+    heart_list = heart["activities-heart-intraday"]["dataset"]
     date_time_obj = datetime(100,1,1,0,0,0)
 
     for i in range(0, 96):
@@ -29,20 +29,15 @@ def getIntraHeart(user_id, access_token, curr_date):
 
 ######## Get Intra day data for a day ###########
 
-def getQuarterlyData(user_id, access_token, id):
-    print("Getting reporting date...")
-    today_date = date.today()
-    last_day = today_date - timedelta(days=0)
-    curr_date = last_day.strftime("%Y-%m-%d")
-    print("Reporting date = ", curr_date)
+def getQuarterlyData(curr_date, id, activities, calories, steps, distance, floors, elevation, heart):
 
-    activity_summary = getActivities(user_id, access_token, curr_date)["summary"]
-    intraday_calorie = getCalories(user_id, access_token, curr_date)["activities-calories-intraday"]["dataset"]
-    intraday_steps = getSteps(user_id, access_token, curr_date)["activities-steps-intraday"]["dataset"]
-    intraday_distance = getDistance(user_id, access_token, curr_date)["activities-distance-intraday"]["dataset"]
-    intraday_floors = getFloors(user_id, access_token, curr_date)["activities-floors-intraday"]["dataset"]
-    intraday_elevation = getElevation(user_id, access_token, curr_date)["activities-elevation-intraday"]["dataset"]
-    intraday_heart = getIntraHeart(user_id, access_token, curr_date)
+    activity_summary = activities["summary"]
+    intraday_calorie = calories["activities-calories-intraday"]["dataset"]
+    intraday_steps = steps["activities-steps-intraday"]["dataset"]
+    intraday_distance = distance["activities-distance-intraday"]["dataset"]
+    intraday_floors = floors["activities-floors-intraday"]["dataset"]
+    intraday_elevation = elevation["activities-elevation-intraday"]["dataset"]
+    intraday_heart = getIntraHeart(heart)
 
     if activity_summary and intraday_calorie and intraday_steps and intraday_distance and intraday_floors and intraday_elevation and intraday_heart:
         fileName = "Date_" + curr_date + "_User_id_" + id + "_hourlydata.csv"

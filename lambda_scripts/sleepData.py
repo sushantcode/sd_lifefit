@@ -1,17 +1,7 @@
-from datetime import timedelta, date
 import csv
-from apiCalls import getSleeps
-
 
 ################### Get sleep data for the day ##############################
-def getSleepData(user_id, access_token, id):
-    print("Getting reporting date...")
-    today_date = date.today()
-    last_day = today_date - timedelta(days=0)
-    curr_date = last_day.strftime("%Y-%m-%d")
-    print("Reporting date = ", curr_date)
-
-    sleep_response = getSleeps(user_id, access_token, curr_date)
+def getSleepData(curr_date, id, sleep_response):
     if sleep_response:
         fileName = "Date_" + curr_date + "_User_id_" + id + "_sleepdata.csv"
         with open(fileName, "w", newline="") as file:
