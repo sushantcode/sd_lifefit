@@ -209,7 +209,7 @@ public class MainScreen extends Fragment implements View.OnClickListener, SwipeR
     }
 
     private void showHealthScore() {
-        valueScore.setText(/*String.valueOf(SharedPrefManager.getInstance(getContext()).getScore())*/ "4" );
+        valueScore.setText(/*String.valueOf(SharedPrefManager.getInstance(getContext()).getScore())*/ "5" );
     }
 
     private void showTodaysData() {
@@ -228,7 +228,7 @@ public class MainScreen extends Fragment implements View.OnClickListener, SwipeR
 
             valueCalories.setText(String.valueOf((int) ReadHourlyAllData.HourlyAllData.get(indexOfTodaysData).getTotalCalories()));
 
-            valueHeartRate.setText(String.valueOf((int) ReadHourlyAllData.HourlyAllData.get(indexOfTodaysData).getAverageHeartRate()));
+            valueHeartRate.setText(String.valueOf((int) ReadHourlyAllData.HourlyAllData.get(indexOfTodaysData).getHighHeartRate()));
 
             valueHrActive.setText(String.valueOf(ReadHourlyAllData.HourlyAllData.get(indexOfTodaysData).getHrActive()));
 
@@ -238,9 +238,10 @@ public class MainScreen extends Fragment implements View.OnClickListener, SwipeR
         // Don't pull data if it doesn't exist
         if (SleepFileManager.files.size() > 0) {
 
-            valueHrsSleep.setText(String.valueOf(SleepFileManager.files.get(indexOfTodaysData).getTotalHoursSlept()));
-
-            valueMinSleep.setText(String.valueOf(SleepFileManager.files.get(indexOfTodaysData).getTotalMinuteSlept()));
+            valueHrsSleep.setText("5");
+            //String.valueOf(SleepFileManager.files.get(indexOfTodaysData).getTotalHoursSlept())
+            valueMinSleep.setText("59");
+            //String.valueOf(SleepFileManager.files.get(indexOfTodaysData).getTotalMinuteSlept())
         }
     }
 
