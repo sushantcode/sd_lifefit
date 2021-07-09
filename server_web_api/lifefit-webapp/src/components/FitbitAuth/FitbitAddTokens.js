@@ -8,13 +8,13 @@ const FitbitAddTokens = (props) => {
   useEffect(() => { 
     Auth.currentUserInfo()
     .then((data) => {
-      setId(data.id);
+      setId(data.attributes.sub);
     });
   })
   const [error, setError] = useState(null);
   const [access, setAccess] = useState("");
   const [userId, setUserId] = useState("");
-  const uid = id.split(":")[1];
+  const uid = id;
 
   var access_token = props.access_token;
   var refresh_token = props.refresh_token;
