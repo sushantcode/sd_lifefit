@@ -1,13 +1,20 @@
 import React, {useState, useEffect} from 'react';
-import { API } from 'aws-amplify';
+import { API, Auth } from 'aws-amplify';
 import * as mutations from '../../graphql/mutations';
 import FitbitGetData from './FitbitGetData';
 
 const FitbitAddTokens = (props) => {
+  const [id, setId] = useState("");
+  useEffect(() => { 
+    Auth.currentUserInfo()
+    .then((data) => {
+      setId(data.attributes.sub);
+    });
+  })
   const [error, setError] = useState(null);
   const [access, setAccess] = useState("");
   const [userId, setUserId] = useState("");
-  const uid_sushant = "2cb32af6-acd1-43e1-91fe-db8e3b695ff5";
+  const uid = id;
 
   var access_token = props.access_token;
   var refresh_token = props.refresh_token;
@@ -15,7 +22,7 @@ const FitbitAddTokens = (props) => {
   var user_id = props.user_id;
 
   const newToken = {
-      id: uid_sushant,
+      id: uid,
       access_token: access_token,
       refresh_token: refresh_token,
       user_id: user_id,
