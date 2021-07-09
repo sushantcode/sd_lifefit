@@ -60,5 +60,6 @@ def getQuarterlyData(curr_date, id, activities, calories, steps, distance, floor
                     intraday_steps[i]["value"], intraday_distance[i]["value"], intraday_floors[i]["value"], 
                     intraday_elevation[i]["value"], intraday_heart[i]["value"]])
         print("Intraday data recorded successfully!")
+        return fileName
     else:
         print("Could not get data")

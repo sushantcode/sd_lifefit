@@ -15,5 +15,6 @@ def getSleepData(curr_date, id, sleep_response):
                     seconds = item['seconds']
                     csv_file.writerow([level, seconds, time])
         print("Sleep data recorded successfully!")
+        return fileName
     else:
         print("Could not get the sleep data.")
