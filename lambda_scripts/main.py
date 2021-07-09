@@ -1,7 +1,5 @@
 import os
 import boto3
-from boto3.dynamodb.conditions import Key, Attr
-from botocore import endpoint
 from datetime import timedelta, date
 
 ############### Token Api Calls ###################
