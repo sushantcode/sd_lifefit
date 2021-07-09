@@ -129,7 +129,7 @@ def getFitbitSummary(curr_date, id, activities, sleeps, heart):
     time = curr_datetime.time().strftime("%H:%M:%S")
     datetime_now = dayName + " " + month + " " + dayNum + " " + time + " " + "CDT " + year
 
-    fileName = "Date_" + curr_date + "_User_id_" + id + "_hourlydata.csv"
+    fileName = "Date_" + curr_date + "_User_id_" + id + "_fitbitdata.csv"
     with open(fileName, "w", newline="") as file:
         csv_file = csv.writer(file, delimiter=",")
         csv_file.writerow(["ID", "Date", "activeScore", "caloriesOut", "trackerdistance", "loggedActivitiesdistance", 
@@ -152,3 +152,4 @@ def getFitbitSummary(curr_date, id, activities, sleeps, heart):
                 sleep_col["wakeCount"], sleep_col["wakeMinutes"], sleep_col["wakeAvg"],
                 sleep_col["minutesAwake"], sleep_col["timeToSleep"], sleep_col["startTime"]])
     print("Intraday data recorded successfully!")
+    return fileName
