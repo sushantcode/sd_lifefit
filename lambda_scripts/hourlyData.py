@@ -1,12 +1,5 @@
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 import csv
-from apiCalls import getActivities
-from apiCalls import getCalories
-from apiCalls import getSteps
-from apiCalls import getDistance
-from apiCalls import getFloors
-from apiCalls import getElevation
-from apiCalls import getHeart
 
 def getIntraHeart(heart):
     heart_list = heart["activities-heart-intraday"]["dataset"]
