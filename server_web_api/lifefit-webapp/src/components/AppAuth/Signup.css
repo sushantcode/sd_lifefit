@@ -1,0 +1,43 @@
+.signup {
+  border: 2px solid #d3d3d3;
+  border-radius: .5em;
+  margin-bottom: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  padding: 1em;
+  text-align: left;
+  max-width: 90vh;
+}
+
+.form {
+  padding: 1em;
+}
+
+label {
+  font-weight: 600;
+}
+
+.name,
+.username,
+.submitBtn,
+.email,
+.address1,
+.address2,
+.cityStateZip {
+  margin-bottom: 20px;
+}
+
+.resetBtn {
+  margin: 50;
+  position: absolute;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+}
+
+.resetBtn:hover {
+  font-weight: bold;
+}
