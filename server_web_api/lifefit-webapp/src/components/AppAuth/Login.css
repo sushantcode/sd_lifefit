@@ -7,7 +7,7 @@
   margin-top: 100px;
   padding: 1em;
   text-align: left;
-  width: 600px;
+  max-width: 70vh;
 }
 
 .form {
@@ -26,10 +26,20 @@ label {
   margin-bottom: 20px;
 }
 
+.submitBtn {
+  margin-bottom: 20px;
+}
+
 .resetBtn {
   margin: 50;
   position: absolute;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+}
+
+.resetBtn:hover {
+  font-weight: bold;
 }

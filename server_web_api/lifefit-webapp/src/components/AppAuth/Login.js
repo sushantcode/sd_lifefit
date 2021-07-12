@@ -1,100 +1,91 @@
 import Auth from '@aws-amplify/auth';
-import { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Form,
   FormFeedback,
   FormGroup,
-  FormText,
+  Alert,
   Label,
   Input,
   Button,
 } from 'reactstrap';
 import './Login.css';
-import { NavItem, NavLink } from 'reactstrap';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router';
+import ResetPassword from './ResetPassword';
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
-      isLoggedIn: false,
-      resetPassword: false,
-      validate: {
-        emailState: '',
-      },
-    };
-    this.handleChange = this.handleChange.bind(this);
+const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [resetPassword, setResetPassword] = useState(false);
+  const [usernameEmpty, setUsernameEmpty] = useState(false);
+  const [passwordEmpty, setPasswordEmpty] = useState(false);
+  const [submissionError, setSubmissionError] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  function validateForm() {
+    if (username.length === 0) {
+      setUsernameEmpty(true);
+    } 
+    if (password.length === 0){
+      setPasswordEmpty(true);
+    }
   }
 
-  handleChange = (event) => {
-    const { target } = event;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const { name } = target;
-
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  // validateEmail(e) {
-  //   const emailRex =
-  //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  //   const { validate } = this.state;
-
-  //   if (emailRex.test(e.target.value)) {
-  //     validate.emailState = 'has-success';
-  //   } else {
-  //     validate.emailState = 'has-danger';
-  //   }
-
-  //   this.setState({ validate });
-  // }
-
-  async submitForm(e) {
+  async function submitForm(e) {
     e.preventDefault();
-    try{
-      await Auth.signIn(this.state.username, this.state.password);
-      alert("Logged in successfully!");
-      this.setState({
-        isLoggedIn: true
-      })
-    }
-    catch (error) {
-      e.target.reset();
-      alert(error.message);
-    }
-    this.setState({
-      username: "",
-      password: ""
-    })
-  }
-
-  async resetClicked(e) {
-    e.preventDefault();
-    if (this.state.username !== "") {
-      // Send confirmation code to user's email
-      Auth.forgotPassword(this.state.username)
-      .then(() => {
-        this.setState({
-          resetPassword: true
-        })
-      })
-      .catch(err => alert(err.message));
+    setUsernameEmpty(false);
+    setPasswordEmpty(false);
+    setSubmissionError("")
+    if (username === '' || password === '') {
+      validateForm();
     }
     else {
-      alert("Must provide the username.")
+      setLoading(true);
+      try{
+        const user = await Auth.signIn(username, password);
+        setIsLoggedIn(true);
+      }
+      catch (error) {
+        setLoading(false);
+        setSubmissionError(error.message);
+        setUsername("");
+        setPassword("");
+      }
     }
   }
 
-  render() {
-    const { username, password, resetPassword, isLoggedIn } = this.state;
+  async function resetClicked(e) {
+    e.preventDefault();
+    if (username !== "") {
+      try {
+        // Send confirmation code to user's email
+        await Auth.forgotPassword(username)
+        .then(() => {
+          setResetPassword(true);
+        })
+        .catch((err) => {
+          if (err.message === "Username/client id combination not found.") {
+            setSubmissionError("Username does not exists.")
+          }
+          else {
+            setSubmissionError(err.message);
+          }
+        });
+      }
+      catch(err) {
+        setSubmissionError(err.message);
+      }
+      
+    }
+    else {
+      setUsernameEmpty(true);
+    }
+  }
 
     if (resetPassword) {
       return (
-        <Redirect to="/resetpassword" />
+        <ResetPassword username={username} />
       )
     }
 
@@ -105,45 +96,63 @@ class Login extends Component {
     }
     return (
       <div className="login">
-        
-        <h2>Sign In</h2>
-        <Form className="form" onSubmit={(e) => this.submitForm(e)}>
-          <FormGroup className="username">
+        <h2 style={{textAlign: "center"}}>Sign In</h2>
+        <Form className="form" onSubmit={(e) => submitForm(e)}>
+          <FormGroup className="username" row>
             <Label>Username</Label>
             <Input
               type="text"
               name="username"
               id="username"
               placeholder="Your Username"
-              // valid={this.state.validate.emailState === "has-success"}
-              // invalid={this.state.validate.emailState === "has-danger"}
+              invalid={usernameEmpty}
               value={username}
               onChange={(e) => {
-                // this.validateEmail(e);
-                this.handleChange(e);
+                setUsername(e.target.value);
               }}
             />
+            <FormFeedback invalid>
+              Username cannot be empty.
+            </FormFeedback>
           </FormGroup>
-          <FormGroup className="password">
+          <FormGroup className="password" row>
             <Label for="password">Password</Label>
             <Input
               type="password"
               name="password"
               id="password"
               placeholder="********"
+              invalid={passwordEmpty}
               value={password}
-              onChange={(e) => this.handleChange(e)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
             />
+            <FormFeedback invalid>
+              Password cannot be empty.
+            </FormFeedback>
           </FormGroup>
-          <Button>Submit</Button>
+          <FormGroup row>
+            <Button 
+              className="submitBtn"
+              disabled={loading}
+              >
+                Submit {" "} {loading && 
+                <i class="fas fa-cog fa-spin" />}
+              </Button>
+              {(submissionError !== "") && 
+              (!usernameEmpty) && (!passwordEmpty) &&
+              <Alert color="danger">
+                {submissionError}
+              </Alert>
+              }
+          </FormGroup>
         </Form>
-        <div className="resetBtn">
-          <button onClick={(e) => this.resetClicked(e)}>Forgot Password?</button>
-        </div>
-        
+        <button className="resetBtn" onClick={(e) => resetClicked(e)}>
+            Forgot Password?
+        </button>
       </div>
     );
-  }
 }
 
 export default Login;
