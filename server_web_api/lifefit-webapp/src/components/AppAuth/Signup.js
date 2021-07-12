@@ -145,13 +145,13 @@ const Signup = () => {
             <Label for="email">Email*</Label>
             <Input type="email" name="email" id="email" placeholder="Email*" />
           </FormGroup>
-          <FormGroup className="address1">
-            <Label for="exampleAddress">Address 1*</Label>
+          <FormGroup className="phone">
+            <Label for="phone">Phone Number*</Label>
+            <Input type="number" name="phone" id="phone" placeholder="0123456789"/>
+          </FormGroup> 
+          <FormGroup className="address">
+            <Label for="exampleAddress">Address*</Label>
             <Input type="text" name="address" id="exampleAddress" placeholder="1234 Main St"/>
-          </FormGroup>
-          <FormGroup className="address2">
-            <Label for="exampleAddress2">Address 2</Label>
-            <Input type="text" name="address2" id="exampleAddress2" placeholder="Apartment, studio, or floor"/>
           </FormGroup>
           <Row className="cityStateZip">
             <Col md={5}>
@@ -162,7 +162,7 @@ const Signup = () => {
             </Col>
             <Col md={4}>
             <FormGroup>
-              <Label for="exampleSelect">State*</Label>
+              <Label for="state">State*</Label>
               <Input type="select" name="state" id="state">
                 {states}
               </Input>
@@ -170,19 +170,58 @@ const Signup = () => {
             </Col>
             <Col md={3}>
               <FormGroup>
-                <Label for="exampleZip">Zip-code*</Label>
-                <Input type="number" name="zip" id="zip"/>
+                <Label for="zip">Zip-code*</Label>
+                <Input type="number" name="zip" id="zip" placeholder="12345" />
               </FormGroup>  
             </Col>
           </Row>
-          <FormGroup check>
-            <Input type="checkbox" name="check" id="exampleCheck"/>
-            <Label for="exampleCheck" check>Check me out</Label>
+          <FormGroup tag="fieldset">
+            <Label for="gender">Gender*</Label>
+            <Row className="cityStateZip">
+              <Col md={3}>
+                <FormGroup check>
+                  <Label check>
+                    <Input type="radio" name="radio1" />{' '}
+                      Male
+                  </Label>
+                </FormGroup>
+              </Col>
+              <Col md={3}>
+                <FormGroup check>
+                  <Label check>
+                    <Input type="radio" name="radio1" />{' '}
+                      Female
+                  </Label>
+                </FormGroup>
+              </Col>
+              <Col md={3}>
+                <FormGroup check>
+                  <Label check>
+                    <Input type="radio" name="radio1" />{' '}
+                      Others
+                  </Label>
+                </FormGroup>
+              </Col>
+            </Row>
           </FormGroup>
-          <Button>Sign in</Button>
+          <FormGroup row>
+            <Button 
+              className="submitBtn"
+              disabled={loading}
+              >
+                Submit {" "} {loading && 
+                <i class="fas fa-cog fa-spin" />}
+              </Button>
+              {(submissionError !== "") && 
+              (!usernameEmpty) && (!passwordEmpty) &&
+              <Alert color="danger">
+                {submissionError}
+              </Alert>
+              }
+          </FormGroup>
         </Form>
-        <button className="resetBtn" onClick={(e) => resetClicked(e)}>
-            Forgot Password?
+        <button className="resetBtn btn" onClick={(e) => resetClicked(e)}>
+            Already a member? Sign in here.
         </button>
       </div>
     );
