@@ -1,98 +1,171 @@
 import Auth from '@aws-amplify/auth';
-import { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Form,
   FormFeedback,
   FormGroup,
-  FormText,
+  Alert,
   Label,
   Input,
   Button,
 } from 'reactstrap';
-import './ResetPassword.css';
+import './Login.css';
+import Login from './Login';
 
-class ResetPassword extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
-      code: '',
-      validate: {
-        emailState: '',
-      },
-    };
-    this.handleChange = this.handleChange.bind(this);
+const ResetPassword = (props) => {
+  const username = props.username;
+  console.log("Username: ", username)
+  const [code, setCode] = useState("");
+  const [password, setPassword] = useState("");
+  const [repassword, setRepassword] = useState("");
+  const [codeEmpty, setCodeEmpty] = useState(false);
+  const [passwordEmpty, setPasswordEmpty] = useState(false);
+  const [repasswordEmpty, setRepasswordEmpty] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [submissionError, setSubmissionError] = useState("");
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+    setSuccess(true);
   }
 
-  handleChange = (event) => {
-    const { target } = event;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const { name } = target;
+  function validateForm() {
+    if (code.length === 0) {
+      setCodeEmpty(true);
+    } 
+    if (password.length === 0){
+      setPasswordEmpty(true);
+    }
+    if (repassword.length === 0){
+      setRepasswordEmpty(true);
+    }
+  }
 
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  async submitForm(e) {
+  async function submitForm(e) {
     e.preventDefault();
-    // Collect confirmation code and new password, then
-    await Auth.forgotPasswordSubmit(this.state.username, this.state.code, this.state.password)
-    .then(() => alert("Password Reseted Successfully!"))
-    .catch(err => alert(err.message));
+    setCodeEmpty(false);
+    setPasswordEmpty(false);
+    setRepasswordEmpty(false);
+    setSubmissionError("")
+    if (code === '' || password === '' || repassword === '') {
+      validateForm();
+    }
+    else if (password !== repassword) {
+      setSubmissionError("New passwords do not match.");
+    }
+    else {
+      setLoading(true);
+      try {
+        await Auth.forgotPasswordSubmit(username, code, password)
+        .then(() => {
+          setOpen(true);
+        })
+        .catch((err) => {
+          setLoading(false);
+          setSubmissionError(err.message);
+          setCode("");
+          setPassword("");
+          setRepassword("");
+        });
+      }
+      catch (error) {
+        setLoading(false);
+        setSubmissionError(error.message);
+        setCode("");
+        setPassword("");
+        setRepassword("");
+      }
+    }
   }
 
-  render() {
-    const { username, code, password } = this.state;
-
+  if (!username || success) {
     return (
-      <div className="reset">
-        <h2>Reset Password</h2>
-        <Form className="form" onSubmit={(e) => this.submitForm(e)}>
-          <FormGroup className="username">
-            <Label>Username</Label>
-            <Input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Your Username"
-              // valid={this.state.validate.emailState === "has-success"}
-              // invalid={this.state.validate.emailState === "has-danger"}
-              value={username}
-              onChange={(e) => {
-                // this.validateEmail(e);
-                this.handleChange(e);
-              }}
-            />
-          </FormGroup>
-          <FormGroup className="code">
-            <Label for="code">Code</Label>
-            <Input
-              type="text"
-              name="code"
-              id="code"
-              placeholder="Type the code sent in email."
-              value={code}
-              onChange={(e) => this.handleChange(e)}
-            />
-          </FormGroup>
-          <FormGroup className="password">
-            <Label for="password">New Password</Label>
-            <Input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="********"
-              value={password}
-              onChange={(e) => this.handleChange(e)}
-            />
-          </FormGroup>
-          <Button>Submit</Button>
-        </Form>
-      </div>
-    );
+      <Login />
+    )
   }
+
+  return (
+    <div className="reset">
+      <h2 style={{textAlign: "center"}}>Reset Password</h2>
+      <Form className="form" onSubmit={(e) => submitForm(e)}>
+        <FormGroup className="code" row>
+          <Label>Code</Label>
+          <Input
+            type="text"
+            name="code"
+            id="code"
+            placeholder="Type the code recieved in your email."
+            invalid={codeEmpty}
+            value={code}
+            onChange={(e) => {
+              setCode(e.target.value);
+            }}
+          />
+          <FormFeedback invalid>
+            Code cannot be empty.
+          </FormFeedback>
+        </FormGroup>
+        <FormGroup className="password" row>
+          <Label for="password">New Password</Label>
+          <Input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="********"
+            invalid={passwordEmpty}
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <FormFeedback invalid>
+            Password cannot be empty.
+          </FormFeedback>
+        </FormGroup>
+        <FormGroup className="password" row>
+          <Label for="password">Re-enter New Password</Label>
+          <Input
+            type="password"
+            name="repassword"
+            id="repassword"
+            placeholder="********"
+            invalid={repasswordEmpty}
+            value={repassword}
+            onChange={(e) => {
+              setRepassword(e.target.value);
+            }}
+          />
+          <FormFeedback invalid>
+            Re-enter Password cannot be empty.
+          </FormFeedback>
+        </FormGroup>
+        <FormGroup row>
+          <Button 
+            className="submitBtn"
+            disabled={loading}
+            >
+              Submit {" "} {loading && 
+              <i class="fas fa-cog fa-spin" />}
+          </Button>
+            {(submissionError !== "") && 
+            (!codeEmpty) && (!passwordEmpty) && (!repasswordEmpty) &&
+            <Alert color="danger">
+              {submissionError}
+            </Alert>
+            }
+        </FormGroup>
+      </Form>
+      <Alert
+        color="info"
+        isOpen={open}
+        toggle={handleClose}
+      >
+        Your password has been resetted successfully. Please sign in with new password.
+      </Alert>
+    </div>
+  );
 }
 
 export default ResetPassword;

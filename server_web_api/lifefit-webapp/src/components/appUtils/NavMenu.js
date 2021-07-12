@@ -49,13 +49,6 @@ export default class NavMenu extends Component {
                 &ensp; 
                 &ensp;
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/contact">Contact Us</NavLink>
-                </NavItem>
-                &ensp; 
-                &ensp;
-                &ensp; 
-                &ensp;
-                <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/about">About Us</NavLink>
                 </NavItem>
                 &ensp; 
