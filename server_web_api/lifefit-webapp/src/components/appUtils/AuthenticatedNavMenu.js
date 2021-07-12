@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import { Collapse, Container, Navbar, 
+  NavbarBrand, NavbarToggler, NavItem, NavLink, UncontrolledDropdown,
+  DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import logo from "./welcomelogo.png";
+import Logout from "../appAuth/Logout";
 //import { LoginMenu } from './api-authorization/LoginMenu';
 import './NavMenu.css';
 
@@ -49,17 +52,33 @@ export default class NavMenu extends Component {
                 &ensp; 
                 &ensp;
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/profile">Profile</NavLink>
+                  <NavLink tag={Link} className="text-white btn btn-primary" to="/contactagent">Contact Agent</NavLink>
                 </NavItem>
                 &ensp; 
                 &ensp;
                 &ensp; 
                 &ensp;
-                <NavItem>
-                  <NavLink tag={Link} className="text-white btn btn-primary" to="/logout">Log Out</NavLink>
-                </NavItem>
-                {/* <LoginMenu>
-                </LoginMenu> */}
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav>
+                    Logged in: {this.props.user_name}
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <DropdownItem>
+                      <NavItem>
+                        <NavLink tag={Link} className="text-dark" to="/profile">View Profile</NavLink>
+                      </NavItem>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <NavItem>
+                        <NavLink tag={Link} className="text-dark" to="/changepassword">Change Password</NavLink>
+                      </NavItem>
+                    </DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem>
+                      <Logout />
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
               </ul>
             </Collapse>
           </Container>
