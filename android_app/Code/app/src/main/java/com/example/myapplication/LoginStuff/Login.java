@@ -57,6 +57,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         editTextPassword = findViewById(R.id.login_password);
         progressBar = findViewById(R.id.progressBarLoginButton);
         buttonText = findViewById(R.id.textViewLoginButton);
+        buttonText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userLogin();
+            }
+        });
     }
 
     //shows welcome screen on arrow back (X) clicked
@@ -97,6 +103,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         if (!checkInput(userName, password)) {
             return;
         } else {
+            Log.i("login", "wait to login" + userName + "  " + password);
             progressBar.setVisibility(View.VISIBLE);
             buttonText.setText("Please Wait");
             Amplify.Auth.signIn(
@@ -105,6 +112,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     this::onLoginSuccess,
                     this::onLoginError
             );
+
+
 
         }
     }
@@ -119,6 +128,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         //progressBar.setVisibility(View.GONE);
         Log.i("LoginProcess", "User Login: " + authSignInResult.toString());
         queryForRemoteData();
+        Intent intent = new Intent(Login.this, homescreen.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private void queryForRemoteData() {
@@ -197,7 +209,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             //When we close and comeback we don't want user to see the login page.
             //So, we need to set the flag.
-            //If the Login is Successfull then take the user to the homescreen.
+            //If the Login is Successfull then take user to the homescreen.
             Log.i("LoginProcess", "UserDetails: Retrieved successfully! " + userInfo.toString());
             Intent intent = new Intent(Login.this, homescreen.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
