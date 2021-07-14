@@ -1,0 +1,146 @@
+- Hourly Data:
+    - Get Activity Levels:
+        Endpoint: https://api.fitbit.com/1/user/[user-id]/activities/date/[date].json
+
+        Method: GET
+
+        Header: Bearer <access_token>
+
+        Parameters:
+            [user-id] => fitbit users’ id
+            [Date] => date for which data is to be collected
+
+        Response Example:
+        {
+            "activities": [
+                {
+                "activityId": 51007,
+                "activityParentId": 90019,
+                "calories": 230,
+                "description": "7mph",
+                "distance": 2.04,
+                "duration": 1097053,
+                "hasStartTime": true,
+                "isFavorite": true,
+                "logId": 1154701,
+                "name": "Treadmill, 0% Incline",
+                "startTime": "00:25",
+                "steps": 3783
+                }
+            ],
+            "goals": {
+                "caloriesOut": 2826,
+                "distance": 8.05,
+                "floors": 150,
+                "steps": 10000
+            },
+            "summary": {
+                "activityCalories": 230,
+                "caloriesBMR": 1913,
+                "caloriesOut": 2143,
+                "distances": [
+                { "activity": "tracker", "distance": 1.32 },
+                { "activity": "loggedActivities", "distance": 0 },
+                { "activity": "total", "distance": 1.32 },
+                { "activity": "veryActive", "distance": 0.51 },
+                { "activity": "moderatelyActive", "distance": 0.51 },
+                { "activity": "lightlyActive", "distance": 0.51 },
+                { "activity": "sedentaryActive", "distance": 0.51 },
+                { "activity": "Treadmill, 0% Incline", "distance": 3.28 }
+                ],
+                "elevation": 48.77,
+                "fairlyActiveMinutes": 0,
+                "floors": 16,
+                "lightlyActiveMinutes": 0,
+                "marginalCalories": 200,
+                "sedentaryMinutes": 1166,
+                "steps": 0,
+                "veryActiveMinutes": 0
+                }
+            }
+
+        Process to retrieve data from this call:
+            result = response.json()
+            ------ write headers to csv file as: csv_writer.writerow(‘calories’, ‘caloriesLevel’, ‘caloriesMets’, ‘steps’, ‘distance’, ‘floors’, ‘elevation’, ‘heartRate’, ‘minutesSedentary’, ‘minutesLightlyActive’, ‘minutesFairlyActive’, ‘minutesVeryActive’, activityCalories’, ‘caloriesBMR’) --------------
+
+            result_summary = result[‘summary’]
+
+            activity_levels = [result_summary[‘sedentaryMinutes’], result_summary[‘lightlyActiveMinutes’], result_summary[‘fairlyActiveMinutes’], result_summary[‘veryActiveMinutes’], result_summary[‘activityCalories’], result_summary[‘caloriesBMR’]
+
+    - Get Hoursly data:
+        - Calories:
+            Endpoint: https://api.fitbit.com/1/user/[user-id]/activities/calories/date/[date]/1d/15min.json
+
+            Method: GET
+
+            Header: Bearer <access_token>
+
+            Parameters:
+                [user-id] => fitbit users’ id
+                [Date] => date for which data is to be collected
+
+            Response Example:
+            {
+                "activities": [
+                    {
+                    "activityId": 51007,
+                    "activityParentId": 90019,
+                    "calories": 230,
+                    "description": "7mph",
+                    "distance": 2.04,
+                    "duration": 1097053,
+                    "hasStartTime": true,
+                    "isFavorite": true,
+                    "logId": 1154701,
+                    "name": "Treadmill, 0% Incline",
+                    "startTime": "00:25",
+                    "steps": 3783
+                    }
+                ],
+                "goals": {
+                    "caloriesOut": 2826,
+                    "distance": 8.05,
+                    "floors": 150,
+                    "steps": 10000
+                },
+                "summary": {
+                    "activityCalories": 230,
+                    "caloriesBMR": 1913,
+                    "caloriesOut": 2143,
+                    "distances": [
+                    { "activity": "tracker", "distance": 1.32 },
+                    { "activity": "loggedActivities", "distance": 0 },
+                    { "activity": "total", "distance": 1.32 },
+                    { "activity": "veryActive", "distance": 0.51 },
+                    { "activity": "moderatelyActive", "distance": 0.51 },
+                    { "activity": "lightlyActive", "distance": 0.51 },
+                    { "activity": "sedentaryActive", "distance": 0.51 },
+                    { "activity": "Treadmill, 0% Incline", "distance": 3.28 }
+                    ],
+                    "elevation": 48.77,
+                    "fairlyActiveMinutes": 0,
+                    "floors": 16,
+                    "lightlyActiveMinutes": 0,
+                    "marginalCalories": 200,
+                    "sedentaryMinutes": 1166,
+                    "steps": 0,
+                    "veryActiveMinutes": 0
+                    }
+                }
+
+            Process to retrieve data from this call:
+                result = response.json()
+                ------ write headers to csv file as: csv_writer.writerow(‘calories’, ‘caloriesLevel’, ‘caloriesMets’, ‘steps’, ‘distance’, ‘floors’, ‘elevation’, ‘heartRate’, ‘minutesSedentary’, ‘minutesLightlyActive’, ‘minutesFairlyActive’, ‘minutesVeryActive’, activityCalories’, ‘caloriesBMR’) --------------
+
+                result_summary = result[‘summary’]
+
+                activity_levels = [result_summary[‘sedentaryMinutes’], result_summary[‘lightlyActiveMinutes’], result_summary[‘fairlyActiveMinutes’], result_summary[‘veryActiveMinutes’], result_summary[‘activityCalories’], result_summary[‘caloriesBMR’]
+
+
+
+Steps:
+Distance:
+Floors:
+Elevation
+Heart rate
+Fitbit Data
