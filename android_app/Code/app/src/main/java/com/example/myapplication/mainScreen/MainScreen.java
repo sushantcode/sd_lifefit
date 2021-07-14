@@ -226,7 +226,7 @@ public class MainScreen extends Fragment implements View.OnClickListener, SwipeR
 
             valueCalories.setText(String.valueOf((int) ReadHourlyAllData.HourlyAllData.get(indexOfTodaysData).getTotalCalories()));
 
-            valueHeartRate.setText(String.valueOf((int) ReadHourlyAllData.HourlyAllData.get(indexOfTodaysData).getAverageHeartRate()));
+            valueHeartRate.setText(String.valueOf((int) ReadHourlyAllData.HourlyAllData.get(indexOfTodaysData).getHighHeartRate()));
 
             valueHrActive.setText(String.valueOf(ReadHourlyAllData.HourlyAllData.get(indexOfTodaysData).getHrActive()));
 
