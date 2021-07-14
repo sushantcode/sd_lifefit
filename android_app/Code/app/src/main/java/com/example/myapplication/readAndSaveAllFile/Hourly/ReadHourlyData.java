@@ -39,7 +39,7 @@ public class ReadHourlyData {
                 if (isFirstLine) {
                     isFirstLine = false;
                 } else {
-                    if(tokens.length - 1 >= 0) timeStamp.add(tokens[0].substring(0, 5));
+                    if(tokens.length - 1 >= 0) timeStamp.add(tokens[0].substring(0, 2));
                     switch (callFrom){
                         case "footSteps":
                             if(tokens.length - 1 >= 4) data.add(Double.parseDouble(tokens[4]));
