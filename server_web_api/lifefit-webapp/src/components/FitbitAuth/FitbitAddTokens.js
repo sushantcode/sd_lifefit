@@ -4,13 +4,13 @@ import * as mutations from '../../graphql/mutations';
 import FitbitGetData from './FitbitGetData';
 
 const FitbitAddTokens = (props) => {
-  const [id, setId] = useState("22b3930b-4ff5-4eff-8e63-7b42a214f857");
-  // useEffect(() => { 
-  //   Auth.currentUserInfo()
-  //   .then((data) => {
-  //     setId(data.attributes.sub);
-  //   });
-  // })
+  const [id, setId] = useState("");
+  useEffect(() => { 
+    Auth.currentUserInfo()
+    .then((data) => {
+      setId(data.attributes.sub);
+    });
+  })
   const [error, setError] = useState(null);
   const [access, setAccess] = useState("");
   const [userId, setUserId] = useState("");
