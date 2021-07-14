@@ -209,12 +209,13 @@ public class MainScreen extends Fragment implements View.OnClickListener, SwipeR
     }
 
     private void showHealthScore() {
-        valueScore.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getScore()));
+        valueScore.setText(String.valueOf( "4"));//SharedPrefManager.getInstance(getContext()).getScore()));
     }
 
     private void showTodaysData() {
         // Don't pull data if it doesn't exist
         if (ReadHourlyAllData.HourlyAllData.size() > 0) {
+            showHealthScore();
             updateHealthScoreProgress();
 
             updateFootStepsProgress();
