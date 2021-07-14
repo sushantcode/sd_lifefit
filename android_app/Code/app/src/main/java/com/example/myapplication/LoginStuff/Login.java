@@ -72,7 +72,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     /**
-     * checks user enter input
+     * checks user enter input for
      * @return 'true' if field is not empty, 'false' if empty
      */
     private Boolean checkInput(String email, String password) {
