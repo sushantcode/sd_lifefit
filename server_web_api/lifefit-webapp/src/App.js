@@ -38,7 +38,7 @@ function App() {
           <Switch>
               <UnprotectedRoutes exact path="/" component={Welcome} isAuth={isAuth} />
               <ProtectedRoutes path="/syncfitbit" component={FitbitAuthentication} isAuth={isAuth} />
-              <ProtectedRoutes path="/fitbitcallback" component={FitbitCallback} isAuth={isAuth} />
+              <UnprotectedRoutes path="/fitbitcallback" component={FitbitCallback} isAuth={isAuth} />
               <UnprotectedRoutes path="/login" component={Login} isAuth={isAuth} />
               <UnprotectedRoutes path="/signup" component={Signup} isAuth={isAuth} />
               <ProtectedRoutes path="/dashboard" component={Dashboard} isAuth={isAuth} />
