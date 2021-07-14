@@ -1,5 +1,5 @@
 import Auth from '@aws-amplify/auth';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Form,
   FormFeedback,
@@ -26,9 +26,15 @@ const Login = () => {
   function validateForm() {
     if (username.length === 0) {
       setUsernameEmpty(true);
-    } 
+    }
+    else {
+      setUsernameEmpty(false);
+    }
     if (password.length === 0){
       setPasswordEmpty(true);
+    }
+    else {
+      setPasswordEmpty(false);
     }
   }
 
@@ -57,6 +63,9 @@ const Login = () => {
 
   async function resetClicked(e) {
     e.preventDefault();
+    setUsernameEmpty(false);
+    setPasswordEmpty(false);
+    setSubmissionError("")
     if (username !== "") {
       try {
         // Send confirmation code to user's email
