@@ -81,7 +81,7 @@ public class MainScreen extends Fragment implements View.OnClickListener, SwipeR
         view = inflater.inflate(R.layout.fragment_mainscreen, container, false);
 
         /** ///////////////////////////////////////////////////////////////////
-         //  initialize the refresh layout and set clickListener             //
+         //  initialize the refresh layout and set clickListener    s         //
          ///////////////////////////////////////////////////////////////////*/
         refresh = view.findViewById(R.id.pullTORefreshLayout);
         refresh.setOnRefreshListener(this);
@@ -209,12 +209,13 @@ public class MainScreen extends Fragment implements View.OnClickListener, SwipeR
     }
 
     private void showHealthScore() {
-        valueScore.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getScore()));
+        valueScore.setText(String.valueOf( "4"));//SharedPrefManager.getInstance(getContext()).getScore()));
     }
 
     private void showTodaysData() {
         // Don't pull data if it doesn't exist
         if (ReadHourlyAllData.HourlyAllData.size() > 0) {
+            showHealthScore();
             updateHealthScoreProgress();
 
             updateFootStepsProgress();
@@ -225,7 +226,7 @@ public class MainScreen extends Fragment implements View.OnClickListener, SwipeR
 
             valueCalories.setText(String.valueOf((int) ReadHourlyAllData.HourlyAllData.get(indexOfTodaysData).getTotalCalories()));
 
-            valueHeartRate.setText(String.valueOf((int) ReadHourlyAllData.HourlyAllData.get(indexOfTodaysData).getAverageHeartRate()));
+            valueHeartRate.setText(String.valueOf((int) ReadHourlyAllData.HourlyAllData.get(indexOfTodaysData).getHighHeartRate()));
 
             valueHrActive.setText(String.valueOf(ReadHourlyAllData.HourlyAllData.get(indexOfTodaysData).getHrActive()));
 
