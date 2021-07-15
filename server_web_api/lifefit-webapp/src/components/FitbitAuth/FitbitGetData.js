@@ -55,13 +55,8 @@ const FitbitGetData = (props) => {
   else {
     return (
       <FitbitAddAge
-      age={age} />
-      // <div>
-      //   <p>
-      //   Success : Your Fitbit Profile is : <br />
-      //   {age}
-      //   </p>
-      // </div>
+      age={age}
+      id={props.id} />
     )
   }
   

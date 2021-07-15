@@ -1,0 +1,67 @@
+.footer {
+  bottom: 0;
+  left: 0;
+  height: auto;
+  width: 100vw;
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+  color: rgb(0, 0, 0);
+
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  box-shadow: 2em;
+}
+
+.footer__socials {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer__social__icon {
+  height: 2rem;
+  object-fit: contain;
+  margin: 0.7rem;
+}
+
+.social__mediaIcon {
+  display: flex;
+}
+
+.footer_descriptions {
+  flex: 1;
+  text-align: center;
+  margin: 0.7rem;
+}
+
+@media (max-width: 600px) {
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+}
+
+.app__promotion {
+  margin: 0.8rem;
+  font-size: 1.4rem;
+  font-weight: 450;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.andriod__logo {
+  height: 2.5rem;
+  object-fit: contain;
+}
+
+.footer > p {
+  font-size: 1.2rem;
+}
