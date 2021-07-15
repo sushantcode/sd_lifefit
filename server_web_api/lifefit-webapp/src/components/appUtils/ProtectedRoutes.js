@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Route, useHistory } from 'react-router-dom';
-import AuthenticatedNavMenu from '../appUtils/AuthenticatedNavMenu';
+import AuthenticatedNavMenu from './AuthenticatedNavMenu';
+import Footer from './Footer';
 import { Container } from 'reactstrap';
 import { Auth } from 'aws-amplify';
 
@@ -36,10 +37,13 @@ const ProtectedRoutes = ({ children, ...rest }) => {
     <>
       <AuthenticatedNavMenu user_name={username} />
       <Container>
-        <Route {...rest}>
-          { auth ? children : null }
-        </Route>
+        <div style={{minHeight: "73vh"}}>
+          <Route {...rest}>
+            { auth ? children : null }
+          </Route>
+        </div>
       </Container>
+      <Footer />
     </>  
   )
 }

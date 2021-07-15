@@ -1,21 +1,22 @@
 import React, {useState, useEffect} from 'react';
 import { API } from 'aws-amplify';
 import * as mutations from '../../graphql/mutations';
+import { Container } from 'reactstrap';
+import congrats from '../pages/congrats.gif';
 
 const FitbitAddAge = (props) => {
   const [error, setError] = useState(null);
-  const uid_sushant = "2cb32af6-acd1-43e1-91fe-db8e3b695ff5";
 
   const updateUser = {
-    id: uid_sushant,
+    id: props.id,
     age: props.age
   }
 
   useEffect(() => {
-    if (props.age) {
+    if (props.id && props.age) {
       addAge();
     } 
-  }, [props.age]);
+  }, [props.id, props.age]);
 
   async function addAge() {
 	  try {
@@ -27,12 +28,17 @@ const FitbitAddAge = (props) => {
   }
 
   return (
-    <div>
-      <p>
-        Congratulations!!! You have successfully synced your Fitbit watch to our app!!! <br />
-        Now, keep wearing your watch all the time and enjoyed the benefit and perks.
-      </p>
-    </div>
+    <Container>
+      <div class="card" style={{margin: 50}}>
+        <img src={congrats} class="card-img-top" alt="congrats" />
+        <div class="card-body text-center">
+          <p class="card-text">
+            Congratulations!!! You have successfully synced your Fitbit watch to our app!!! <br />
+            Now, keep wearing your watch all the time and enjoy the benefit and perks.
+          </p>
+        </div>
+      </div>
+    </Container>
   )
 }
 
