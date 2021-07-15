@@ -1,20 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import { API, Auth } from 'aws-amplify';
+import { API } from 'aws-amplify';
 import * as mutations from '../../graphql/mutations';
 import FitbitGetData from './FitbitGetData';
 
 const FitbitAddTokens = (props) => {
-  const [id, setId] = useState("");
-  useEffect(() => { 
-    Auth.currentUserInfo()
-    .then((data) => {
-      setId(data.attributes.sub);
-    });
-  })
+  
   const [error, setError] = useState(null);
   const [access, setAccess] = useState("");
   const [userId, setUserId] = useState("");
-  const uid = id;
+  var uid = props.id;
 
   var access_token = props.access_token;
   var refresh_token = props.refresh_token;
@@ -30,16 +24,16 @@ const FitbitAddTokens = (props) => {
   }
 
   useEffect(() => {
-    if (newToken.access_token && newToken.refresh_token && newToken.user_id && newToken.expires_in) {
+    if (newToken.id && newToken.access_token && newToken.refresh_token && newToken.user_id && newToken.expires_in) {
       setAccess(access_token);
       setUserId(user_id);
       addTokens();
     }  
-  }, [newToken.access_token, newToken.refresh_token, newToken.user_id, newToken.expires_in]);
+  }, [newToken.id, newToken.access_token, newToken.refresh_token, newToken.user_id, newToken.expires_in]);
 
   async function addTokens() {
 	  try {
-      console.log("User ID:", id);
+      console.log("User ID:", uid);
       const addFitbitToken = await API.graphql({ query: mutations.createFitbitTokens, variables: {input: newToken}});
 	  }
 	  catch (err) {
@@ -60,7 +54,8 @@ const FitbitAddTokens = (props) => {
     return (
       <FitbitGetData
       accessToken={access} 
-      userId={userId} />
+      userId={userId}
+      id = {uid} />
       )
   }
   
