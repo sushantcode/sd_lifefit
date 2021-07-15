@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Route, useHistory } from 'react-router-dom';
-import Navmenu from '../appUtils/NavMenu';
+import Navmenu from './NavMenu';
+import Footer from './Footer';
 import { Container } from 'reactstrap';
 import { Auth } from 'aws-amplify';
 
@@ -33,10 +34,13 @@ const UnprotectedRoutes = ({ children, ...rest }) => {
     <>
       <Navmenu />
       <Container>
-        <Route {...rest}>
-          { auth ? children : null }
-        </Route>
+        <div style={{minHeight: "72vh"}}>
+          <Route {...rest}>
+            { auth ? children : null }
+          </Route>
+        </div>
       </Container>
+      <Footer />
     </>  
   )
 }

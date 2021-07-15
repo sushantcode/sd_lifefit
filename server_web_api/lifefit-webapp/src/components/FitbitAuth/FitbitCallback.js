@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import FitbitAddTokens from './FitbitAddTokens';
+import { Auth } from 'aws-amplify';
 
 const FitbitCallback = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
+  const [id, setId] = useState("");
   //get the url 
   var callbackUrl = window.location.href;
   const code = callbackUrl.split("#")[0].split("=")[1];
@@ -41,6 +43,13 @@ const FitbitCallback = () => {
       })
   }, []);
   
+  useEffect(() => { 
+    Auth.currentUserInfo()
+    .then((data) => {
+      setId(data.attributes.sub);
+    });
+  }, [])
+
   if (error) {
     return (
       <h1>
@@ -61,7 +70,8 @@ const FitbitCallback = () => {
       access_token={items.access_token} 
       refresh_token={items.refresh_token} 
       expires_in={items.expires_in} 
-      user_id={items.user_id} />
+      user_id={items.user_id}
+      id = {id} />
       )
   }
 }

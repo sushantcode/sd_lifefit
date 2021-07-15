@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import FitbitAuthentication from "./components/fitbitAuth/FitbitAuthentication";
 import FitbitCallback from './components/fitbitAuth/FitbitCallback';
 import Login from './components/appAuth/Login';
@@ -16,19 +16,19 @@ import UnprotectedRoutes from './components/appUtils/UnprotectedRoutes';
 function App() {
   
   return (
-      <Router>
-        <Switch>
-            <UnprotectedRoutes exact path="/" component={Welcome} />
-            <ProtectedRoutes path="/syncfitbit" component={FitbitAuthentication} />
-            <UnprotectedRoutes path="/fitbitcallback" component={FitbitCallback} />
-            <UnprotectedRoutes path="/login" component={Login} />
-            <UnprotectedRoutes path="/signup" component={Signup} />
-            <ProtectedRoutes path="/dashboard" component={Dashboard} />
-            <ProtectedRoutes path="/changepassword" component={ChangePassword} />
-            <UnprotectedRoutes path="/about" component={About} />
-            <ProtectedRoutes path="/profile" component={Profile} />
-            <ProtectedRoutes path="/contactagent" component={ContactAgent} />
-        </Switch>
+    <Router>
+      <Switch>
+          <UnprotectedRoutes exact path="/" component={Welcome} />
+          <ProtectedRoutes path="/syncfitbit" component={FitbitAuthentication} />
+          <Route path="/fitbitcallback" component={FitbitCallback} />
+          <UnprotectedRoutes path="/login" component={Login} />
+          <UnprotectedRoutes path="/signup" component={Signup} />
+          <ProtectedRoutes path="/dashboard" component={Dashboard} />
+          <ProtectedRoutes path="/changepassword" component={ChangePassword} />
+          <UnprotectedRoutes path="/about" component={About} />
+          <ProtectedRoutes path="/profile" component={Profile} />
+          <ProtectedRoutes path="/contactagent" component={ContactAgent} />
+      </Switch>
     </Router>
     
   );

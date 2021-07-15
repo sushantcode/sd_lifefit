@@ -38,21 +38,21 @@ export default class NavMenu extends Component {
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
               <ul className="navbar-nav flex-grow">
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/dashboard">Dashboard</NavLink>
+                  <NavLink onClick={this.toggleNavbar} tag={Link} className="text-dark" to="/dashboard">Dashboard</NavLink>
                 </NavItem>
                 &ensp; 
                 &ensp;
                 &ensp; 
                 &ensp;
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/syncfitbit">Sync Fitbit</NavLink>
+                  <NavLink onClick={this.toggleNavbar} tag={Link} className="text-dark" to="/syncfitbit">Sync Fitbit</NavLink>
                 </NavItem>
                 &ensp; 
                 &ensp;
                 &ensp; 
                 &ensp;
                 <NavItem>
-                  <NavLink tag={Link} className="text-white btn btn-primary" to="/contactagent">Contact Agent</NavLink>
+                  <NavLink onClick={this.toggleNavbar} tag={Link} className="text-white btn btn-primary" to="/contactagent">Contact Agent</NavLink>
                 </NavItem>
                 &ensp; 
                 &ensp;
@@ -65,12 +65,12 @@ export default class NavMenu extends Component {
                   <DropdownMenu right>
                     <DropdownItem>
                       <NavItem>
-                        <NavLink tag={Link} className="text-dark" to="/profile">View Profile</NavLink>
+                        <NavLink onClick={this.toggleNavbar} tag={Link} className="text-dark" to="/profile">View Profile</NavLink>
                       </NavItem>
                     </DropdownItem>
                     <DropdownItem>
                       <NavItem>
-                        <NavLink tag={Link} className="text-dark" to="/changepassword">Change Password</NavLink>
+                        <NavLink onClick={this.toggleNavbar} tag={Link} className="text-dark" to="/changepassword">Change Password</NavLink>
                       </NavItem>
                     </DropdownItem>
                     <DropdownItem divider />
