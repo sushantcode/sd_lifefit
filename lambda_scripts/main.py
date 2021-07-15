@@ -34,7 +34,7 @@ table = dynamodb.Table('FitbitTokens-y243fkkjqreqpiwavsqlwjf62a-dev')
 def getDate():
     print("Getting reporting date...")
     today_date = date.today()
-    last_day = today_date - timedelta(days=0)
+    last_day = today_date - timedelta(days=1)
     curr_date = last_day.strftime("%Y-%m-%d")
     print("Reporting date = ", curr_date)
     return curr_date
@@ -62,7 +62,7 @@ if __name__ == "__main__":
         newTokens = getNewTokens(eachRecord['refresh_token'])
         if not newTokens:
             print("Error fetching new tokens. Please check the credentials.")
-            exit()
+            continue
         else:
             print("New tokens received successfully...")
             print("Updating database with new tokens...")
@@ -93,3 +93,4 @@ if __name__ == "__main__":
             os.remove(sleep_file)
             os.remove(hourly_file)
             os.remove(summary_file)
+    print("Importation Successful!!!")
