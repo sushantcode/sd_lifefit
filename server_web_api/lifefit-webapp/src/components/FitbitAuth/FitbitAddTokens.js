@@ -33,12 +33,13 @@ const FitbitAddTokens = (props) => {
     if (newToken.access_token && newToken.refresh_token && newToken.user_id && newToken.expires_in) {
       setAccess(access_token);
       setUserId(user_id);
-      addAge();
+      addTokens();
     }  
   }, [newToken.access_token, newToken.refresh_token, newToken.user_id, newToken.expires_in]);
 
-  async function addAge() {
+  async function addTokens() {
 	  try {
+      console.log("User ID:", id);
       const addFitbitToken = await API.graphql({ query: mutations.createFitbitTokens, variables: {input: newToken}});
 	  }
 	  catch (err) {
@@ -46,7 +47,7 @@ const FitbitAddTokens = (props) => {
 	  }
   }
 
-  if (error && error.errors[0].errorType != "DeltaSyncWriteError") {
+  if (error && error.errors[0].errorType !== "DeltaSyncWriteError") {
     return (
       <div>
         <p>
