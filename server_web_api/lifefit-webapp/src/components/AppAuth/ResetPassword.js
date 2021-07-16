@@ -90,7 +90,7 @@ const ResetPassword = (props) => {
     <div className="reset">
       <h2 style={{textAlign: "center"}}>Reset Password</h2>
       <Form className="form" onSubmit={(e) => submitForm(e)}>
-        <FormGroup className="code" row>
+        <FormGroup className="code">
           <Label>Code</Label>
           <Input
             type="text"
@@ -107,7 +107,7 @@ const ResetPassword = (props) => {
             Code cannot be empty.
           </FormFeedback>
         </FormGroup>
-        <FormGroup className="password" row>
+        <FormGroup className="password">
           <Label for="password">New Password</Label>
           <Input
             type="password"
@@ -124,7 +124,7 @@ const ResetPassword = (props) => {
             Password cannot be empty.
           </FormFeedback>
         </FormGroup>
-        <FormGroup className="password" row>
+        <FormGroup className="password">
           <Label for="password">Re-enter New Password</Label>
           <Input
             type="password"
