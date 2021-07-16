@@ -11,7 +11,7 @@ const ProtectedRoutes = ({ children, ...rest }) => {
   const [username, setUsername] = useState("");
 
   const isAuthenticated = () => {
-
+    // TODO---- Make it false and uncomment bottom code
     setAuth(false);
 
     Auth.currentAuthenticatedUser({
