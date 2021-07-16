@@ -1,5 +1,6 @@
 import Auth from '@aws-amplify/auth';
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
+import { useHistory } from 'react-router-dom';
 import "./Signup.css";
 import {
   Form,
@@ -13,13 +14,12 @@ import {
   Col
 } from 'reactstrap';
 import './Login.css';
-import { Redirect } from 'react-router';
-import ResetPassword from './ResetPassword';
+import ConfirmSignup from './ConfirmSignup';
 
 const Signup = () => {
+  const history = useHistory();
   const [fName, setFName] = useState("");
   const [fNameEmpty, setFNameEmpty] = useState(false);
-  const [mName, setMName] = useState("");
   const [lName, setLName] = useState("");
   const [lNameEmpty, setLNameEmpty] = useState(false);
   const [username, setUsername] = useState("");
@@ -40,6 +40,7 @@ const Signup = () => {
   const [zipEmpty, seZipEmpty] = useState(false);
   const [gender, setGender] = useState("");
   const [genderEmpty, setGenderEmpty] = useState(false);
+  const [user, setUser] = useState(null);
 
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
@@ -47,9 +48,8 @@ const Signup = () => {
   const [zipError, setZipError] = useState(false);
 
   const [submissionError, setSubmissionError] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [hasError, setHasError] = useState(false);
 
   let states = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ];
   
@@ -131,72 +131,74 @@ const Signup = () => {
 
   async function submitForm(e) {
     e.preventDefault();
-    setSubmissionError("")
-    if (fNameEmpty || lNameEmpty || usernameEmpty || emailEmpty || passwordEmpty
-      || phoneEmpty || addressEmpty || stateAbbEmpty || zipEmpty || genderEmpty
-      || emailError || phoneError || zipError) {
-        setHasError(true);
+    setFNameEmpty(false);
+    setLNameEmpty(false);
+    setUsernameEmpty(false);
+    setPasswordEmpty(false);
+    setEmailEmpty(false);
+    setPhoneEmpty(false);
+    setAddressEmpty(false);
+    setCityEmpty(false);
+    setStateAbbEmpty(false);
+    seZipEmpty(false);
+    setGenderEmpty(false);
+    setSubmissionError("");
+    if (fName === "" || lName === "" || username === "" || email === "" || password === ""
+      || phone === "" || address === "" || city === "" || stateAbb === "" || zip === "" || gender === ""
+      || emailError || phoneError || passwordError || zipError) {
+        validateForm();
+    }
+    else {
+      setLoading(true);
+      try{
+        const userData = await Auth.signUp({
+            username,
+            password,
+            attributes: {
+                email
+            }});
+        setUser(userData);
+        console.log(userData);
+        setSuccess(true);
+        setLoading(false);
       }
-      else {
-        setHasError(false);
+      catch (error) {
+        setLoading(false);
+        setSubmissionError(error.message);
+        setUsername("");
+        setPassword("");
+        setFName("");
+        setLName("");
+        setEmail("");
+        setPhone("");
+        setAddress("");
+        setCity("");
+        setStateAbb("");
+        setZip("");
+        setGender("");
       }
-    // if (username === '' || password === '') {
-    //   validateForm();
-    // }
-    // else {
-    //   setLoading(true);
-    //   try{
-    //     const user = await Auth.signIn(username, password);
-    //     setIsLoggedIn(true);
-    //   }
-    //   catch (error) {
-    //     setLoading(false);
-    //     setSubmissionError(error.message);
-    //     setUsername("");
-    //     setPassword("");
-    //   }
-    // }
+    }
   }
 
-  async function resetClicked(e) {
+  const redirectToLogin = (e) => {
     e.preventDefault();
-    // if (username !== "") {
-    //   try {
-    //     // Send confirmation code to user's email
-    //     await Auth.forgotPassword(username)
-    //     .then(() => {
-    //       setResetPassword(true);
-    //     })
-    //     .catch((err) => {
-    //       if (err.message === "Username/client id combination not found.") {
-    //         setSubmissionError("Username does not exists.")
-    //       }
-    //       else {
-    //         setSubmissionError(err.message);
-    //       }
-    //     });
-    //   }
-    //   catch(err) {
-    //     setSubmissionError(err.message);
-    //   }
-      
-    // }
-    // else {
-    //   setUsernameEmpty(true);
-    // }
+    history.push('/login');
   }
 
-    // if (resetPassword) {
-    //   return (
-    //     <ResetPassword username={username} />
-    //   )
-    // }
-  console.log("State: ", stateAbb)
-  console.log("gender: ", gender)
-
-  if (isLoggedIn) {
+  if (success) {
     return (
-      <Redirect to="/dashboard" />
+      <ConfirmSignup
+        uid={user.userSub}
+        fName={fName}
+        lName={lName}
+        username={username}
+        email={email}
+        phone={phone}
+        address={address}
+        city={city}
+        stateAbb={stateAbb}
+        zip={zip}
+        gender={gender} />
     )
   }
     return (
@@ -205,7 +207,7 @@ const Signup = () => {
         <p>* Must fill all required info.</p>
         <Form className="form" onSubmit={(e) => submitForm(e)}>
           <Row className="name">
-            <Col md={4}>
+            <Col md={6}>
               <FormGroup>
                 <Label for="first">First Name*</Label>
                 <Input 
@@ -222,19 +224,7 @@ const Signup = () => {
                   </FormFeedback>}
               </FormGroup>
             </Col>
-            <Col md={4}>
-              <FormGroup>
-                <Label for="middle">Middle Name</Label>
-                <Input 
-                  type="text" 
-                  name="middle" 
-                  id="middle" 
-                  placeholder="P."
-                  value={mName}
-                  onChange={(e) => setMName(e.target.value)} />
-              </FormGroup>
-            </Col>
-            <Col md={4}>
+            <Col md={6}>
               <FormGroup>
                 <Label for="last">Last Name*</Label>
                 <Input 
@@ -349,6 +339,10 @@ const Signup = () => {
               invalid={addressEmpty}
               value={address}
               onChange={(e) => setAddress(e.target.value)} />
+              {addressEmpty && 
+                <FormFeedback invalid="true">
+                  Address cannot be empty.
+                </FormFeedback>}
           </FormGroup>
           <Row className="cityStateZip">
             <Col md={5}>
@@ -362,6 +356,10 @@ const Signup = () => {
                   invalid={cityEmpty}
                   value={city}
                   onChange={(e) => setCity(e.target.value)} />
+                  {cityEmpty && 
+                  <FormFeedback invalid="true">
+                    City cannot be empty.
+                  </FormFeedback>}
               </FormGroup>
             </Col>
             <Col md={3}>
@@ -376,6 +374,10 @@ const Signup = () => {
                 onChange={(e) => setStateAbb(e.target.value)} >
                 {states}
               </Input>
+              {stateAbbEmpty && 
+                <FormFeedback invalid="true">
+                 Must select a state.
+                </FormFeedback>}
             </FormGroup>
             </Col>
             <Col md={4}>
@@ -429,6 +431,10 @@ const Signup = () => {
                       value="Female"
                       onChange={(e) => setGender(e.target.value)} />{' '}
                       Female
+                      {genderEmpty && 
+                        <FormFeedback invalid="true">
+                          Zip cannot be empty.
+                        </FormFeedback>}
                   </Label>
                 </FormGroup>
               </Col>
@@ -450,20 +456,22 @@ const Signup = () => {
           <FormGroup row>
             <Button 
               className="submitBtn"
-              disabled={loading || hasError}
+              disabled={loading}
               >
                 Submit {" "} {loading && 
                 <i class="fas fa-cog fa-spin" />}
               </Button>
-              {/* {(submissionError !== "") && 
-              (!usernameEmpty) && (!passwordEmpty) &&
+              {(submissionError !== "") && 
+              !fNameEmpty && !lNameEmpty && !usernameEmpty && !emailEmpty && !passwordEmpty
+                && !phoneEmpty && !addressEmpty && !stateAbbEmpty && !zipEmpty && !genderEmpty
+                && !emailError && !phoneError && !zipError &&
               <Alert color="danger">
                 {submissionError}
               </Alert>
-              } */}
+              }
           </FormGroup>
         </Form>
-        <button className="resetBtn btn" onClick={(e) => resetClicked(e)}>
+        <button className="resetBtn btn" onClick={(e) => redirectToLogin(e)}>
             Already a member? Sign in here.
         </button>
       </div>
@@ -471,88 +479,3 @@ const Signup = () => {
 }
 
 export default Signup;
-
-
-
-
-
-
-
-// import React from "react";
-// import "./Signup.css";
-
-// function Signup(props) {
-//   return (
-//     <form className="register">
-//       <p>REGISTER</p>
-
-//       <a href="/login">Already a member? Login here</a>
-//       <div className="field">
-//         <label>Username</label>
-//         <input type="text" placeholder="Username" />
-//       </div>
-
-//       <div className="field">
-//         <label>password</label>
-//         <input type="password" placeholder="password" />
-//       </div>
-
-//       <div className="field">
-//         <label>First Name</label>
-//         <input type="text" placeholder="First Name" />
-//       </div>
-
-//       <div className="field">
-//         <label>Last Name</label>
-//         <input type="text" placeholder="Last Name" />
-//       </div>
-
-//       <div className="field">
-//         <label>Gender</label>
-//         {/* <input type="text" placeholder="Gender" /> */}
-//         <select>
-//           <option value="choose">choose one</option>
-//           <option value="male">Male</option>
-//           <option value="female">Female</option>
-//           <option value="others">Others</option>
-//         </select>
-//       </div>
-
-//       <div className="field">
-//         <label>Phone Number</label>
-//         <input type="Phone" placeholder="Phone Number" />
-//       </div>
-
-//       <div className="field">
-//         <label>Email</label>
-//         <input type="Email" placeholder="Email" />
-//       </div>
-
-//       <div className="field">
-//         <label>Street Address</label>
-//         <input type="Street" placeholder="Street Address" />
-//       </div>
-
-//       <div className="field">
-//         <label>City</label>
-//         <input type="City" placeholder="City" />
-//       </div>
-
-//       <div className="field">
-//         <label>State</label>
-//         <input type="State" placeholder="State" />
-//       </div>
-
-//       <div className="field">
-//         <label>Zipcode</label>
-//         <input type="Zipcode" placeholder="Zipcode" />
-//       </div>
-
-//       <button className="field btn" type="submit">
-//         Register
-//       </button>
-//     </form>
-//   );
-// }
-
-// export default Signup;
