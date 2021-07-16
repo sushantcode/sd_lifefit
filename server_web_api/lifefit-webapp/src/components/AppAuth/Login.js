@@ -107,7 +107,7 @@ const Login = () => {
       <div className="login">
         <h2 style={{textAlign: "center"}}>Sign In</h2>
         <Form className="form" onSubmit={(e) => submitForm(e)}>
-          <FormGroup className="username" row>
+          <FormGroup className="username">
             <Label>Username</Label>
             <Input
               type="text"
@@ -124,7 +124,7 @@ const Login = () => {
               Username cannot be empty.
             </FormFeedback>
           </FormGroup>
-          <FormGroup className="password" row>
+          <FormGroup className="password">
             <Label for="password">Password</Label>
             <Input
               type="password"
