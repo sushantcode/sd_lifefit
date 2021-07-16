@@ -1,4 +1,4 @@
-.reset {
+.confirmSignup {
   border: 2px solid #d3d3d3;
   border-radius: .5em;
   margin-bottom: 80px;
@@ -14,14 +14,20 @@
   padding: 1em;
 }
 
-.username {
+.code,
+.submitBtn {
   margin-bottom: 20px;
 }
 
-.code {
-  margin-bottom: 20px;
+.resetBtn {
+  position: absolute;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
 }
 
-.password {
-  margin-bottom: 20px;
+.resetBtn:hover {
+  font-weight: bold;
 }
