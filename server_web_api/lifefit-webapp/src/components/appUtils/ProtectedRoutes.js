@@ -12,10 +12,10 @@ const ProtectedRoutes = ({ children, ...rest }) => {
 
   const isAuthenticated = () => {
     // TODO---- Make it false and uncomment bottom code
-    setAuth(false);
+    setAuth(true);
 
     Auth.currentAuthenticatedUser({
-      bypassCache: true  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+      bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
     }).then((user) => {
       setAuth(true);
       setUsername(user.username);
