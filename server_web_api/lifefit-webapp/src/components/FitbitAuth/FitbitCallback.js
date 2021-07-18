@@ -46,8 +46,11 @@ const FitbitCallback = () => {
   useEffect(() => { 
     Auth.currentUserInfo()
     .then((data) => {
-      setId(data.attributes.sub);
-    });
+      if (data){
+        setId(data.attributes.sub);
+      }
+    })
+    .catch(err => setError(err));
   }, [])
 
   if (error) {

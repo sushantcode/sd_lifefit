@@ -33,7 +33,6 @@ const FitbitAddTokens = (props) => {
 
   async function addTokens() {
 	  try {
-      console.log("User ID:", uid);
       const addFitbitToken = await API.graphql({ query: mutations.createFitbitTokens, variables: {input: newToken}});
 	  }
 	  catch (err) {
