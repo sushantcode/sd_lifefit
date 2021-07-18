@@ -61,6 +61,7 @@ const ResetPassword = (props) => {
         await Auth.forgotPasswordSubmit(username, code, password)
         .then(() => {
           setOpen(true);
+          setLoading(false);
         })
         .catch((err) => {
           setLoading(false);
