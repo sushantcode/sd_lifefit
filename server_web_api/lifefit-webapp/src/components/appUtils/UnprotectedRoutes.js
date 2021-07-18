@@ -10,9 +10,10 @@ const UnprotectedRoutes = ({ children, ...rest }) => {
   const [auth, setAuth] = useState(false);
 
   const isAuthenticated = () => {
-
+    // TODO---- Make it false and uncomment bottom code
     setAuth(false);
-
+    // TODO ---- Delete this line
+    // redirectToDash();
     Auth.currentSession().then( response => {
         if(response.isValid()) {
           redirectToDash();
