@@ -16,6 +16,7 @@ const UnprotectedRoutes = ({ children, ...rest }) => {
     // redirectToDash();
     Auth.currentSession().then( response => {
         if(response.isValid()) {
+          setAuth(true);
           redirectToDash();
         }
     }).catch((err) => {
