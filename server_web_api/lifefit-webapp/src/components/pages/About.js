@@ -23,23 +23,18 @@ const About = () => {
                 </p1>
                 <hr/>
                 <p2>
-                This is the senior design project named <span className="sponsor">LifeFit sponsored by "State Farm Insurance Company" and UTA-CSE department,</span>  
-                and supervised by Prof. Chris Conly.
+                This is the senior design project named <span className="sponsor">LifeFit sponsored by "State Farm Insurance Company" and UTA-CSE department, </span>  
+                  and supervised by Prof. Chris Conly.
                 </p2>
                 <hr/>
             </header>
-           
-
-
         </section>
-
         <section class="row">
             <div class="col text-center">
               <img src={Statefarm} alt="Image" style={{maxWidth: 400}}/>
             </div>
         </section>
         <hr/>
-
         <div class="description text-center mb-5">
           <p>
           Being a good neighbor is about more than just being there when things go completely wrong.
@@ -53,8 +48,8 @@ const About = () => {
           <hr/>
           <hr/>
           <p>
-          The <span className="version"> first tag (version 2.0)</span>first tag (version 2.0) had been inherited from the<span className="previous_team">Teams Aero</span>  who previously worked on this project. 
-          Any tag after that will be the team<span className="team_name"> SpaceTabs</span>  work on the inherited project.
+          The <span className="version"> first tag (version 2.0) </span>first tag (version 2.0) had been inherited from the <span className="previous_team">Teams Aero</span>  who previously worked on this project. 
+          Any tag after that will be the team <span className="team_name"> SpaceTabs</span>  work on the inherited project.
           </p>
         </div>
     </div>
