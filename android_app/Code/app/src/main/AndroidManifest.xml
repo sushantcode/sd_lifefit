@@ -37,6 +37,7 @@
         <activity
             android:name=".heartRate.HeartRateMoreSpecificDateClicked"
             android:theme="@style/Theme5" />
+
         <activity android:name="com.fitbitsample.FitbitActivity.MainActivity" />
         <activity android:name=".SignOut" />
         <activity android:name=".FitBitActivity" />

@@ -3,7 +3,9 @@ package com.fitbitsample.FitbitActivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
+import android.content.Intent;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +20,7 @@ import com.fitbitsample.FragmentTraceManager.FragmentStack;
 import com.fitbitsample.FragmentTraceManager.FragmentStackHandler;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity   extends AppCompatActivity{
 
     public final String TAG = MainActivity.this.getClass().getSimpleName();
     private ActivityMainBinding activityMainBinding;
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding.toolbarTitle.setText(FitbitDataFormat.capitalizeFirstLetter(title));
     }
 
-    private void checkStatus() {
+    public void checkStatus() {
         //check for previous authorization
         Context context = getApplicationContext();
         AppPreference.init(context);
@@ -52,8 +54,12 @@ public class MainActivity extends AppCompatActivity {
             showLogin();
             //finishAfterTransition();
         } else {
+            Intent i = new Intent();
+            i.setClassName(context.getPackageName(), "com.example.myapplication.homescreen");
+            startActivity(i);
+            Log.i("new", "intent start");
             //show retrieved data from api calls
-            showDashboard();
+            //showDashboard();
         }
     }
 
