@@ -1,6 +1,7 @@
 package com.fitbitsample.ViewFragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -54,6 +55,8 @@ public class ViewFitbitDataFragment extends MainFragment {
         setRetainInstance(true);
         resources = getResources();
         context = getActivity();
+
+
     }
 
     @Nullable
@@ -69,6 +72,9 @@ public class ViewFitbitDataFragment extends MainFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
+        Intent i = new Intent();
+        i.setClassName(context.getPackageName(), "com.example.myapplication.homescreen");
+        startActivity(i);
     }
 
 
