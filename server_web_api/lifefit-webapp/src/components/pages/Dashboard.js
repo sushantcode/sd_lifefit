@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { Auth, API } from 'aws-amplify';
+import { Auth, API, Storage } from 'aws-amplify';
 import * as queries from '../../graphql/queries';
+import { csv } from 'd3';
 
 const Dashboard = () => {
   // const [id, setId] = useState("2cb32af6-acd1-43e1-91fe-db8e3b695ff5");
   // const [score, setScore] = useState(0);
+
+  ////Backend for the score retrieval..............................
+
   // useEffect(() => { 
     // Auth.currentUserInfo()
     // .then((data) => {
@@ -32,6 +36,25 @@ const Dashboard = () => {
   //     console.log("Error occured while querrying for score.")
   //   }
   // }
+  
+
+  //// Backend for the S3 bucket data importation
+
+  // useEffect(() => {
+  //   Storage.get("Date_2021-07-19_User_id_2cb32af6-acd1-43e1-91fe-db8e3b695ff5_fitbitdata.csv")
+  //   .then(data => console.log(data))
+  //   .catch(err => console.log(err))
+  // }, []);
+
+  // useEffect(() => {
+  //   csv('https://mobilebucket.s3.us-east-2.amazonaws.com/Date_2021-07-19_User_id_2cb32af6-acd1-43e1-91fe-db8e3b695ff5_fitbitdata.csv')
+  //   .then(data => {
+  //     console.log(data)
+  //   })
+  //   .catch(err => {
+  //     console.log(err)
+  //   })
+  // })
   
 
   const score = 1;
