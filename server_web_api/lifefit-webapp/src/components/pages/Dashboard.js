@@ -3,10 +3,11 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Auth, API, Storage } from 'aws-amplify';
 import * as queries from '../../graphql/queries';
-import { csv } from 'd3';
 
 const Dashboard = () => {
-  // const [id, setId] = useState("2cb32af6-acd1-43e1-91fe-db8e3b695ff5");
+  var curr_date = new Date().toISOString();
+  curr_date = curr_date.split("T")[0];
+  const [id, setId] = useState("2cb32af6-acd1-43e1-91fe-db8e3b695ff5");
   // const [score, setScore] = useState(0);
 
   ////Backend for the score retrieval..............................
@@ -39,12 +40,17 @@ const Dashboard = () => {
   
 
   //// Backend for the S3 bucket data importation
-
-  // useEffect(() => {
-  //   Storage.get("Date_2021-07-19_User_id_2cb32af6-acd1-43e1-91fe-db8e3b695ff5_fitbitdata.csv")
-  //   .then(data => console.log(data))
-  //   .catch(err => console.log(err))
-  // }, []);
+  var main_url = "http://ec2-3-19-30-128.us-east-2.compute.amazonaws.com:5000/";
+  var path = "getDailyTotal/";
+  var fileName = "Date_" + curr_date + "_User_id_" + id + "_hourlydata.csv";
+  var url = main_url + path + fileName;
+  useEffect(() => {
+    fetch(url, {
+      method: "GET"
+    })
+    .then(data => console.log(data.json()))
+    .catch(err => console.log(err))
+  }, []);
 
   // useEffect(() => {
   //   csv('https://mobilebucket.s3.us-east-2.amazonaws.com/Date_2021-07-19_User_id_2cb32af6-acd1-43e1-91fe-db8e3b695ff5_fitbitdata.csv')
@@ -61,8 +67,7 @@ const Dashboard = () => {
   var text = "";
   var range = "";
   var pathColor = "";
-  var curr_date = new Date().toISOString();
-  curr_date = curr_date.split("T")[0];
+  
   var feedback = "";
 
   const steps_value = "45";
