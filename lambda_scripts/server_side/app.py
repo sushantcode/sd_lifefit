@@ -9,27 +9,7 @@ app = Flask(__name__)
 # Route to retrive the daily summary
 @app.route('/getFitbitSummary/<string:fileName>')
 def retrieveFitbitSummary(fileName):
-    file = open("aws.txt")
-    text = file.readlines()
-    sname = ""
-    reg_name = ""
-    access_key = ""
-    secret_key = ""
-
-    for line in text:
-        line = line.rstrip("\n")
-        linetokens = list(line.split(","))
-        sname = str(linetokens[0])
-        reg_name = str(linetokens[1])
-        access_key = str(linetokens[2])
-        secret_key = str(linetokens[3])
-
-    s3 = boto3.resource(
-        service_name=sname,
-        region_name=reg_name,
-        aws_access_key_id=access_key,
-        aws_secret_access_key=secret_key
-    )
+    s3 = boto3.resource("s3")
 
     try:
         s3.Bucket('mobilebucket').Object(fileName).get()
@@ -76,32 +56,21 @@ def retrieveFitbitSummary(fileName):
 # Function to get total for the day from the hourly data
 @app.route('/getDailyTotal/<string:fileName>')
 def retrieveHourlyData(fileName):
-    file = open("aws.txt")
-    text = file.readlines()
-    sname=""
-    reg_name=""
-    access_key=""
-    secret_key=""
-
-    for line in text:
-        line = line.rstrip("\n")
-        linetokens = list(line.split(","))
-        sname=str(linetokens[0])
-        reg_name=str(linetokens[1])
-        access_key=str(linetokens[2])
-        secret_key=str(linetokens[3])
-
-
-    s3 = boto3.resource(
-        service_name=sname,
-        region_name=reg_name,
-        aws_access_key_id=access_key,
-        aws_secret_access_key=secret_key
-    )
+    s3 = boto3.resource("s3")
+    
     try:
         obj = s3.Bucket('mobilebucket').Object(fileName).get()
     except: # Will go here if no data on S3 for current day
-        HourlyData = [[0], [0], [0], [0], [0], [0], [0], [0], [0], [0]]
+        HourlyData = {
+           "DailyCalories": 0,
+           "DailySteps": 0,
+           "DailyDistance": 0,
+           "DailyFloors": 0,
+           "DailyElevation": 0,
+           "sedentaryMinutes": 0,
+           "ActiveMinutes": 0,
+           "DailyHeartRate": 0
+        }
         return HourlyData
 
     obj = s3.Bucket('mobilebucket').Object(fileName).get()
@@ -186,4 +155,4 @@ def HourlyToDaily(HourlyData):
     return DailyData
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
