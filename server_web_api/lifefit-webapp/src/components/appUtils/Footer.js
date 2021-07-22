@@ -45,7 +45,7 @@ const Footer = () => {
           <div className="footer_descriptions">Copyright 2021 &copy; Team-SpaceTabs | Terms of use | Policies </div>
         </div>
 
-        <p>"Like a good neighbour,State Farm is there."</p>
+        <p className="quote">"Like a good neighbour,State Farm is there."</p>
       </div>
     </>
   )
