@@ -160,6 +160,12 @@ const Dashboard = () => {
     text = score.toString() + "/10";
   }
 
+
+  /*
+    Data block.
+
+  */
+
   return (
     <div className="container">
       <div className="row shadow-lg p-3 mb-2 bg-body rounded">
