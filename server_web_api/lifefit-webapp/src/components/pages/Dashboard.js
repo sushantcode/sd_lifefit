@@ -5,77 +5,93 @@ import { Auth, API, Storage } from 'aws-amplify';
 import * as queries from '../../graphql/queries';
 
 const Dashboard = () => {
-  var curr_date = new Date().toISOString();
-  curr_date = curr_date.split("T")[0];
+  var today = new Date();
+  var curr_date = today.toDateString();
+  var yesterday = new Date(today);
+  yesterday.setDate(yesterday.getDate()-1);
+  var yesterdayList = yesterday.toLocaleDateString("en-US", {year: "numeric", month: "2-digit", day: "2-digit"}).split("/");
+  var yesterdayStr = yesterdayList[2] + "-" + yesterdayList[0] + "-" + yesterdayList[1];
   const [id, setId] = useState("2cb32af6-acd1-43e1-91fe-db8e3b695ff5");
-  // const [score, setScore] = useState(0);
-
+  const [score, setScore] = useState(0);
+  const [steps_value, setSteps] = useState(0);
+  const [miles_value, setMiles] = useState(0);
+  const [calories_value, setCalories] = useState(0);
+  const [heart_value, setHrate] = useState(0);
+  const [sleeps_value, setSleeps] = useState(0);
+  const [active_value, setActive] = useState(0);
   ////Backend for the score retrieval..............................
 
-  // useEffect(() => { 
-    // Auth.currentUserInfo()
-    // .then((data) => {
-    //   if (data){
-    //     setId(data.attributes.sub);
-    //   }
-    // });
-    // if (id !== "") {
-    //   doQuerry(id);
-    // }
-    // console.log("user")
-  //   doQuerry(id)
-  // }, [id])
+  useEffect(() => { 
+    Auth.currentUserInfo()
+    .then((data) => {
+      if (data){
+        setId(data.attributes.sub);
+      }
+    });
+    if (id !== "") {
+      doQuerry(id);
+    }
+    console.log("user")
+    doQuerry(id)
+  }, [id])
 
-  // async function doQuerry(id) {
-  //   console.log(id);
-  //   const userDetails = await API.graphql({ query: queries.getUserDetails, variables: {id: id}});
-  //   if (userDetails.data.getUserDetails) {
-  //     console.log(userDetails.data.getUserDetails.score);
-  //     setScore(userDetails.data.getUserDetails.score)
-  //   }
-  //   else {
-  //     console.log("Error occured while querrying for score.")
-  //   }
-  // }
+  async function doQuerry(id) {
+    console.log(id);
+    const userDetails = await API.graphql({ query: queries.getUserDetails, variables: {id: id}});
+    if (userDetails.data.getUserDetails) {
+      console.log(userDetails.data.getUserDetails.score);
+      setScore(userDetails.data.getUserDetails.score)
+    }
+    else {
+      console.log("Error occured while querrying for score.")
+    }
+  }
   
 
   //// Backend for the S3 bucket data importation
-  var main_url = "http://ec2-3-19-30-128.us-east-2.compute.amazonaws.com:5000/";
-  var path = "getDailyTotal/";
-  var fileName = "Date_" + curr_date + "_User_id_" + id + "_hourlydata.csv";
-  var url = main_url + path + fileName;
+
+  //---- To get Daily Total data
   useEffect(() => {
-    fetch(url, {
+    fetch("/getDailyTotal/" + "Date_" + yesterdayStr + "_User_id_" + id + "_hourlydata.csv", {
       method: "GET"
     })
-    .then(data => console.log(data.json()))
+    .then(data => data.json())
+    .then(result => {
+      setCalories(result.DailyCalories < 0.5 ? 0 : Math.round(result.DailyCalories));
+      setActive(result.ActiveMinutes < 0.5 ? 0 : Math.round(result.ActiveMinutes));
+      setHrate(result.DailyHeartRate < 0.5 ? 0 : Math.round(result.DailyHeartRate));
+      setMiles(result.DailyDistance < 0.5 ? 0 : Math.round(result.DailyDistance));
+      setSteps(result.DailySteps < 0.5 ? 0 : Math.round(result.DailySteps));
+    })
     .catch(err => console.log(err))
   }, []);
 
-  // useEffect(() => {
-  //   csv('https://mobilebucket.s3.us-east-2.amazonaws.com/Date_2021-07-19_User_id_2cb32af6-acd1-43e1-91fe-db8e3b695ff5_fitbitdata.csv')
-  //   .then(data => {
-  //     console.log(data)
-  //   })
-  //   .catch(err => {
-  //     console.log(err)
-  //   })
-  // })
+  // ------- to get daily summary
+
+  useEffect(() => {
+    fetch("/getFitbitSummary/" + "Date_" + yesterdayStr + "_User_id_" + id + "_fitbitdata.csv", {
+      method: "GET"
+    })
+    .then(data => data.json())
+    .then(result => {
+      setSleeps(result.SleepData < 0.5 ? 0 : Math.round(result.SleepData));
+    })
+    .catch(err => console.log(err))
+  }, []);
   
 
-  const score = 1;
   var text = "";
   var range = "";
   var pathColor = "";
   
   var feedback = "";
+  var sleep_hour = Math.floor(sleeps_value / 60);
+  var sleep_min = sleeps_value % 60;
+  var sleeps_text = sleep_hour.toString() + " Hr " + sleep_min.toString() + " Mn";
 
-  const steps_value = "45";
-  const miles_value = "45";
-  const calories_value = "45";
-  const heart_value = "45";
-  const sleeps_value = "1 Hr 23 Mn";
-  const active_value = "1 Hr 23 Mn";
+  var active_hour = Math.floor(active_value / 60);
+  var active_min = active_value % 60;
+  var active_text = active_hour.toString() + " Hr " + active_min.toString() + " Mn";
   
 
   // Front-end stuffs .........................................................
@@ -365,7 +381,7 @@ const Dashboard = () => {
                       <CircularProgressbar 
                         background={false} 
                         value={0}
-                        text={sleeps_value}
+                        text={sleeps_text}
                         minValue={0} 
                         maxValue={0}
                         styles={{
@@ -400,7 +416,7 @@ const Dashboard = () => {
                       <CircularProgressbar 
                         background={false} 
                         value={0}
-                        text={active_value}
+                        text={active_text}
                         minValue={0} 
                         maxValue={0}
                         styles={{
