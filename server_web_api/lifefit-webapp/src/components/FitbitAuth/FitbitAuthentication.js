@@ -44,9 +44,6 @@ const FitbitAuthentication = ({history}) => {
           If you recently revoked permission to our app from Fitbit, please <b>contact our admin</b> to resynced your
           watch.
         </p>
-        <a className="btn btn-primary" href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=22C2J2&redirect_uri=https://lifefitapp-19fa8.web.app/fitbitcallback&scope=activity%20nutrition%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight">
-        Login to Fitbit
-        </a>
       </div>
     </div>
 
@@ -63,9 +60,9 @@ const FitbitAuthentication = ({history}) => {
           what and how much benefits and perks you will be getting from Statefarm Insurance company. When you're
           ready click the button below.
         </p>
-        {/* <a className="btn btn-primary" href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=22C2J2&redirect_uri=https://lifefitapp-19fa8.web.app/fitbitcallback&scope=activity%20nutrition%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight">
+        <a className="btn btn-primary" href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=22C2J2&redirect_uri=https://lifefitapp-19fa8.web.app/fitbitcallback&scope=activity%20nutrition%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight">
         Login to Fitbit
-        </a> */}
+        </a>
       </div>
     </div>
   )

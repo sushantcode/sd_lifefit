@@ -52,7 +52,7 @@ const Dashboard = () => {
 
   //---- To get Daily Total data
   useEffect(() => {
-    fetch("/getDailyTotal/" + "Date_" + yesterdayStr + "_User_id_" + id + "_hourlydata.csv", {
+    fetch("http://ec2-3-19-30-128.us-east-2.compute.amazonaws.com:5000/getDailyTotal/" + "Date_" + yesterdayStr + "_User_id_" + id + "_hourlydata.csv", {
       method: "GET"
     })
     .then(data => data.json())
