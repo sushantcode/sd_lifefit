@@ -12,74 +12,80 @@ const Dashboard = () => {
   var yesterdayList = yesterday.toLocaleDateString("en-US", {year: "numeric", month: "2-digit", day: "2-digit"}).split("/");
   var yesterdayStr = yesterdayList[2] + "-" + yesterdayList[0] + "-" + yesterdayList[1];
   const [id, setId] = useState("2cb32af6-acd1-43e1-91fe-db8e3b695ff5");
+
+  /* Uncomment these lines of codes ........ */
+
   const [score, setScore] = useState(0);
-  const [steps_value, setSteps] = useState(0);
-  const [miles_value, setMiles] = useState(0);
-  const [calories_value, setCalories] = useState(0);
-  const [heart_value, setHrate] = useState(0);
-  const [sleeps_value, setSleeps] = useState(0);
-  const [active_value, setActive] = useState(0);
-  ////Backend for the score retrieval..............................
+  const [steps_value, setSteps] = useState("0");
+  const [miles_value, setMiles] = useState("0");
+  const [calories_value, setCalories] = useState("0");
+  const [heart_value, setHrate] = useState("0");
+  const [sleeps_value, setSleeps] = useState("0");
+  const [active_value, setActive] = useState("0");
 
-  useEffect(() => { 
-    Auth.currentUserInfo()
-    .then((data) => {
-      if (data){
-        setId(data.attributes.sub);
-      }
-    });
-    if (id !== "") {
-      doQuerry(id);
-    }
-    console.log("user")
-    doQuerry(id)
-  }, [id])
+  /* B...................ackend for the score retrieval..............................*/
 
-  async function doQuerry(id) {
-    console.log(id);
-    const userDetails = await API.graphql({ query: queries.getUserDetails, variables: {id: id}});
-    if (userDetails.data.getUserDetails) {
-      console.log(userDetails.data.getUserDetails.score);
-      setScore(userDetails.data.getUserDetails.score)
-    }
-    else {
-      console.log("Error occured while querrying for score.")
-    }
-  }
+  // useEffect(() => { 
+  //   Auth.currentUserInfo()
+  //   .then((data) => {
+  //     if (data){
+  //       setId(data.attributes.sub);
+  //     }
+  //   });
+  //   if (id !== "") {
+  //     doQuerry(id);
+  //   }
+  //   console.log("user")
+  //   doQuerry(id)
+  // }, [id])
+
+  // async function doQuerry(id) {
+  //   console.log(id);
+  //   const userDetails = await API.graphql({ query: queries.getUserDetails, variables: {id: id}});
+  //   if (userDetails.data.getUserDetails) {
+  //     console.log(userDetails.data.getUserDetails.score);
+  //     setScore(userDetails.data.getUserDetails.score)
+  //   }
+  //   else {
+  //     console.log("Error occured while querrying for score.")
+  //   }
+  // }
   
 
-  //// Backend for the S3 bucket data importation
+  /* ...................Backend for the S3 bucket data importation...... */
 
-  //---- To get Daily Total data
-  useEffect(() => {
-    fetch("http://ec2-3-19-30-128.us-east-2.compute.amazonaws.com:5000/getDailyTotal/" + "Date_" + yesterdayStr + "_User_id_" + id + "_hourlydata.csv", {
-      method: "GET"
-    })
-    .then(data => data.json())
-    .then(result => {
-      setCalories(result.DailyCalories < 0.5 ? 0 : Math.round(result.DailyCalories));
-      setActive(result.ActiveMinutes < 0.5 ? 0 : Math.round(result.ActiveMinutes));
-      setHrate(result.DailyHeartRate < 0.5 ? 0 : Math.round(result.DailyHeartRate));
-      setMiles(result.DailyDistance < 0.5 ? 0 : Math.round(result.DailyDistance));
-      setSteps(result.DailySteps < 0.5 ? 0 : Math.round(result.DailySteps));
-    })
-    .catch(err => console.log(err))
-  }, []);
+  ////---- To get Daily Total data
 
-  // ------- to get daily summary
+  // useEffect(() => {
+  //   fetch("/getDailyTotal/" + "Date_" + yesterdayStr + "_User_id_" + id + "_hourlydata.csv", {
+  //     method: "GET"
+  //   })
+  //   .then(data => data.json())
+  //   .then(result => {
+  //     setCalories(result.DailyCalories < 0.5 ? "0" : Math.round(result.DailyCalories).toString());
+  //     setActive(result.ActiveMinutes < 0.5 ? "0" : Math.round(result.ActiveMinutes).toString());
+  //     setHrate(result.DailyHeartRate < 0.5 ? "0" : Math.round(result.DailyHeartRate).toString());
+  //     setMiles(result.DailyDistance < 0.5 ? "0" : Math.round(result.DailyDistance).toString());
+  //     setSteps(result.DailySteps < 0.5 ? "0" : Math.round(result.DailySteps).toString());
+  //   })
+  //   .catch(err => console.log(err))
+  // }, []);
 
-  useEffect(() => {
-    fetch("/getFitbitSummary/" + "Date_" + yesterdayStr + "_User_id_" + id + "_fitbitdata.csv", {
-      method: "GET"
-    })
-    .then(data => data.json())
-    .then(result => {
-      setSleeps(result.SleepData < 0.5 ? 0 : Math.round(result.SleepData));
-    })
-    .catch(err => console.log(err))
-  }, []);
-  
+  ///// ------- to get daily summary
 
+  // useEffect(() => {
+  //   fetch("/getFitbitSummary/" + "Date_" + yesterdayStr + "_User_id_" + id + "_fitbitdata.csv", {
+  //     method: "GET"
+  //   })
+  //   .then(data => data.json())
+  //   .then(result => {
+  //     setSleeps(result.SleepData < 0.5 ? 0 : Math.round(result.SleepData).toString());
+  //   })
+  //   .catch(err => console.log(err))
+  // }, []);
+
+
+  /* ...............Frontend/UI Variables............ .... */
   var text = "";
   var range = "";
   var pathColor = "";
@@ -93,8 +99,6 @@ const Dashboard = () => {
   var active_min = active_value % 60;
   var active_text = active_hour.toString() + " Hr " + active_min.toString() + " Mn";
   
-
-  // Front-end stuffs .........................................................
   switch (score) {
     case 0:
       range = "Score not available";
