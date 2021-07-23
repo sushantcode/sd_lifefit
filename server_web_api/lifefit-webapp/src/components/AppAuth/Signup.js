@@ -433,7 +433,7 @@ const Signup = () => {
                       Female
                       {genderEmpty && 
                         <FormFeedback invalid="true">
-                          Zip cannot be empty.
+                          Gender must be selected.
                         </FormFeedback>}
                   </Label>
                 </FormGroup>

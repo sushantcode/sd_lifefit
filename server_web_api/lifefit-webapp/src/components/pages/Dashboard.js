@@ -11,7 +11,7 @@ const Dashboard = () => {
   yesterday.setDate(yesterday.getDate()-2);
   var yesterdayList = yesterday.toLocaleDateString("en-US", {year: "numeric", month: "2-digit", day: "2-digit"}).split("/");
   var yesterdayStr = yesterdayList[2] + "-" + yesterdayList[0] + "-" + yesterdayList[1];
-  const [id, setId] = useState("2cb32af6-acd1-43e1-91fe-db8e3b695ff5");
+  const [id, setId] = useState("");
   const [score, setScore] = useState(0);
   const [steps_value, setSteps] = useState("0");
   const [miles_value, setMiles] = useState("0");
@@ -29,30 +29,30 @@ const Dashboard = () => {
 
   /* ----------------------- Backend for the score retrieval ---------------------------------*/
 
-  // useEffect(() => { 
-  //   Auth.currentUserInfo()
-  //   .then((data) => {
-  //     if (data){
-  //       setId(data.attributes.sub);
-  //     }
-  //   });
-  //   if (id !== "") {
-      // doQuerry(id);
-  //   }
-  //   console.log("user")
-  //   doQuerry(id)
-  // }, [id])
+  useEffect(() => { 
+    Auth.currentUserInfo()
+    .then((data) => {
+      if (data){
+        setId(data.attributes.sub);
+      }
+    });
+    if (id !== "") {
+      doQuerry(id);
+    }
+    console.log("user")
+    doQuerry(id)
+  }, [id])
 
-  // async function doQuerry(id) {
-  //   const userDetails = await API.graphql({ query: queries.getUserDetails, variables: {id: id}});
-  //   if (userDetails.data.getUserDetails) {
-  //     console.log(userDetails.data.getUserDetails.score);
-  //     setScore(userDetails.data.getUserDetails.score)
-  //   }
-  //   else {
-  //     console.log("Error occured while querrying for score.")
-  //   }
-  // }
+  async function doQuerry(id) {
+    const userDetails = await API.graphql({ query: queries.getUserDetails, variables: {id: id}});
+    if (userDetails.data.getUserDetails) {
+      console.log(userDetails.data.getUserDetails.score);
+      setScore(userDetails.data.getUserDetails.score)
+    }
+    else {
+      console.log("Error occured while querrying for score.")
+    }
+  }
   
 
   /*----------------------------------- Backend for the S3 bucket data importation -----------------------*/

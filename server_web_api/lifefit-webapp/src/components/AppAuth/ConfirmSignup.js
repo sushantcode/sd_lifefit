@@ -10,7 +10,7 @@ import {
   Button,
 } from 'reactstrap';
 import './ConfirmSignup.css';
-import Login from './Login';
+import { Redirect } from 'react-router';
 import { API } from 'aws-amplify';
 import * as mutations from '../../graphql/mutations';
 
@@ -25,7 +25,6 @@ const ConfirmSignup = (props) => {
   const [open, setOpen] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState(null);
 
   const userData = {
     id: props.uid,
@@ -105,8 +104,9 @@ const ConfirmSignup = (props) => {
   }
 
   if (success) {
+    setSuccess(false);
     return (
-      <Login />
+      <Redirect to="/login" />
     )
   }
 
