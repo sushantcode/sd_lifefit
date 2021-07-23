@@ -85,7 +85,7 @@ public class MilesMore extends Fragment implements View.OnClickListener {
     private void getSevenDaysData() {
         sevenDaysData = new ArrayList<>();
         xLabel = new ArrayList<>();
-        int days = 7;
+        int days = 1;
 
         for (int i = 0; i < days; i++) {
             sevenDaysData.add(HourlyAllMilesData.get(i).getTotal());
@@ -168,7 +168,7 @@ public class MilesMore extends Fragment implements View.OnClickListener {
         protected void onProgressUpdate(Object[] values) {
 
             // only showing the average graph if there is at least 7 days of data
-            if (HourlyAllMilesData.size() >= 7 && firstPlotSevenDays ) {
+            if (HourlyAllMilesData.size() >= 1 && firstPlotSevenDays ) {
                 getSevenDaysData();
                 PlotChart.barChart(view.getContext(), TAG, barChart, sevenDaysData, xLabel);
 
