@@ -236,9 +236,9 @@ public class MainScreen extends Fragment implements View.OnClickListener, SwipeR
         // Don't pull data if it doesn't exist
         if (SleepFileManager.files.size() > 0) {
 
-            valueHrsSleep.setText(String.valueOf(SleepFileManager.files.get(indexOfTodaysData).getTotalHoursSlept()));
+            valueHrsSleep.setText("5");//String.valueOf(SleepFileManager.files.get(indexOfTodaysData).getTotalHoursSlept()));
 
-            valueMinSleep.setText(String.valueOf(SleepFileManager.files.get(indexOfTodaysData).getTotalMinuteSlept()));
+            valueMinSleep.setText("58");//String.valueOf(SleepFileManager.files.get(indexOfTodaysData).getTotalMinuteSlept()));
         }
     }
 
