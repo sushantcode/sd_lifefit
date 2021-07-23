@@ -61,12 +61,12 @@ def retrieveFitbitSummary(fileName):
             # peak_minutes = row("minutes.3")
 
         Summary = {
-            "idd": idd,
-            "activeScore": activeScore,
-            "efficiency": efficiency,
-            "restingHeartRate": restingHeartRate,
-            "caloriesOut": caloriesOut,
-            "SleepData": SleepData,
+                "idd": idd,
+                "activeScore": activeScore,
+                "efficiency": efficiency,
+                "restingHeartRate": restingHeartRate,
+                "caloriesOut": caloriesOut,
+                "SleepData": SleepData
             }
         return Summary
     except:  # Will go here if no data on S3 for current day
@@ -175,17 +175,31 @@ def HourlyToDaily(uid="", date=""):
         SleepData = fitbitSummary["SleepData"]
     
     result = {
-        "DailyCalories": DailyCalories,
-        "DailySteps": DailySteps,
-        "DailyDistance": DailyDistance,
-        "DailyFloors": DailyFloors,
-        "DailyElevation": DailyElevation,
-        "sedentaryMinutes": HourlyData["sedentaryMinutes"],
-        "ActiveMinutes": HourlyData["lightlyActiveMinutes"] + HourlyData["veryActiveMinutes"] + HourlyData["fairlyActiveMinutes"],
-        "DailyHeartRate": DailyHeartRate,
-        "SleepData": SleepData
+            "DailyCalories": DailyCalories,
+            "DailySteps": DailySteps,
+            "DailyDistance": DailyDistance,
+            "DailyFloors": DailyFloors,
+            "DailyElevation": DailyElevation,
+            "sedentaryMinutes": HourlyData["sedentaryMinutes"],
+            "ActiveMinutes": HourlyData["lightlyActiveMinutes"] + HourlyData["veryActiveMinutes"] + HourlyData["fairlyActiveMinutes"],
+            "DailyHeartRate": DailyHeartRate,
+            "SleepData": SleepData
         }
     return result
+
+@app.route('/getGraphData/<string:uid>/<string:date>')
+def graphData(uid="", date=""):
+    fileName = "Date_" + date + "_User_id_" + uid + "_hourlydata.csv"
+    HourlyData = retrieveHourlyData(fileName)
+    if HourlyData != {}:
+        return {
+                'hourlyCalories': HourlyData['hourlyCalories'],
+                'hourlySteps': HourlyData['hourlySteps'],
+                'hourlyDistance': HourlyData['hourlyDistance'],
+                'hourlyHeartRate': HourlyData['hourlyHeartRate']
+            }
+    else:
+        return None
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

@@ -8,7 +8,7 @@ const Dashboard = () => {
   var today = new Date();
   var curr_date = today.toDateString();
   var yesterday = new Date(today);
-  yesterday.setDate(yesterday.getDate()-1);
+  yesterday.setDate(yesterday.getDate()-2);
   var yesterdayList = yesterday.toLocaleDateString("en-US", {year: "numeric", month: "2-digit", day: "2-digit"}).split("/");
   var yesterdayStr = yesterdayList[2] + "-" + yesterdayList[0] + "-" + yesterdayList[1];
   const [id, setId] = useState("2cb32af6-acd1-43e1-91fe-db8e3b695ff5");
@@ -19,7 +19,15 @@ const Dashboard = () => {
   const [heart_value, setHrate] = useState("0");
   const [sleeps_value, setSleeps] = useState(0);
   const [active_value, setActive] = useState(0);
-  ////Backend for the score retrieval..............................
+
+  // Default value for hourly data
+  const hrDefault = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  const [hrCalories, setHrCalories] = useState(hrDefault);
+  const [hrSteps, setHrSteps] = useState(hrDefault);
+  const [hrMiles, setHrMiles] = useState(hrDefault);
+  const [hrHeartRate, setHrHeartRate] = useState(hrDefault);
+
+  /* ----------------------- Backend for the score retrieval ---------------------------------*/
 
   // useEffect(() => { 
   //   Auth.currentUserInfo()
@@ -29,14 +37,13 @@ const Dashboard = () => {
   //     }
   //   });
   //   if (id !== "") {
-  //     doQuerry(id);
+      // doQuerry(id);
   //   }
   //   console.log("user")
   //   doQuerry(id)
   // }, [id])
 
   // async function doQuerry(id) {
-  //   console.log(id);
   //   const userDetails = await API.graphql({ query: queries.getUserDetails, variables: {id: id}});
   //   if (userDetails.data.getUserDetails) {
   //     console.log(userDetails.data.getUserDetails.score);
@@ -48,9 +55,9 @@ const Dashboard = () => {
   // }
   
 
-  //// Backend for the S3 bucket data importation
+  /*----------------------------------- Backend for the S3 bucket data importation -----------------------*/
 
-  //---- To get Daily Total data
+  /*---------- To get Daily Total data -------------------*/
   useEffect(() => {
     fetch("/getDailyTotal/" + id + "/" + yesterdayStr, {
       method: "GET"
@@ -65,6 +72,27 @@ const Dashboard = () => {
         setSteps(result.DailySteps < 0.5 ? "0" : Math.round(result.DailySteps).toString());
         setSleeps(result.SleepData < 0.5 ? 0 : Math.round(result.SleepData))
       }
+    })
+    .catch(err => console.log(err))
+  }, []);
+
+  /*-------- To get data for graph ---------------------- */
+  useEffect(() => {
+    fetch("/getGraphData/" + id + "/" + yesterdayStr, {
+      method: "GET"
+    })
+    .then(data => data.json())
+    .then(result => {
+      if (result) {
+        setHrCalories(result.hourlyCalories);
+        setHrHeartRate(result.hourlyHeartRate);
+        setHrMiles(result.hourlyDistance );
+        setHrSteps(result.hourlySteps);
+      }
+      console.log("Hr Calories: ", hrCalories);
+      console.log("Hr Heart Rate: ", hrHeartRate);
+      console.log("Hr Miles: ", hrMiles);
+      console.log("Hr Steps: ", hrSteps);
     })
     .catch(err => console.log(err))
   }, []);
