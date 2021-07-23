@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import {Line} from 'react-chartjs-2';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Auth, API, Storage } from 'aws-amplify';
 import * as queries from '../../graphql/queries';
+
 
 const Dashboard = () => {
   var today = new Date();
@@ -98,6 +100,98 @@ const Dashboard = () => {
   var active_hour = Math.floor(active_value / 60);
   var active_min = active_value % 60;
   var active_text = active_hour.toString() + " Hr " + active_min.toString() + " Mn";
+
+  
+  /*
+    Data block for graphs
+    
+  */
+
+   // Calories data 
+   var calories_json = {
+      labels: ['12 AM','1 AM', '2 AM', '3 AM', '4 AM', '5 AM', '6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM',
+      '12 PM','1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM', '9 PM', '10 PM', '11 PM'],
+      datasets: [{
+        label: 'Calories',
+        data: [68.57024002075195, 69.47248077392578, 73.53256034851074, 72.74309730529785, 72.63031959533691,
+           71.05140113830566, 76.91596031188965, 125.97525787353516, 92.02847862243652, 86.50226211547852,
+            87.51728057861328, 88.87063980102539, 86.61503982543945, 118.53178215026855, 89.43453979492188, 
+            67.66799926757812, 67.66799926757812, 173.23008346557617, 263.6796417236328, 264.46910095214844, 282.401123046875, 
+            210.67303657531738, 85.82558059692383, 61.4650993347168],
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1,
+        fill: true
+      }]
+   }
+
+   //Steps data
+   var steps_json =  {
+    labels: ['12 AM','1 AM', '2 AM', '3 AM', '4 AM', '5 AM', '6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM',
+    '12 PM','1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM', '9 PM', '10 PM', '11 PM'],
+    datasets: [{
+      label: 'Steps',
+      data: [0, 0, 19, 0, 6, 0, 27, 417, 141, 55, 124, 59, 42, 359, 51, 0, 0, 1088, 2008, 505, 1348, 359, 0, 15],
+      backgroundColor:[        
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)'
+      ] ,
+      borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1,
+      fill: true
+    }]
+ }
+
+ //Heart-rate data
+ var heartrate_json =  {
+  labels: ['12 AM','1 AM', '2 AM', '3 AM', '4 AM', '5 AM', '6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM',
+  '12 PM','1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM', '9 PM', '10 PM', '11 PM'],
+  datasets: [{
+    label: 'Heart Rate',
+    data:[74.25, 78.25, 78.5, 79.0, 79.0, 79.0, 77.75, 91.75, 81.5, 79.25, 78.25, 83.0, 
+      81.75, 86.25, 63.0, 0.0, 0.0, 97.0, 105.25, 115.5, 111.25, 111.75, 102.25, 48.0] ,
+    backgroundColor:[      
+      'rgba(255, 206, 86, 0.2)',
+      'rgba(75, 192, 192, 0.2)',
+      'rgba(153, 102, 255, 0.2)',
+      'rgba(255, 159, 64, 0.2)'
+    ] ,
+    borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+    ],
+    borderWidth: 1,
+    fill: true
+  }]
+}
   
   switch (score) {
     case 0:
@@ -160,11 +254,6 @@ const Dashboard = () => {
     text = score.toString() + "/10";
   }
 
-
-  /*
-    Data block.
-
-  */
 
   return (
     <div className="container">
@@ -459,16 +548,66 @@ const Dashboard = () => {
         <div className="col">
           Graphical representation of Steps
         </div>
+        <div className="graph">
+          <Line
+              data = {steps_json}
+              height = {400}
+              width = {600}
+              options ={{
+                maintainAspectRatio: false, 
+                scales: {
+                  y: {
+                      beginAtZero: true
+                  }
+                }
+              }}
+            />  
+        </div>
+
       </div>
       <div className="row shadow-sm p-3 mb-5 bg-body rounded">
         <div className="col">
           Graphical representation of Calories
+        </div>
+        <div className="graph">   
+               
+          <Line
+            data = {calories_json}
+            height = {400}
+            width = {600}
+            options ={{
+              maintainAspectRatio: false, 
+              scales: {
+                y: {
+                    beginAtZero: true
+                }
+              }
+            }}
+          />  
+           
         </div>
       </div>
       <div className="row shadow-sm p-3 mb-5 bg-body rounded">
         <div className="col">
           Graphical representation of Heart rate
         </div>
+
+        <div className="graph">                 
+               <Line
+                 data = {heartrate_json}
+                 height = {400}
+                 width = {600}
+                 options ={{
+                   maintainAspectRatio: false, 
+                   scales: {
+                     y: {
+                         beginAtZero: true
+                     }
+                   }
+                 }}
+               />  
+                
+             </div>
       </div>
     </div>
   )
