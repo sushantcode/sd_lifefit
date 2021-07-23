@@ -151,15 +151,29 @@ def HourlyToDaily(uid="", date=""):
     fileName1 = "Date_" + date + "_User_id_" + uid + "_hourlydata.csv"
     fileName2 = "Date_" + date + "_User_id_" + uid + "_fitbitdata.csv"
     HourlyData = retrieveHourlyData(fileName1)
-    SleepData = retrieveFitbitSummary(fileName2)
-    DailyCalories = sum(HourlyData["hourlyCalories"])
-    DailySteps = sum(HourlyData["hourlySteps"])
-    DailyDistance = sum(HourlyData["hourlyDistance"])
-    DailyFloors = sum(HourlyData["hourlyFloors"])
-    DailyElevation = sum(HourlyData["hourlyElevation"])
-    DailyHeartRate = sum(HourlyData["hourlyHeartRate"])
-    DailyHeartRate = round(DailyHeartRate/24)
+    fitbitSummary = retrieveFitbitSummary(fileName2)
 
+    DailyCalories = 0
+    DailySteps = 0
+    DailyDistance = 0
+    DailyFloors = 0
+    DailyElevation = 0
+    DailyHeartRate = 0
+    DailyHeartRate = 0
+    SleepData = 0
+
+    if HourlyData != {}:
+        DailyCalories = sum(HourlyData["hourlyCalories"])
+        DailySteps = sum(HourlyData["hourlySteps"])
+        DailyDistance = sum(HourlyData["hourlyDistance"])
+        DailyFloors = sum(HourlyData["hourlyFloors"])
+        DailyElevation = sum(HourlyData["hourlyElevation"])
+        DailyHeartRate = sum(HourlyData["hourlyHeartRate"])
+        DailyHeartRate = round(DailyHeartRate/24)
+    
+    if fitbitSummary != {}:
+        SleepData = fitbitSummary["SleepData"]
+    
     result = {
         "DailyCalories": DailyCalories,
         "DailySteps": DailySteps,
