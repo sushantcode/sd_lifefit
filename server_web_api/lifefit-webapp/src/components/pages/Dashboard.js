@@ -37,22 +37,22 @@ const Dashboard = () => {
   //     }
   //   });
   //   if (id !== "") {
-      doQuerry(id);
+      // doQuerry(id);
   //   }
   //   console.log("user")
   //   doQuerry(id)
   // }, [id])
 
-  async function doQuerry(id) {
-    const userDetails = await API.graphql({ query: queries.getUserDetails, variables: {id: id}});
-    if (userDetails.data.getUserDetails) {
-      console.log(userDetails.data.getUserDetails.score);
-      setScore(userDetails.data.getUserDetails.score)
-    }
-    else {
-      console.log("Error occured while querrying for score.")
-    }
-  }
+  // async function doQuerry(id) {
+  //   const userDetails = await API.graphql({ query: queries.getUserDetails, variables: {id: id}});
+  //   if (userDetails.data.getUserDetails) {
+  //     console.log(userDetails.data.getUserDetails.score);
+  //     setScore(userDetails.data.getUserDetails.score)
+  //   }
+  //   else {
+  //     console.log("Error occured while querrying for score.")
+  //   }
+  // }
   
 
   /*----------------------------------- Backend for the S3 bucket data importation -----------------------*/
