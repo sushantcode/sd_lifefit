@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { Auth, API, Storage } from 'aws-amplify';
+import { Auth, API } from 'aws-amplify';
 import * as queries from '../../graphql/queries';
+import { Line } from 'react-chartjs-2';
 
 const Dashboard = () => {
   var today = new Date();
@@ -44,6 +45,7 @@ const Dashboard = () => {
   }, [id])
 
   async function doQuerry(id) {
+    console.log("UserID", id);
     const userDetails = await API.graphql({ query: queries.getUserDetails, variables: {id: id}});
     if (userDetails.data.getUserDetails) {
       console.log(userDetails.data.getUserDetails.score);
@@ -55,9 +57,9 @@ const Dashboard = () => {
   }
   
 
-  /*----------------------------------- Backend for the S3 bucket data importation -----------------------*/
+  /* ----------------------------------- Backend for the S3 bucket data importation ----------------------- */
 
-  /*---------- To get Daily Total data -------------------*/
+  /* ---------- To get Daily Total data ------------------- */
   useEffect(() => {
     fetch("/getDailyTotal/" + id + "/" + yesterdayStr, {
       method: "GET"
@@ -74,9 +76,9 @@ const Dashboard = () => {
       }
     })
     .catch(err => console.log(err))
-  }, []);
+  }, [id]);
 
-  /*-------- To get data for graph ---------------------- */
+  /* -------- To get data for graph ---------------------- */
   useEffect(() => {
     fetch("/getGraphData/" + id + "/" + yesterdayStr, {
       method: "GET"
@@ -95,7 +97,7 @@ const Dashboard = () => {
       console.log("Hr Steps: ", hrSteps);
     })
     .catch(err => console.log(err))
-  }, []);
+  }, [id]);
   
 
   var text = "";
@@ -465,7 +467,42 @@ const Dashboard = () => {
       </div>
       <div className="row shadow-sm p-3 mb-5 bg-body rounded">
         <div className="col">
-          Graphical representation of Steps
+          <div className="row">
+            <div className="col">
+              <h4>Graphical representation of CALORIES-BURNT</h4>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <Line 
+                data= {{
+                  labels: ['12:00 AM', '01:00 AM', '02:00 AM', '03:00 AM', '04:00 AM', '05:00 AM',
+                          '06:00 AM', '07:00 AM', '08:00 AM', '09:00 AM', '10:00 AM', '11:00 AM',
+                          '12:00 PM', '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM',
+                          '06:00 PM', '07:00 PM', '08:00 PM', '09:00 PM', '10:00 PM', '11:00 PM'],
+                  datasets: [
+                    {
+                      label: 'Amount of Calories Burnt',
+                      data: hrCalories,
+                      fill: false,
+                      backgroundColor: 'rgb(255, 99, 132)',
+                      borderColor: 'rgba(255, 99, 132, 0.2)',
+                    },
+                  ],
+                }}
+                options= {{
+                    scales: {
+                      yAxes: [{
+                          ticks: {
+                            beginAtZero: true,
+                          },
+                        }]
+                    }
+                  }
+                } />
+            </div>
+          </div>
+          
         </div>
       </div>
       <div className="row shadow-sm p-3 mb-5 bg-body rounded">
