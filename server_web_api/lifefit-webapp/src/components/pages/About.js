@@ -46,12 +46,18 @@ const About = () => {
             And we're happy you decided to get to know us better.
           </p>
           <hr/>
+          <div>
+        <form action="https://www.statefarm.com/about-us" target="_blank">
+            <button type="submit" >Learn more...</button>
+        </form>
+        </div>
           <hr/>
           <p>
           The <span className="version"> first tag (version 2.0) </span>first tag (version 2.0) had been inherited from the <span className="previous_team">Teams Aero</span>  who previously worked on this project. 
           Any tag after that will be the team <span className="team_name"> SpaceTabs</span>  work on the inherited project.
           </p>
         </div>
+        <hr/>
     </div>
   </div>
   )
