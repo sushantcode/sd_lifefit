@@ -1,0 +1,19 @@
+.steps:hover {
+  cursor: pointer;
+}
+
+.miles:hover {
+  cursor: pointer;
+}
+
+.calories:hover {
+  cursor: pointer;
+}
+
+.heart-rate:hover {
+  cursor: pointer;
+}
+
+.sleeps:hover {
+  cursor: pointer;
+}
