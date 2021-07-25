@@ -3,19 +3,25 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Auth, API } from 'aws-amplify';
 import * as queries from '../../graphql/queries';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import './Dashboard.css';
 import CaloriesChart from './CaloriesChart';
 import StepsChart from './StepsChart';
 import MilesChart from './MilesChart';
 import HeartRateChart from './HeartRateChart';
+import SleepChart from './SleepChart';
 
 const Dashboard = () => {
   var today = new Date();
   var curr_date = today.toDateString();
   var yesterday = new Date(today);
-  yesterday.setDate(yesterday.getDate()-2);
+  yesterday.setDate(yesterday.getDate()-3);
   var yesterdayList = yesterday.toLocaleDateString("en-US", {year: "numeric", month: "2-digit", day: "2-digit"}).split("/");
   var yesterdayStr = yesterdayList[2] + "-" + yesterdayList[0] + "-" + yesterdayList[1];
-  const [id, setId] = useState("");
+  const [dateInput, setDateInput] = useState(yesterdayStr);
+  const [dateObj, setDateObj] = useState({item: yesterday});
+  const [id, setId] = useState("2cb32af6-acd1-43e1-91fe-db8e3b695ff5");
   const [score, setScore] = useState(0);
   const [steps_value, setSteps] = useState("0");
   const [miles_value, setMiles] = useState("0");
@@ -26,15 +32,37 @@ const Dashboard = () => {
 
   // Default value for hourly data
   const hrDefault = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  const [hrCalories, setHrCalories] = useState([68.57024002075195, 69.47248077392578, 73.53256034851074, 72.74309730529785, 72.63031959533691,
-    71.05140113830566, 76.91596031188965, 125.97525787353516, 92.02847862243652, 86.50226211547852,
-     87.51728057861328, 88.87063980102539, 86.61503982543945, 118.53178215026855, 89.43453979492188, 
-     67.66799926757812, 67.66799926757812, 173.23008346557617, 263.6796417236328, 264.46910095214844, 282.401123046875, 
-     210.67303657531738, 85.82558059692383, 61.4650993347168]);
-  const [hrSteps, setHrSteps] = useState([0, 0, 19, 0, 6, 0, 27, 417, 141, 55, 124, 59, 42, 359, 51, 0, 0, 1088, 2008, 505, 1348, 359, 0, 15]);
-  const [hrMiles, setHrMiles] = useState([0.0, 0.0, 0.0131000000983475, 0.0, 0.0041000000201165, 0.0, 0.0185000000055878, 0.2887999992817639, 0.0975000001490115, 0.0378999998793004, 0.0858999993652104, 0.040799999609589396, 0.0289999991655349, 0.24880000483244652, 0.0353999994695186, 0.0, 0.0, 0.7279000207781791, 1.39]);
-  const [hrHeartRate, setHrHeartRate] = useState([74.25, 78.25, 78.5, 79.0, 79.0, 79.0, 77.75, 91.75, 81.5, 79.25, 78.25, 83.0, 
-    81.75, 86.25, 63.0, 0.0, 0.0, 97.0, 105.25, 115.5, 111.25, 111.75, 102.25, 48.0]);
+  const [hrCalories, setHrCalories] = useState(hrDefault);
+
+  const [hrSteps, setHrSteps] = useState(hrDefault);
+
+  const [hrMiles, setHrMiles] = useState(hrDefault);
+
+  const [hrHeartRate, setHrHeartRate] = useState(hrDefault);
+
+  const [sleepData, setSleepData] = useState([0, 0, 0, 0]);
+
+
+  /* --------------------- Dummy Data for test purpose -------------------------------------- */
+
+  // const [hrCalories, setHrCalories] = useState([68.57024002075195, 69.47248077392578, 73.53256034851074, 72.74309730529785, 72.63031959533691,
+  //   71.05140113830566, 76.91596031188965, 125.97525787353516, 92.02847862243652, 86.50226211547852,
+  //    87.51728057861328, 88.87063980102539, 86.61503982543945, 118.53178215026855, 89.43453979492188, 
+  //    67.66799926757812, 67.66799926757812, 173.23008346557617, 263.6796417236328, 264.46910095214844, 282.401123046875, 
+  //    210.67303657531738, 85.82558059692383, 61.4650993347168]);
+
+  // const [hrSteps, setHrSteps] = useState([0, 0, 19, 0, 6, 0, 27, 417, 141, 55, 
+  //   124, 59, 42, 359, 51, 0, 0, 1088, 2008, 505, 1348, 359, 0, 15]);
+
+  // const [hrMiles, setHrMiles] = useState([0.0, 0.0, 0.0131000000983475, 0.0, 0.0041000000201165, 
+  //   0.0, 0.0185000000055878, 0.2887999992817639, 0.0975000001490115, 0.0378999998793004, 0.0858999993652104, 
+  //   0.040799999609589396, 0.0289999991655349, 0.24880000483244652, 0.0353999994695186, 0.0, 0.0, 0.7279000207781791, 1.39]);
+
+  // const [hrHeartRate, setHrHeartRate] = useState([74.25, 78.25, 78.5, 79.0, 79.0, 79.0,
+  //    77.75, 91.75, 81.5, 79.25, 78.25, 83.0, 
+  //   81.75, 86.25, 63.0, 0.0, 0.0, 97.0, 105.25, 115.5, 111.25, 111.75, 102.25, 48.0]);
+
+  // const [sleepData, setSleepData] = useState([52, 234, 89, 55]);
 
   // useState hook for type of graph selection variable
   const [graphId, setGraphId] = useState(0);
@@ -71,44 +99,59 @@ const Dashboard = () => {
   /* ----------------------------------- Backend for the S3 bucket data importation ----------------------- */
 
   /* ---------- To get Daily Total data ------------------- */
-  // useEffect(() => {
-  //   fetch("/getDailyTotal/" + id + "/" + yesterdayStr, {
-  //     method: "GET"
-  //   })
-  //   .then(data => data.json())
-  //   .then(result => {
-  //     if (result) {
-  //       setCalories(result.DailyCalories < 0.5 ? "0" : Math.round(result.DailyCalories).toString());
-  //       setActive(result.ActiveMinutes < 0.5 ? 0 : Math.round(result.ActiveMinutes));
-  //       setHrate(result.DailyHeartRate < 0.5 ? "0" : Math.round(result.DailyHeartRate).toString());
-  //       setMiles(result.DailyDistance < 0.5 ? "0" : Math.round(result.DailyDistance).toString());
-  //       setSteps(result.DailySteps < 0.5 ? "0" : Math.round(result.DailySteps).toString());
-  //       setSleeps(result.SleepData < 0.5 ? 0 : Math.round(result.SleepData))
-  //     }
-  //   })
-  //   .catch(err => console.log(err))
-  // }, [id]);
+  useEffect(() => {
+    fetch("/getDailyTotal/" + id + "/" + dateInput, {
+      method: "GET"
+    })
+    .then(data => data.json())
+    .then(result => {
+      if (result) {
+        setCalories(result.DailyCalories < 0.5 ? "0" : Number.parseFloat(result.DailyCalories).toFixed(1).toString());
+        setActive(result.ActiveMinutes < 0.5 ? 0 : Math.round(result.ActiveMinutes));
+        setHrate(result.DailyHeartRate < 0.5 ? "0" : Math.round(result.DailyHeartRate).toString());
+        setMiles(result.DailyDistance < 0.5 ? "0" : Number.parseFloat(result.DailyDistance).toFixed(1).toString());
+        setSteps(result.DailySteps < 0.5 ? "0" : Math.round(result.DailySteps).toString());
+        setSleeps(result.SleepData < 0.5 ? 0 : Math.round(result.SleepData))
+      }
+    })
+    .catch(err => console.log(err))
+  }, [id, dateInput]);
 
   /* -------- To get data for graph ---------------------- */
-  // useEffect(() => {
-  //   fetch("/getGraphData/" + id + "/" + yesterdayStr, {
-  //     method: "GET"
-  //   })
-  //   .then(data => data.json())
-  //   .then(result => {
-  //     if (result) {
-  //       setHrCalories(result.hourlyCalories);
-  //       setHrHeartRate(result.hourlyHeartRate);
-  //       setHrMiles(result.hourlyDistance );
-  //       setHrSteps(result.hourlySteps);
-  //     }
-  //     console.log("Hr Calories: ", hrCalories);
-  //     console.log("Hr Heart Rate: ", hrHeartRate);
-  //     console.log("Hr Miles: ", hrMiles);
-  //     console.log("Hr Steps: ", hrSteps);
-  //   })
-  //   .catch(err => console.log(err))
-  // }, [id]);
+  useEffect(() => {
+    fetch("/getGraphData/" + id + "/" + dateInput, {
+      method: "GET"
+    })
+    .then(data => data.json())
+    .then(result => {
+      if (result) {
+        setHrCalories(result.hourlyCalories);
+        setHrHeartRate(result.hourlyHeartRate);
+        setHrMiles(result.hourlyDistance );
+        setHrSteps(result.hourlySteps);
+      }
+      console.log("Hr Calories: ", hrCalories);
+      console.log("Hr Heart Rate: ", hrHeartRate);
+      console.log("Hr Miles: ", hrMiles);
+      console.log("Hr Steps: ", hrSteps);
+    })
+    .catch(err => console.log(err))
+  }, [id, dateInput]);
+
+  /* -------- To get data for graph ---------------------- */
+  useEffect(() => {
+    fetch("/getSleepsData/" + id + "/" + dateInput, {
+      method: "GET"
+    })
+    .then(data => data.json())
+    .then(result => {
+      if (result) {
+        setSleepData([result.totalWakeMin, result.totalLightMin, result.totalDeepMin, result.totalRemMin]);
+      }
+      console.log("Sleeps Data: ", sleepData);
+    })
+    .catch(err => console.log(err))
+  }, [id, dateInput]);
   
 
   var text = "";
@@ -118,11 +161,11 @@ const Dashboard = () => {
   var feedback = "";
   var sleep_hour = Math.floor(sleeps_value / 60);
   var sleep_min = sleeps_value % 60;
-  var sleeps_text = sleep_hour.toString() + " Hr " + sleep_min.toString() + " Mn";
+  var sleeps_text = sleep_hour.toString() + " H " + sleep_min.toString() + " M";
 
   var active_hour = Math.floor(active_value / 60);
   var active_min = active_value % 60;
-  var active_text = active_hour.toString() + " Hr " + active_min.toString() + " Mn";
+  var active_text = active_hour.toString() + " H " + active_min.toString() + " M";
 
   // Graph UI variables ......................................................
   var labels = ['12:00 AM', '01:00 AM', '02:00 AM', '03:00 AM', '04:00 AM', '05:00 AM',
@@ -142,6 +185,7 @@ const Dashboard = () => {
                       'rgba(153, 102, 255, 1)',
                       'rgba(255, 159, 64, 1)']
 
+  var sleep_labels = ['Wake', 'Light', 'Deep', 'Rem'];
   // Front-end stuffs .........................................................
   switch (score) {
     case 0:
@@ -275,17 +319,27 @@ const Dashboard = () => {
           <div className="row pt-2">
             <div className="col">
               <p className="fw-bold">
-                Your Latest Individual Categorical Health Status: <br />
-                (Click each category to view history)
+                Your Individual Categorical Health Status for {" "}
+                <DatePicker
+                  selected={dateObj.item}
+                  onChange={(value) => {
+                    var dateList = value.toLocaleDateString("en-US", {year: "numeric", month: "2-digit", day: "2-digit"}).split("/");
+                    var dateStr = dateList[2] + "-" + dateList[0] + "-" + dateList[1];
+                    setDateInput(dateStr);
+                    setDateObj({item: value})
+                    }
+                  }
+                /> <br />
+                (Click each category to view details)
               </p>
             </div>
           </div>
           <div className="row pt-2">
-            <div className="col-md-2 steps">
+            <div className="col-md-2 steps" onClick={() => setGraphId(0)}>
               <div className={`border border-3 rounded-3 m-1 ${graphId === 0? "border-primary  border-5" : "border-secondary  border-3"}`}>
                 <div className="row pt-3">
                   <div className="col d-flex justify-content-center">
-                    <div style={{ width: 100, height: 100 }} onClick={() => setGraphId(0)}>
+                    <div style={{ width: 100, height: 100 }}>
                       <CircularProgressbar 
                         background={false} 
                         value={0}
@@ -316,11 +370,11 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <div className="col-md-2 miles">
+            <div className="col-md-2 miles" onClick={() => setGraphId(1)}>
               <div className={`border border-3 rounded-3 m-1 ${graphId === 1? "border-primary  border-5" : "border-secondary  border-3"}`}>
                 <div className="row pt-3">
                   <div className="col d-flex justify-content-center">
-                    <div style={{ width: 100, height: 100 }} onClick={() => setGraphId(1)} >
+                    <div style={{ width: 100, height: 100 }}>
                       <CircularProgressbar 
                         background={false} 
                         value={0}
@@ -351,11 +405,11 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <div className="col-md-2 calories">
+            <div className="col-md-2 calories" onClick={() => setGraphId(2)}>
               <div className={`border border-3 rounded-3 m-1 ${graphId === 2? "border-primary  border-5" : "border-secondary  border-3"}`}>
                 <div className="row pt-3">
                   <div className="col d-flex justify-content-center">
-                    <div style={{ width: 100, height: 100 }} onClick={() => setGraphId(2)}>
+                    <div style={{ width: 100, height: 100 }}>
                       <CircularProgressbar 
                         background={false} 
                         value={0}
@@ -386,11 +440,11 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <div className="col-md-2 heart-rate">
+            <div className="col-md-2 heart-rate" onClick={() => setGraphId(3)}>
               <div className={`border rounded-3 m-1 ${graphId === 3? "border-primary  border-5" : "border-secondary  border-3"}`}>
                 <div className="row pt-3">
                   <div className="col d-flex justify-content-center">
-                    <div style={{ width: 100, height: 100 }} onClick={() => setGraphId(3)}>
+                    <div style={{ width: 100, height: 100 }}>
                       <CircularProgressbar 
                         background={false} 
                         value={0}
@@ -421,8 +475,8 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <div className="col-md-2 sleeps">
-              <div className="border border-secondary border-3 rounded-3 m-1">
+            <div className="col-md-2 sleeps" onClick={() => setGraphId(4)}>
+              <div className={`border rounded-3 m-1 ${graphId === 4? "border-primary  border-5" : "border-secondary  border-3"}`}>
                 <div className="row pt-3">
                   <div className="col d-flex justify-content-center">
                     <div style={{ width: 100, height: 100 }} >
@@ -499,6 +553,7 @@ const Dashboard = () => {
           {graphId === 1 && <MilesChart label={labels} data={hrMiles} background={background} borderColor={borderColor} />}
           {graphId === 2 && <CaloriesChart label={labels} data={hrCalories} background={background} borderColor={borderColor} />}
           {graphId === 3 && <HeartRateChart label={labels} data={hrHeartRate} background={background} borderColor={borderColor} />}
+          {graphId === 4 && <SleepChart label={sleep_labels} data={sleepData} background={background} borderColor={borderColor} />}
         </div>
       </div>
     </div>

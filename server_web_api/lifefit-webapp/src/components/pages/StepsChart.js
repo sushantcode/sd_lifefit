@@ -6,7 +6,14 @@ const StepsChart = (props) => {
     <div>
       <div className="row">
         <div className="col">
-        <Line 
+          <div className='header'>
+            <h2 className='title text-center'>Steps Chart</h2>
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col d-flex justify-content-center">
+          <Line 
             data= {{
               labels: props.label,
               datasets: [
