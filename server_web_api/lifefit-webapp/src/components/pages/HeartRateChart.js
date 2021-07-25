@@ -6,7 +6,14 @@ const HeartRateChart = (props) => {
     <div>
       <div className="row">
         <div className="col">
-        <Line 
+          <div className='header'>
+            <h2 className='title text-center'>Heart Rate Chart</h2>
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <Line 
             data= {{
               labels: props.label,
               datasets: [
