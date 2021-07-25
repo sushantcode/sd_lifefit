@@ -70,7 +70,7 @@ def retrieveFitbitSummary(fileName):
             }
         return Summary
     except:  # Will go here if no data on S3 for current day
-        return {}
+        return None
     
 
 # Function to get total for the day from the hourly data
@@ -142,7 +142,7 @@ def retrieveHourlyData(fileName):
             }
         return hourlyData
     except: # Will go here if no data on S3 for current day
-        return {}
+        return None
     
 
 # this function sums up the hourly daily for each attribute
@@ -159,10 +159,11 @@ def HourlyToDaily(uid="", date=""):
     DailyFloors = 0
     DailyElevation = 0
     DailyHeartRate = 0
-    DailyHeartRate = 0
     SleepData = 0
+    DailySedentaryMinutes = 0
+    DailyActiveMinutes = 0
 
-    if HourlyData != {}:
+    if HourlyData:
         DailyCalories = sum(HourlyData["hourlyCalories"])
         DailySteps = sum(HourlyData["hourlySteps"])
         DailyDistance = sum(HourlyData["hourlyDistance"])
@@ -170,8 +171,10 @@ def HourlyToDaily(uid="", date=""):
         DailyElevation = sum(HourlyData["hourlyElevation"])
         DailyHeartRate = sum(HourlyData["hourlyHeartRate"])
         DailyHeartRate = round(DailyHeartRate/24)
+        DailySedentaryMinutes = HourlyData["sedentaryMinutes"]
+        DailyActiveMinutes = HourlyData["lightlyActiveMinutes"] + HourlyData["veryActiveMinutes"] + HourlyData["fairlyActiveMinutes"]
     
-    if fitbitSummary != {}:
+    if fitbitSummary:
         SleepData = fitbitSummary["SleepData"]
     
     result = {
@@ -180,8 +183,8 @@ def HourlyToDaily(uid="", date=""):
             "DailyDistance": DailyDistance,
             "DailyFloors": DailyFloors,
             "DailyElevation": DailyElevation,
-            "sedentaryMinutes": HourlyData["sedentaryMinutes"],
-            "ActiveMinutes": HourlyData["lightlyActiveMinutes"] + HourlyData["veryActiveMinutes"] + HourlyData["fairlyActiveMinutes"],
+            "sedentaryMinutes": DailySedentaryMinutes,
+            "ActiveMinutes": DailyActiveMinutes,
             "DailyHeartRate": DailyHeartRate,
             "SleepData": SleepData
         }
@@ -191,15 +194,59 @@ def HourlyToDaily(uid="", date=""):
 def graphData(uid="", date=""):
     fileName = "Date_" + date + "_User_id_" + uid + "_hourlydata.csv"
     HourlyData = retrieveHourlyData(fileName)
-    if HourlyData != {}:
+    hourlyCalories = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    hourlySteps = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    hourlyDistance = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    hourlyHeartRate = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    if HourlyData:
+        hourlyCalories = HourlyData['hourlyCalories']
+        hourlySteps = HourlyData['hourlySteps']
+        hourlyDistance = HourlyData['hourlyDistance']
+        hourlyHeartRate = HourlyData['hourlyHeartRate']
+
+    result = {
+            'hourlyCalories': hourlyCalories,
+            'hourlySteps': hourlySteps,
+            'hourlyDistance': hourlyDistance,
+            'hourlyHeartRate': hourlyHeartRate
+        }
+    return result
+
+@app.route('/getSleepsData/<string:uid>/<string:date>')
+def retrieveSleepsData(uid="", date=""):
+    s3 = boto3.resource("s3")
+    fileName = "Date_" + date + "_User_id_" + uid + "_sleepdata.csv"
+    try:
+        obj = s3.Bucket('mobilebucket').Object(fileName).get()
+        foo = pd.read_csv(obj['Body'])
+        wake = []
+        light = []
+        deep = []
+        rem = []
+
+        for index, row in foo.iterrows():
+            if row['level'] == "wake":
+                wake.append(row['seconds'])
+            elif row['level'] == "light":
+                light.append(row['seconds'])
+            elif row['level'] == "deep":
+                deep.append(row['seconds'])
+            elif row['level'] == "rem":
+                rem.append(row['seconds'])
+        
         return {
-                'hourlyCalories': HourlyData['hourlyCalories'],
-                'hourlySteps': HourlyData['hourlySteps'],
-                'hourlyDistance': HourlyData['hourlyDistance'],
-                'hourlyHeartRate': HourlyData['hourlyHeartRate']
-            }
-    else:
-        return None
+            "totalWakeMin": sum(wake)//60,
+            "totalLightMin": sum(light)//60,
+            "totalDeepMin": sum(deep)//60,
+            "totalRemMin": sum(rem)//60
+        }
+    except: # Will go here if no data on S3 for current day
+        return {
+            "totalWakeMin": 0,
+            "totalLightMin": 0,
+            "totalDeepMin": 0,
+            "totalRemMin": 0
+        }
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
