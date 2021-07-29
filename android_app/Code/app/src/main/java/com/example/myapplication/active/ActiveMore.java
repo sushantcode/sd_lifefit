@@ -79,7 +79,7 @@ public class ActiveMore extends Fragment implements View.OnClickListener {
     private void getSevenDaysData() {
         sevenDaysData = new ArrayList<>();
         xLabel = new ArrayList<>();
-        int days = 1;
+        int days = 7;
 
         for (int i = 0; i < days; i++) {
             sevenDaysData.add((double) HourlyAllActiveData.get(i).getHrActive());
@@ -167,7 +167,7 @@ public class ActiveMore extends Fragment implements View.OnClickListener {
         protected void onProgressUpdate(Object[] values) {
 
             // only showing the average graph if there is at least 7 days of data
-            if (HourlyAllActiveData.size() >= 1 && firstPlotSevenDays) {
+            if (HourlyAllActiveData.size() >= 7 && firstPlotSevenDays) {
                 getSevenDaysData();
                 PlotChart.barChart(view.getContext(), TAG, barChart, sevenDaysData, xLabel);
 
