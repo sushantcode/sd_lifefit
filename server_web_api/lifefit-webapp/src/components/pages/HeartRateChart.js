@@ -20,7 +20,7 @@ const HeartRateChart = (props) => {
                 {
                   label: 'Amount of Heart Rate',
                   data: props.data,
-                  fill: true,
+                  fill: false,
                   backgroundColor: props.background,
                   borderColor: props.borderColor,
                   borderWidth: 1
