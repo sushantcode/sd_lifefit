@@ -81,7 +81,7 @@ public class CaloriesMore extends Fragment implements View.OnClickListener {
     private void getSevenDaysData() {
         sevenDaysData = new ArrayList<>();
         xLabel = new ArrayList<>();
-        int days =HourlyAllCaloriesData.size();
+        int days = 7;
 
         for (int i = 0; i < days; i++) {
             sevenDaysData.add(HourlyAllCaloriesData.get(i).getTotal());
@@ -168,7 +168,7 @@ public class CaloriesMore extends Fragment implements View.OnClickListener {
         protected void onProgressUpdate(Object[] values) {
 
             // only showing the average graph if there is at least 7 days of data
-            if (HourlyAllCaloriesData.size() >= 1  && firstPlotSevenDays) {
+            if (HourlyAllCaloriesData.size() >= 7  && firstPlotSevenDays) {
                 Log.i("numOfData", "" + HourlyAllCaloriesData.size());
                 getSevenDaysData();
                 PlotChart.barChart(view.getContext(), TAG, barChart, sevenDaysData, xLabel);
