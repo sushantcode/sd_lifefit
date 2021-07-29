@@ -248,5 +248,36 @@ def retrieveSleepsData(uid="", date=""):
             "totalRemMin": 0
         }
 
+@app.route('/getScoreHistory/<string:uid>')
+def retrieveScoreHistory(uid=""):
+    s3 = boto3.resource("s3")
+    fileName = "User_id_" + uid + "_scorehistory.csv"
+    try:
+        obj = s3.Bucket('mobilebucket').Object(fileName).get()
+        foo = pd.read_csv(obj['Body'])
+        score_history = []
+        date = []
+
+        for index, row in foo.iterrows():
+            score_history.append(row['healthscore'])
+            date.append(row['on_date'])
+        
+        score = round(sum(score_history)/len(score_history))
+        return {
+            "score": score,
+            "data": {
+                "scores": score_history,
+                "dates": date
+            }
+        }
+    except: # Will go here if no data on S3 for current day
+        return {
+            "score": 0,
+            "data": {
+                "scores": [0],
+                "dates": ["YYYY-MM-DD"]
+            }
+        }
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
