@@ -119,7 +119,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         //progressBar.setVisibility(View.GONE);
         Log.i("LoginProcess", "User Login: " + authSignInResult.toString());
         queryForRemoteData();
+
     }
+
+
 
     private void queryForRemoteData() {
         start();
