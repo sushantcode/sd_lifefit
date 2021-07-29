@@ -174,7 +174,7 @@ public class HeartRateMore extends Fragment implements View.OnClickListener {
         protected void onProgressUpdate(Object[] values) {
 
             // only showing the average graph if there is at least 7 days of data
-            if(HourlyAllHeartRateData.size() >= 1 && firstPlotSevenDays){
+            if(HourlyAllHeartRateData.size() >= 7 && firstPlotSevenDays){
                 getThirtyDayAverageData();
                 PlotChart.lineChart(view.getContext(),false, lineChart, thirtyDayAverage, xLabel);
 
