@@ -20,7 +20,7 @@ const CaloriesChart = (props) => {
                 {
                   label: 'Amount of Calories Burnt',
                   data: props.data,
-                  fill: true,
+                  fill: false,
                   backgroundColor: props.background,
                   borderColor: props.borderColor,
                   borderWidth: 1
