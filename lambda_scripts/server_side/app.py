@@ -90,9 +90,9 @@ def retrieveHourlyData(fileName):
         sedentaryMinutes = []
         fairlyActiveMinutes = []
         heartRate = []
-
+        last_heartRate = 70
+        
         for index, row in foo.iterrows():
-
             calories.append(row['calories'])
             steps.append(row['steps'])
             distance.append(row['distance'])
@@ -102,7 +102,11 @@ def retrieveHourlyData(fileName):
             lightlyActiveMinutes.append(row['minutesLightlyActive'])
             sedentaryMinutes.append(row['minutesSedentary'])
             fairlyActiveMinutes.append(row['minutesFairlyActive'])
-            heartRate.append(row['heartRate'])
+            if row['heartRate'] == 0:
+                heartRate.append(last_heartRate)
+            else:
+                heartRate.append(row['heartRate'])
+                last_heartRate = row['heartRate']
 
         hourlyCalories = []
         hourlySteps = []
