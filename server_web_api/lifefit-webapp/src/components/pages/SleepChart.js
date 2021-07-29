@@ -1,5 +1,5 @@
 import React from 'react';
-import { Radar } from 'react-chartjs-2';
+import { PolarArea } from 'react-chartjs-2';
 
 const SleepChart = (props) => {
   return (
@@ -13,14 +13,14 @@ const SleepChart = (props) => {
       </div>
       <div className="row">
         <div className="col d-flex justify-content-center">
-          <Radar 
+          <PolarArea 
             data= {{
               labels: props.label,
               datasets: [
                 {
                   label: 'Sleeping minutes',
                   data: props.data,
-                  fill: true,
+                  fill: false,
                   backgroundColor: props.background,
                   borderColor: props.borderColor,
                   borderWidth: 1

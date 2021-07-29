@@ -1,16 +1,9 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 
-const StepsChart = (props) => {
+const ScoreChart = (props) => {
   return (
     <div>
-      <div className="row">
-        <div className="col">
-          <div className='header'>
-            <h2 className='title text-center'>Steps Chart</h2>
-          </div>
-        </div>
-      </div>
       <div className="row">
         <div className="col d-flex justify-content-center">
           <Line 
@@ -18,9 +11,9 @@ const StepsChart = (props) => {
               labels: props.label,
               datasets: [
                 {
-                  label: 'Amount of Steps Taken',
+                  label: 'Score out of 10',
                   data: props.data,
-                  fill: false,
+                  fill: true,
                   backgroundColor: props.background,
                   borderColor: props.borderColor,
                   borderWidth: 1
@@ -28,19 +21,20 @@ const StepsChart = (props) => {
               ],
             }}
             options= {{
-                scales: {
-                  yAxes: [{
-                      ticks: {
-                        beginAtZero: true,
-                      },
-                    }]
-                }
+              scales: {
+                yAxes: [
+                  {
+                    ticks: {
+                      beginAtZero: true,
+                    }
+                  }
+                ]
               }
-            } />
+            }} />
         </div>
       </div>
     </div>
   )
 }
 
-export default StepsChart
+export default ScoreChart;

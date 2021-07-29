@@ -20,7 +20,7 @@ const MilesChart = (props) => {
                 {
                   label: 'Amount of Miles Walked',
                   data: props.data,
-                  fill: true,
+                  fill: false,
                   backgroundColor: props.background,
                   borderColor: props.borderColor,
                   borderWidth: 1

@@ -11,18 +11,20 @@ import StepsChart from './StepsChart';
 import MilesChart from './MilesChart';
 import HeartRateChart from './HeartRateChart';
 import SleepChart from './SleepChart';
+import ScoreChart from './ScoreChart';
 
 const Dashboard = () => {
   var today = new Date();
   var curr_date = today.toDateString();
   var yesterday = new Date(today);
-  yesterday.setDate(yesterday.getDate()-3);
+  yesterday.setDate(yesterday.getDate()-1);
   var yesterdayList = yesterday.toLocaleDateString("en-US", {year: "numeric", month: "2-digit", day: "2-digit"}).split("/");
   var yesterdayStr = yesterdayList[2] + "-" + yesterdayList[0] + "-" + yesterdayList[1];
   const [dateInput, setDateInput] = useState(yesterdayStr);
   const [dateObj, setDateObj] = useState({item: yesterday});
   const [id, setId] = useState("2cb32af6-acd1-43e1-91fe-db8e3b695ff5");
   const [score, setScore] = useState(0);
+  const [overallScore, setOverallScore] = useState("N/A");
   const [steps_value, setSteps] = useState("0");
   const [miles_value, setMiles] = useState("0");
   const [calories_value, setCalories] = useState("0");
@@ -31,38 +33,47 @@ const Dashboard = () => {
   const [active_value, setActive] = useState(0);
 
   // Default value for hourly data
-  const hrDefault = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  const [hrCalories, setHrCalories] = useState(hrDefault);
 
-  const [hrSteps, setHrSteps] = useState(hrDefault);
 
-  const [hrMiles, setHrMiles] = useState(hrDefault);
+  // const hrDefault = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-  const [hrHeartRate, setHrHeartRate] = useState(hrDefault);
+  // const [hrCalories, setHrCalories] = useState(hrDefault);
 
-  const [sleepData, setSleepData] = useState([0, 0, 0, 0]);
+  // const [hrSteps, setHrSteps] = useState(hrDefault);
+
+  // const [hrMiles, setHrMiles] = useState(hrDefault);
+
+  // const [hrHeartRate, setHrHeartRate] = useState(hrDefault);
+
+  // const [sleepData, setSleepData] = useState([0, 0, 0, 0]);
+
+  // const [scoreHistory, setScoreHistory] = useState({"score": [0], "date": ["YYYY-MM-DD"]});
 
 
   /* --------------------- Dummy Data for test purpose -------------------------------------- */
 
-  // const [hrCalories, setHrCalories] = useState([68.57024002075195, 69.47248077392578, 73.53256034851074, 72.74309730529785, 72.63031959533691,
-  //   71.05140113830566, 76.91596031188965, 125.97525787353516, 92.02847862243652, 86.50226211547852,
-  //    87.51728057861328, 88.87063980102539, 86.61503982543945, 118.53178215026855, 89.43453979492188, 
-  //    67.66799926757812, 67.66799926757812, 173.23008346557617, 263.6796417236328, 264.46910095214844, 282.401123046875, 
-  //    210.67303657531738, 85.82558059692383, 61.4650993347168]);
+  const [hrCalories, setHrCalories] = useState([68.57024002075195, 69.47248077392578, 73.53256034851074, 72.74309730529785, 72.63031959533691,
+    71.05140113830566, 76.91596031188965, 125.97525787353516, 92.02847862243652, 86.50226211547852,
+     87.51728057861328, 88.87063980102539, 86.61503982543945, 118.53178215026855, 89.43453979492188, 
+     67.66799926757812, 67.66799926757812, 173.23008346557617, 263.6796417236328, 264.46910095214844, 282.401123046875, 
+     210.67303657531738, 85.82558059692383, 61.4650993347168]);
 
-  // const [hrSteps, setHrSteps] = useState([0, 0, 19, 0, 6, 0, 27, 417, 141, 55, 
-  //   124, 59, 42, 359, 51, 0, 0, 1088, 2008, 505, 1348, 359, 0, 15]);
+  const [hrSteps, setHrSteps] = useState([0, 0, 19, 0, 6, 0, 27, 417, 141, 55, 
+    124, 59, 42, 359, 51, 0, 0, 1088, 2008, 505, 1348, 359, 0, 15]);
 
-  // const [hrMiles, setHrMiles] = useState([0.0, 0.0, 0.0131000000983475, 0.0, 0.0041000000201165, 
-  //   0.0, 0.0185000000055878, 0.2887999992817639, 0.0975000001490115, 0.0378999998793004, 0.0858999993652104, 
-  //   0.040799999609589396, 0.0289999991655349, 0.24880000483244652, 0.0353999994695186, 0.0, 0.0, 0.7279000207781791, 1.39]);
+  const [hrMiles, setHrMiles] = useState([0.0, 0.0, 0.0131000000983475, 0.0, 0.0041000000201165, 
+    0.0, 0.0185000000055878, 0.2887999992817639, 0.0975000001490115, 0.0378999998793004, 0.0858999993652104, 
+    0.040799999609589396, 0.0289999991655349, 0.24880000483244652, 0.0353999994695186, 0.0, 0.0, 0.7279000207781791, 1.39]);
 
-  // const [hrHeartRate, setHrHeartRate] = useState([74.25, 78.25, 78.5, 79.0, 79.0, 79.0,
-  //    77.75, 91.75, 81.5, 79.25, 78.25, 83.0, 
-  //   81.75, 86.25, 63.0, 0.0, 0.0, 97.0, 105.25, 115.5, 111.25, 111.75, 102.25, 48.0]);
+  const [hrHeartRate, setHrHeartRate] = useState([74.25, 78.25, 78.5, 79.0, 79.0, 79.0,
+     77.75, 91.75, 81.5, 79.25, 78.25, 83.0, 
+    81.75, 86.25, 63.0, 0.0, 0.0, 97.0, 105.25, 115.5, 111.25, 111.75, 102.25, 48.0]);
 
-  // const [sleepData, setSleepData] = useState([52, 234, 89, 55]);
+  const [sleepData, setSleepData] = useState([52, 234, 89, 55]);
+
+  const [scoreHistory, setScoreHistory] = useState({"score": [3, 5, 4, 4], "date": ["2021-07-22", "2021-07-23", "2021-07-24", "2021-07-25"]});
+
+
 
   // useState hook for type of graph selection variable
   const [graphId, setGraphId] = useState(0);
@@ -99,59 +110,76 @@ const Dashboard = () => {
   /* ----------------------------------- Backend for the S3 bucket data importation ----------------------- */
 
   /* ---------- To get Daily Total data ------------------- */
-  useEffect(() => {
-    fetch("/getDailyTotal/" + id + "/" + dateInput, {
-      method: "GET"
-    })
-    .then(data => data.json())
-    .then(result => {
-      if (result) {
-        setCalories(result.DailyCalories < 0.5 ? "0" : Number.parseFloat(result.DailyCalories).toFixed(1).toString());
-        setActive(result.ActiveMinutes < 0.5 ? 0 : Math.round(result.ActiveMinutes));
-        setHrate(result.DailyHeartRate < 0.5 ? "0" : Math.round(result.DailyHeartRate).toString());
-        setMiles(result.DailyDistance < 0.5 ? "0" : Number.parseFloat(result.DailyDistance).toFixed(1).toString());
-        setSteps(result.DailySteps < 0.5 ? "0" : Math.round(result.DailySteps).toString());
-        setSleeps(result.SleepData < 0.5 ? 0 : Math.round(result.SleepData))
-      }
-    })
-    .catch(err => console.log(err))
-  }, [id, dateInput]);
+  // useEffect(() => {
+  //   fetch("/getDailyTotal/" + id + "/" + dateInput, {
+  //     method: "GET"
+  //   })
+  //   .then(data => data.json())
+  //   .then(result => {
+  //     if (result) {
+  //       setCalories(result.DailyCalories < 0.5 ? "0" : Number.parseFloat(result.DailyCalories).toFixed(1).toString());
+  //       setActive(result.ActiveMinutes < 0.5 ? 0 : Math.round(result.ActiveMinutes));
+  //       setHrate(result.DailyHeartRate < 0.5 ? "0" : Math.round(result.DailyHeartRate).toString());
+  //       setMiles(result.DailyDistance < 0.5 ? "0" : Number.parseFloat(result.DailyDistance).toFixed(1).toString());
+  //       setSteps(result.DailySteps < 0.5 ? "0" : Math.round(result.DailySteps).toString());
+  //       setSleeps(result.SleepData < 0.5 ? 0 : Math.round(result.SleepData))
+  //     }
+  //   })
+  //   .catch(err => console.log(err))
+  // }, [id, dateInput]);
 
   /* -------- To get data for graph ---------------------- */
-  useEffect(() => {
-    fetch("/getGraphData/" + id + "/" + dateInput, {
-      method: "GET"
-    })
-    .then(data => data.json())
-    .then(result => {
-      if (result) {
-        setHrCalories(result.hourlyCalories);
-        setHrHeartRate(result.hourlyHeartRate);
-        setHrMiles(result.hourlyDistance );
-        setHrSteps(result.hourlySteps);
-      }
-      console.log("Hr Calories: ", hrCalories);
-      console.log("Hr Heart Rate: ", hrHeartRate);
-      console.log("Hr Miles: ", hrMiles);
-      console.log("Hr Steps: ", hrSteps);
-    })
-    .catch(err => console.log(err))
-  }, [id, dateInput]);
+  // useEffect(() => {
+  //   fetch("/getGraphData/" + id + "/" + dateInput, {
+  //     method: "GET"
+  //   })
+  //   .then(data => data.json())
+  //   .then(result => {
+  //     if (result) {
+  //       setHrCalories(result.hourlyCalories);
+  //       setHrHeartRate(result.hourlyHeartRate);
+  //       setHrMiles(result.hourlyDistance );
+  //       setHrSteps(result.hourlySteps);
+  //     }
+  //     console.log("Hr Calories: ", hrCalories);
+  //     console.log("Hr Heart Rate: ", hrHeartRate);
+  //     console.log("Hr Miles: ", hrMiles);
+  //     console.log("Hr Steps: ", hrSteps);
+  //   })
+  //   .catch(err => console.log(err))
+  // }, [id, dateInput]);
 
   /* -------- To get data for graph ---------------------- */
+  // useEffect(() => {
+  //   fetch("/getSleepsData/" + id + "/" + dateInput, {
+  //     method: "GET"
+  //   })
+  //   .then(data => data.json())
+  //   .then(result => {
+  //     if (result) {
+  //       setSleepData([result.totalWakeMin, result.totalLightMin, result.totalDeepMin, result.totalRemMin]);
+  //     }
+  //     console.log("Sleeps Data: ", sleepData);
+  //   })
+  //   .catch(err => console.log(err))
+  // }, [id, dateInput]);
+
+  /* -------- To get score history data ---------------------- */
   useEffect(() => {
-    fetch("/getSleepsData/" + id + "/" + dateInput, {
+    fetch("/getScoreHistory/" + id, {
       method: "GET"
     })
     .then(data => data.json())
     .then(result => {
       if (result) {
-        setSleepData([result.totalWakeMin, result.totalLightMin, result.totalDeepMin, result.totalRemMin]);
+        if (result.score !== 0) {
+          setOverallScore(result.score.toString());
+        }
+        setScoreHistory(result.data);
       }
-      console.log("Sleeps Data: ", sleepData);
     })
     .catch(err => console.log(err))
-  }, [id, dateInput]);
+  }, [id]);
   
 
   var text = "";
@@ -250,18 +278,18 @@ const Dashboard = () => {
 
   return (
     <div className="container">
-      <div className="row shadow-lg p-3 mb-2 bg-body rounded">
-        <div className="col-md-4 fs-6 mb-2">
+      <div className="row shadow-lg p-3 mb-2 bg-body rounded align-items-center">
+        <div className="col-md-3 fs-6 mb-2">
           <div className="row pt-2 text-center">
               <div className="col">
                 <p className="fw-bold">
-                  As of {curr_date}, your score is:
+                  Your score on {curr_date} is:
                 </p>
               </div>
           </div>
           <div className="row pt-2">
             <div className="col d-flex justify-content-center">
-              <div style={{ width: 180, height: 180 }}>
+              <div style={{ width: 150, height: 150 }}>
               <CircularProgressbar 
               background={true} 
               value={score} 
@@ -301,7 +329,67 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="col-md-8 pt-4">
+        <div className="col-md-4 border mb-2 mt-2">
+          <div className="row pt-2 text-center">
+              <div className="col">
+                <p className="fw-bold">
+                  As of today, your overall score is:
+                </p>
+              </div>
+          </div>
+          <div className="row pt-2 pb-4">
+            <div className="col d-flex justify-content-center">
+              <div style={{ width: 180, height: 180 }}
+                  type="button"
+                  data-bs-toggle="modal" 
+                  data-bs-target="#scoreHistory">
+              <CircularProgressbar 
+              background={true} 
+              value={score} 
+              text={text} 
+              minValue={0} 
+              maxValue={10}
+              styles={{
+                // Customize the root svg element
+                root: {},
+                // Customize the path, i.e. the "completed progress"
+                path: {
+                  // Path color
+                  stroke: pathColor,
+                  // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+                  strokeLinecap: 'round',
+                  // Customize transition animation
+                  transition: 'stroke-dashoffset 0.5s ease 0s',
+                },
+                // Customize the circle behind the path, i.e. the "total progress"
+                trail: {
+                  // Trail color
+                  stroke: '#f2eeed',
+                },
+                // Customize the text
+                text: {
+                  // Text color
+                  fill: '#fffe',
+                  // Text size
+                  fontSize: '16px',
+                  fontWeight: 'bold'
+                },
+                background: {
+                  fill: "rgba(240, 23, 22, 0.8)",
+                },
+              }} />
+              </div>
+            </div>
+          </div>
+          <div className="row pt-2 text-center">
+              <div className="col">
+                <p className="fw-bold">
+                  (Click to view day-to-day score history)
+                </p>
+              </div>
+          </div>
+        </div>
+        <div className="col-md-5 pt-4">
           <div className="card mx-auto" style={{maxWidth: 800}}>
             <h5 className="card-header text-center bg-info">
               What does your score says?
@@ -314,12 +402,12 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="row shadow mb-5 pb-4 bg-body rounded">
+      <div className="row shadow mb-5 pb-4 pt-3 bg-body rounded">
         <div className="col text-center">
           <div className="row pt-2">
             <div className="col">
               <p className="fw-bold">
-                Your Individual Categorical Health Status for {" "}
+                Your Individual Categorical Health Status for {"  "}
                 <DatePicker
                   selected={dateObj.item}
                   onChange={(value) => {
@@ -329,7 +417,7 @@ const Dashboard = () => {
                     setDateObj({item: value})
                     }
                   }
-                /> <br />
+                /> <br /><br />
                 (Click each category to view details)
               </p>
             </div>
@@ -554,6 +642,19 @@ const Dashboard = () => {
           {graphId === 2 && <CaloriesChart label={labels} data={hrCalories} background={background} borderColor={borderColor} />}
           {graphId === 3 && <HeartRateChart label={labels} data={hrHeartRate} background={background} borderColor={borderColor} />}
           {graphId === 4 && <SleepChart label={sleep_labels} data={sleepData} background={background} borderColor={borderColor} />}
+        </div>
+      </div>
+      <div class="modal fade" id="scoreHistory" tabindex="-1" aria-labelledby="scoreHistoryLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Score History</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <ScoreChart label={scoreHistory.date} data={scoreHistory.score} background={background} borderColor={borderColor} />
+            </div>
+          </div>
         </div>
       </div>
     </div>
