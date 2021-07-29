@@ -652,7 +652,7 @@ const Dashboard = () => {
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <ScoreChart label={scoreHistory.date} data={scoreHistory.score} background={background} borderColor={borderColor} />
+              <ScoreChart label={scoreHistory.dates} data={scoreHistory.scores} background={background} borderColor={borderColor} />
             </div>
           </div>
         </div>
