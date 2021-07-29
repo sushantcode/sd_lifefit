@@ -24,7 +24,7 @@ const Dashboard = () => {
   const [dateObj, setDateObj] = useState({item: yesterday});
   const [id, setId] = useState("2cb32af6-acd1-43e1-91fe-db8e3b695ff5");
   const [score, setScore] = useState(0);
-  const [overallScore, setOverallScore] = useState("N/A");
+  const [overallScore, setOverallScore] = useState(0);
   const [steps_value, setSteps] = useState("0");
   const [miles_value, setMiles] = useState("0");
   const [calories_value, setCalories] = useState("0");
@@ -171,7 +171,7 @@ const Dashboard = () => {
     .then(result => {
       if (result) {
         if (result.score !== 0) {
-          setOverallScore(result.score.toString());
+          setOverallScore(result.score);
         }
         setScoreHistory(result.data);
       }
@@ -181,6 +181,7 @@ const Dashboard = () => {
   
 
   var text = "";
+  var overallText = "";
   var range = "";
   var pathColor = "";
   
@@ -274,6 +275,13 @@ const Dashboard = () => {
     text = score.toString() + "/10";
   }
 
+  if (overallScore === 0) {
+    overallText = "N/A";
+  }
+  else {
+    overallText = overallScore.toString() + "/10";
+  }
+
   return (
     <div className="container">
       <div className="row shadow-lg p-3 mb-2 bg-body rounded align-items-center">
@@ -343,8 +351,8 @@ const Dashboard = () => {
                   data-bs-target="#scoreHistory">
               <CircularProgressbar 
               background={true} 
-              value={score} 
-              text={text} 
+              value={overallScore} 
+              text={overallText} 
               minValue={0} 
               maxValue={10}
               styles={{
