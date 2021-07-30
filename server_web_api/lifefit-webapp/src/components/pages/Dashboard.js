@@ -15,9 +15,9 @@ import ScoreChart from './ScoreChart';
 
 const Dashboard = () => {
   var today = new Date();
-  var curr_date = today.toDateString();
   var yesterday = new Date(today);
   yesterday.setDate(yesterday.getDate()-1);
+  var curr_date = yesterday.toDateString();
   var yesterdayList = yesterday.toLocaleDateString("en-US", {year: "numeric", month: "2-digit", day: "2-digit"}).split("/");
   var yesterdayStr = yesterdayList[2] + "-" + yesterdayList[0] + "-" + yesterdayList[1];
   const [dateInput, setDateInput] = useState(yesterdayStr);
@@ -183,6 +183,7 @@ const Dashboard = () => {
   var text = "";
   var overallText = "";
   var range = "";
+  var daily_pathColor = "";
   var pathColor = "";
   
   var feedback = "";
@@ -214,7 +215,7 @@ const Dashboard = () => {
 
   var sleep_labels = ['Wake', 'Light', 'Deep', 'Rem'];
   // Front-end stuffs .........................................................
-  switch (score) {
+  switch (overallScore) {
     case 0:
       range = "Score not available";
       pathColor = "rgba(204, 0, 0, 1)";
@@ -268,6 +269,40 @@ const Dashboard = () => {
       break;
   }
 
+  switch (score) {
+    case 0:
+      daily_pathColor = "rgba(204, 0, 0, 1)";
+      break;
+
+    case 1:
+    case 2:
+      daily_pathColor = "rgba(204, 0, 0, 1)";
+      break;
+
+    case 3:
+    case 4:
+      daily_pathColor = "rgba(204, 0, 0, 0.5)";
+      break;
+
+    case 5:
+    case 6:
+      daily_pathColor = "rgba(139, 240, 96, 0.5)";
+      break;
+    
+    case 7:
+    case 8:
+      daily_pathColor = "rgba(139, 240, 96, 1)";
+      break;
+
+    case 9:
+    case 10:
+      daily_pathColor = "rgba(3, 145, 31, 1)";
+      break;
+  
+    default:
+      break;
+  }
+
   if (score === 0) {
     text = "N/A";
   }
@@ -308,7 +343,7 @@ const Dashboard = () => {
                 // Customize the path, i.e. the "completed progress"
                 path: {
                   // Path color
-                  stroke: pathColor,
+                  stroke: daily_pathColor,
                   // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
                   strokeLinecap: 'round',
                   // Customize transition animation
@@ -335,10 +370,10 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="col-md-4 border mb-2 mt-2">
+        <div className="col-md-4 border border-primary rounded-2 mb-2 mt-2">
           <div className="row pt-2 text-center">
               <div className="col">
-                <p className="fw-bold">
+                <p className="fw-bold fs-5">
                   As of today, your overall score is:
                 </p>
               </div>
@@ -389,7 +424,7 @@ const Dashboard = () => {
           </div>
           <div className="row pt-2 text-center">
               <div className="col">
-                <p className="fw-bold">
+                <p className="fw-bold fs-6">
                   (Click to view day-to-day score history)
                 </p>
               </div>
@@ -401,6 +436,9 @@ const Dashboard = () => {
               What does your score says?
             </h5>
             <div className="card-body text-center">
+              <h5>
+                {range}{" "}!!!
+              </h5>
               <p className="card-text">
                 {feedback}
               </p>
