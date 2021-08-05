@@ -48,7 +48,7 @@ const About = () => {
           <hr/>
           <div>
         <form action="https://www.statefarm.com/about-us" target="_blank">
-            <button type="submit" >Learn more...</button>
+            <button type="submit" style={{backgroundColor:'red', color:'white'}} >Learn more...</button>
         </form>
         </div>
           <hr/>

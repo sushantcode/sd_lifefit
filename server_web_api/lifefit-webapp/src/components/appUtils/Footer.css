@@ -48,6 +48,7 @@
 }
 
 .app__promotion {
+  color:red;
   margin: 0.8rem;
   font-size: 1.4rem;
   font-weight: 450;

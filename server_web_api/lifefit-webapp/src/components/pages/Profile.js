@@ -75,7 +75,7 @@ import { Auth, API } from 'aws-amplify';
 
   return (
     <div className="userProfile">
-      <p className="userProfile__header">User Profile</p>
+      <p className="userProfile__header" style={{color:'red'}}>User Profile</p>
 
       <img
         className="userProfile__image"
@@ -137,7 +137,7 @@ import { Auth, API } from 'aws-amplify';
         <span className="userDetails">
           <span className="userDetails_field">Password:</span>
           <span className="user_value">
-            <a href="/changepassword">change password</a>
+            <a href="/changepassword" style={{color:'red'}}>change password</a>
           </span>
         </span>
       </div>

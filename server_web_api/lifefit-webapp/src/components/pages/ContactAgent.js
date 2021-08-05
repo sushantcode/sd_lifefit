@@ -25,7 +25,7 @@ const ContactAgent = () => {
         backgroundPosition: 'center',
         backgroundSize: "cover",
       }}>
-      <h1 style={{ marginTop: " 25px", textAlign:"center"}}>Contact agent form</h1>
+      <h1 style={{ marginTop: " 25px", textAlign:"center", color:'red'}}>Contact agent form</h1>
       <form className="row" style={{ margin: "25px 85px 75px 100px" }}
         onSubmit={sendEmail}
       >

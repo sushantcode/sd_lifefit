@@ -10,3 +10,11 @@
 .custom-active {
   font-weight: bold;
 }
+
+.text-dark{
+  color:#d62311;
+}
+.btn-primary{
+  background-color: red;
+  border: red;
+}

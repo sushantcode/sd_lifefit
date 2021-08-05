@@ -203,7 +203,7 @@ const Signup = () => {
   }
     return (
       <div className="signup">
-        <h2 style={{textAlign: "center"}}>Sign up</h2>
+        <h2 style={{textAlign: "center", color:"red"}}>Sign up</h2>
         <p>* Must fill all required info.</p>
         <Form className="form" onSubmit={(e) => submitForm(e)}>
           <Row className="name">

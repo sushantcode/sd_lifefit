@@ -15,9 +15,17 @@
 }
 
 .username,
-.password,
+.password{
+  margin-bottom: 20px;
+}
 .submitBtn {
   margin-bottom: 20px;
+  background-color: red;
+}
+
+.submitBtn:hover{
+  font-weight: bold;
+  background-color: rgb(177, 14, 14);
 }
 
 .resetBtn {
@@ -27,8 +35,15 @@
   transform: translate(-50%, -50%);
   background: none;
   border: none;
+  color:red;
 }
 
 .resetBtn:hover {
   font-weight: bold;
+}
+
+.fas,
+.fa-cog,
+.fa-spin{
+  background-color: red;
 }

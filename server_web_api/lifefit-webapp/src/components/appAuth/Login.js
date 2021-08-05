@@ -105,7 +105,7 @@ const Login = () => {
     }
     return (
       <div className="login">
-        <h2 style={{textAlign: "center"}}>Sign In</h2>
+        <h2 style={{textAlign: "center", color:'red'}}>Sign In</h2>
         <Form className="form" onSubmit={(e) => submitForm(e)}>
           <FormGroup className="username">
             <Label>Username</Label>
@@ -147,7 +147,7 @@ const Login = () => {
               disabled={loading}
               >
                 Submit {" "} {loading && 
-                <i class="fas fa-cog fa-spin" />}
+                <i class="fas fa-cog fa-spin"  />}
               </Button>
               {(submissionError !== "") && 
               (!usernameEmpty) && (!passwordEmpty) &&
