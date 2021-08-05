@@ -11,20 +11,20 @@ const UnprotectedRoutes = ({ children, ...rest }) => {
 
   const isAuthenticated = () => {
     // TODO---- Make it false and uncomment bottom code
-    setAuth(false);
+    setAuth(true);
     // TODO ---- Delete this line
-    // redirectToDash();
+    redirectToDash();
 
-    Auth.currentSession().then( response => {
-        if(response.isValid()) {
-          setAuth(true);
-          redirectToDash();
-        }
-      })
-      .catch((err) => {
-          console.log(err)
-      }
-    );
+    // Auth.currentSession().then( response => {
+    //     if(response.isValid()) {
+    //       setAuth(true);
+    //       redirectToDash();
+    //     }
+    //   })
+    //   .catch((err) => {
+    //       console.log(err)
+    //   }
+    // );
   }
 
   const redirectToDash = () => {

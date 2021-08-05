@@ -78,106 +78,106 @@ const Dashboard = () => {
 
   /* ----------------------- Backend for the score retrieval ---------------------------------*/
 
-  useEffect(() => { 
-    Auth.currentUserInfo()
-    .then((data) => {
-      if (data){
-        setId(data.attributes.sub);
-      }
-    });
-    if (id !== "") {
-      doQuerry(id);
-    }
-    console.log("user")
-    doQuerry(id)
-  }, [id])
+  // useEffect(() => { 
+  //   Auth.currentUserInfo()
+  //   .then((data) => {
+  //     if (data){
+  //       setId(data.attributes.sub);
+  //     }
+  //   });
+  //   if (id !== "") {
+  //     doQuerry(id);
+  //   }
+  //   console.log("user")
+  //   doQuerry(id)
+  // }, [id])
 
-  async function doQuerry(id) {
-    console.log("UserID", id);
-    const userDetails = await API.graphql({ query: queries.getUserDetails, variables: {id: id}});
-    if (userDetails.data.getUserDetails) {
-      console.log(userDetails.data.getUserDetails.score);
-      setScore(userDetails.data.getUserDetails.score)
-    }
-    else {
-      console.log("Error occured while querrying for score.")
-    }
-  }
+  // async function doQuerry(id) {
+  //   console.log("UserID", id);
+  //   const userDetails = await API.graphql({ query: queries.getUserDetails, variables: {id: id}});
+  //   if (userDetails.data.getUserDetails) {
+  //     console.log(userDetails.data.getUserDetails.score);
+  //     setScore(userDetails.data.getUserDetails.score)
+  //   }
+  //   else {
+  //     console.log("Error occured while querrying for score.")
+  //   }
+  // }
   
 
-  /* ----------------------------------- Backend for the S3 bucket data importation ----------------------- */
+  // /* ----------------------------------- Backend for the S3 bucket data importation ----------------------- */
 
-  /* ---------- To get Daily Total data ------------------- */
-  useEffect(() => {
-    fetch("/getDailyTotal/" + id + "/" + dateInput, {
-      method: "GET"
-    })
-    .then(data => data.json())
-    .then(result => {
-      if (result) {
-        setCalories(result.DailyCalories < 0.5 ? "0" : Number.parseFloat(result.DailyCalories).toFixed(1).toString());
-        setActive(result.ActiveMinutes < 0.5 ? 0 : Math.round(result.ActiveMinutes));
-        setHrate(result.DailyHeartRate < 0.5 ? "0" : Math.round(result.DailyHeartRate).toString());
-        setMiles(result.DailyDistance < 0.5 ? "0" : Number.parseFloat(result.DailyDistance).toFixed(1).toString());
-        setSteps(result.DailySteps < 0.5 ? "0" : Math.round(result.DailySteps).toString());
-        setSleeps(result.SleepData < 0.5 ? 0 : Math.round(result.SleepData))
-      }
-    })
-    .catch(err => console.log(err))
-  }, [id, dateInput]);
+  // /* ---------- To get Daily Total data ------------------- */
+  // useEffect(() => {
+  //   fetch("/getDailyTotal/" + id + "/" + dateInput, {
+  //     method: "GET"
+  //   })
+  //   .then(data => data.json())
+  //   .then(result => {
+  //     if (result) {
+  //       setCalories(result.DailyCalories < 0.5 ? "0" : Number.parseFloat(result.DailyCalories).toFixed(1).toString());
+  //       setActive(result.ActiveMinutes < 0.5 ? 0 : Math.round(result.ActiveMinutes));
+  //       setHrate(result.DailyHeartRate < 0.5 ? "0" : Math.round(result.DailyHeartRate).toString());
+  //       setMiles(result.DailyDistance < 0.5 ? "0" : Number.parseFloat(result.DailyDistance).toFixed(1).toString());
+  //       setSteps(result.DailySteps < 0.5 ? "0" : Math.round(result.DailySteps).toString());
+  //       setSleeps(result.SleepData < 0.5 ? 0 : Math.round(result.SleepData))
+  //     }
+  //   })
+  //   .catch(err => console.log(err))
+  // }, [id, dateInput]);
 
-  /* -------- To get data for graph ---------------------- */
-  useEffect(() => {
-    fetch("/getGraphData/" + id + "/" + dateInput, {
-      method: "GET"
-    })
-    .then(data => data.json())
-    .then(result => {
-      if (result) {
-        setHrCalories(result.hourlyCalories);
-        setHrHeartRate(result.hourlyHeartRate);
-        setHrMiles(result.hourlyDistance );
-        setHrSteps(result.hourlySteps);
-      }
-      console.log("Hr Calories: ", hrCalories);
-      console.log("Hr Heart Rate: ", hrHeartRate);
-      console.log("Hr Miles: ", hrMiles);
-      console.log("Hr Steps: ", hrSteps);
-    })
-    .catch(err => console.log(err))
-  }, [id, dateInput]);
+  // /* -------- To get data for graph ---------------------- */
+  // useEffect(() => {
+  //   fetch("/getGraphData/" + id + "/" + dateInput, {
+  //     method: "GET"
+  //   })
+  //   .then(data => data.json())
+  //   .then(result => {
+  //     if (result) {
+  //       setHrCalories(result.hourlyCalories);
+  //       setHrHeartRate(result.hourlyHeartRate);
+  //       setHrMiles(result.hourlyDistance );
+  //       setHrSteps(result.hourlySteps);
+  //     }
+  //     console.log("Hr Calories: ", hrCalories);
+  //     console.log("Hr Heart Rate: ", hrHeartRate);
+  //     console.log("Hr Miles: ", hrMiles);
+  //     console.log("Hr Steps: ", hrSteps);
+  //   })
+  //   .catch(err => console.log(err))
+  // }, [id, dateInput]);
 
-  /* -------- To get data for graph ---------------------- */
-  useEffect(() => {
-    fetch("/getSleepsData/" + id + "/" + dateInput, {
-      method: "GET"
-    })
-    .then(data => data.json())
-    .then(result => {
-      if (result) {
-        setSleepData([result.totalWakeMin, result.totalLightMin, result.totalDeepMin, result.totalRemMin]);
-      }
-      console.log("Sleeps Data: ", sleepData);
-    })
-    .catch(err => console.log(err))
-  }, [id, dateInput]);
+  // /* -------- To get data for graph ---------------------- */
+  // useEffect(() => {
+  //   fetch("/getSleepsData/" + id + "/" + dateInput, {
+  //     method: "GET"
+  //   })
+  //   .then(data => data.json())
+  //   .then(result => {
+  //     if (result) {
+  //       setSleepData([result.totalWakeMin, result.totalLightMin, result.totalDeepMin, result.totalRemMin]);
+  //     }
+  //     console.log("Sleeps Data: ", sleepData);
+  //   })
+  //   .catch(err => console.log(err))
+  // }, [id, dateInput]);
 
-  /* -------- To get score history data ---------------------- */
-  useEffect(() => {
-    fetch("/getScoreHistory/" + id, {
-      method: "GET"
-    })
-    .then(data => data.json())
-    .then(result => {
-      if (result) {
-        if (result.score !== 0) {
-          setOverallScore(result.score);
-        }
-        setScoreHistory(result.data);
-      }
-    })
-    .catch(err => console.log(err))
-  }, [id]);
+  // /* -------- To get score history data ---------------------- */
+  // useEffect(() => {
+  //   fetch("/getScoreHistory/" + id, {
+  //     method: "GET"
+  //   })
+  //   .then(data => data.json())
+  //   .then(result => {
+  //     if (result) {
+  //       if (result.score !== 0) {
+  //         setOverallScore(result.score);
+  //       }
+  //       setScoreHistory(result.data);
+  //     }
+  //   })
+  //   .catch(err => console.log(err))
+  // }, [id]);
   
 
   var text = "";
@@ -319,8 +319,8 @@ const Dashboard = () => {
 
   return (
     <div className="container">
-      <div className="row shadow-lg p-3 mb-2 bg-body rounded align-items-center">
-        <div className="col-md-3 fs-6 mb-2">
+      <div className="row mb-2 align-items-center border border-bottom-2">
+        <div className="col-md-4 fs-6 mb-2">
           <div className="row pt-2 text-center">
               <div className="col">
                 <p className="fw-bold">
@@ -370,7 +370,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="col-md-4 border border-primary rounded-2 mb-2 mt-2">
+        <div className="col-md-4 rounded-2 mb-2 mt-2">
           <div className="row pt-2 text-center">
               <div className="col">
                 <p className="fw-bold fs-5">
@@ -405,18 +405,18 @@ const Dashboard = () => {
                 // Customize the circle behind the path, i.e. the "total progress"
                 trail: {
                   // Trail color
-                  stroke: '#f2eeed',
+                  stroke: '#b1b3af',
                 },
                 // Customize the text
                 text: {
                   // Text color
-                  fill: '#fffe',
+                  fill: '#2e2b2b',
                   // Text size
                   fontSize: '16px',
                   fontWeight: 'bold'
                 },
                 background: {
-                  fill: "rgba(240, 23, 22, 0.8)",
+                  fill: "rgba(237, 225, 230, 0.3)",
                 },
               }} />
               </div>
@@ -430,16 +430,13 @@ const Dashboard = () => {
               </div>
           </div>
         </div>
-        <div className="col-md-5 pt-4">
-          <div className="card mx-auto" style={{maxWidth: 800}}>
-            <h5 className="card-header text-center bg-info">
-              What does your score says?
+        <div className="col-md-4 pt-4">
+          <div className="mx-auto" style={{maxWidth: 800}}>
+            <h5 className="header text-center">
+              {range}{" "}!!!
             </h5>
-            <div className="card-body text-center">
-              <h5>
-                {range}{" "}!!!
-              </h5>
-              <p className="card-text">
+            <div className="body text-center">
+              <p>
                 {feedback}
               </p>
             </div>
