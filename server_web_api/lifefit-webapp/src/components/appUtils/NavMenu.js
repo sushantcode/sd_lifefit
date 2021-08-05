@@ -41,28 +41,22 @@ export default class NavMenu extends Component {
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
               <ul className="navbar-nav flex-grow">
                 <NavItem>
-                  <NavLink onClick={this.closeMenu} tag={RRNavLink} className="text-dark navLink-custom" activeClassName="custom-active" exact to="/">Home</NavLink>
+                  <NavLink onClick={this.closeMenu} tag={RRNavLink} className="text-dark navLink-custom me-4" activeClassName="custom-active" exact to="/">
+                    <span className="menu-item">Home</span>
+                  </NavLink>
                 </NavItem>
-                &ensp; 
-                &ensp;
-                &ensp; 
-                &ensp;
                 <NavItem>
-                  <NavLink onClick={this.closeMenu} tag={RRNavLink} className="text-dark navLink-custom" activeClassName="custom-active" to="/login">Login</NavLink>
+                  <NavLink onClick={this.closeMenu} tag={RRNavLink} className="text-dark navLink-custom me-4" activeClassName="custom-active" to="/login">
+                    <span className="menu-item">Login</span>
+                  </NavLink>
                 </NavItem>
-                &ensp; 
-                &ensp;
-                &ensp; 
-                &ensp;
                 <NavItem>
-                  <NavLink onClick={this.closeMenu} tag={RRNavLink} className="text-dark navLink-custom" activeClassName="custom-active" to="/about">About Us</NavLink>
+                  <NavLink onClick={this.closeMenu} tag={RRNavLink} className="text-dark navLink-custom me-4" activeClassName="custom-active" to="/about">
+                    <span className="menu-item">About Us</span>
+                  </NavLink>
                 </NavItem>
-                &ensp; 
-                &ensp;
-                &ensp;
-                &ensp;
                 <NavItem>
-                  <NavLink onClick={this.closeMenu} tag={RRNavLink} className="text-white btn btn-primary" to="/signup">Sign Up</NavLink>
+                  <NavLink onClick={this.closeMenu} tag={RRNavLink} className="text-white btn btn-danger" to="/signup">Sign Up</NavLink>
                 </NavItem>
               </ul>
             </Collapse>
