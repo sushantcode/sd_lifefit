@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
+import ProgressBar from '../appUtils/ProgressBar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Auth, API } from 'aws-amplify';
 import * as queries from '../../graphql/queries';
-import DatePicker from 'react-datepicker';
+import TextField from '@material-ui/core/TextField';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Dashboard.css';
 import CaloriesChart from './CaloriesChart';
@@ -21,7 +22,6 @@ const Dashboard = () => {
   var yesterdayList = yesterday.toLocaleDateString("en-US", {year: "numeric", month: "2-digit", day: "2-digit"}).split("/");
   var yesterdayStr = yesterdayList[2] + "-" + yesterdayList[0] + "-" + yesterdayList[1];
   const [dateInput, setDateInput] = useState(yesterdayStr);
-  const [dateObj, setDateObj] = useState({item: yesterday});
   const [id, setId] = useState("2cb32af6-acd1-43e1-91fe-db8e3b695ff5");
   const [score, setScore] = useState(0);
   const [overallScore, setOverallScore] = useState(0);
@@ -71,120 +71,116 @@ const Dashboard = () => {
 
   // const [scoreHistory, setScoreHistory] = useState({"score": [3, 5, 4, 4], "date": ["2021-07-22", "2021-07-23", "2021-07-24", "2021-07-25"]});
 
-
-
   /* useState hook for type of graph selection variable */
   const [graphId, setGraphId] = useState(0);
 
   /* ----------------------- Backend for the score retrieval ---------------------------------*/
 
-  // useEffect(() => { 
-  //   Auth.currentUserInfo()
-  //   .then((data) => {
-  //     if (data){
-  //       setId(data.attributes.sub);
-  //     }
-  //   });
-  //   if (id !== "") {
-  //     doQuerry(id);
-  //   }
-  //   console.log("user")
-  //   doQuerry(id)
-  // }, [id])
+  useEffect(() => { 
+    Auth.currentUserInfo()
+    .then((data) => {
+      if (data){
+        setId(data.attributes.sub);
+      }
+    });
+    if (id !== "") {
+      doQuerry(id);
+    }
+    console.log("user")
+    doQuerry(id)
+  }, [id])
 
-  // async function doQuerry(id) {
-  //   console.log("UserID", id);
-  //   const userDetails = await API.graphql({ query: queries.getUserDetails, variables: {id: id}});
-  //   if (userDetails.data.getUserDetails) {
-  //     console.log(userDetails.data.getUserDetails.score);
-  //     setScore(userDetails.data.getUserDetails.score)
-  //   }
-  //   else {
-  //     console.log("Error occured while querrying for score.")
-  //   }
-  // }
+  async function doQuerry(id) {
+    console.log("UserID", id);
+    const userDetails = await API.graphql({ query: queries.getUserDetails, variables: {id: id}});
+    if (userDetails.data.getUserDetails) {
+      console.log(userDetails.data.getUserDetails.score);
+      setScore(userDetails.data.getUserDetails.score)
+    }
+    else {
+      console.log("Error occured while querrying for score.")
+    }
+  }
   
 
-  // /* ----------------------------------- Backend for the S3 bucket data importation ----------------------- */
+  /* ----------------------------------- Backend for the S3 bucket data importation ----------------------- */
 
-  // /* ---------- To get Daily Total data ------------------- */
-  // useEffect(() => {
-  //   fetch("/getDailyTotal/" + id + "/" + dateInput, {
-  //     method: "GET"
-  //   })
-  //   .then(data => data.json())
-  //   .then(result => {
-  //     if (result) {
-  //       setCalories(result.DailyCalories < 0.5 ? "0" : Number.parseFloat(result.DailyCalories).toFixed(1).toString());
-  //       setActive(result.ActiveMinutes < 0.5 ? 0 : Math.round(result.ActiveMinutes));
-  //       setHrate(result.DailyHeartRate < 0.5 ? "0" : Math.round(result.DailyHeartRate).toString());
-  //       setMiles(result.DailyDistance < 0.5 ? "0" : Number.parseFloat(result.DailyDistance).toFixed(1).toString());
-  //       setSteps(result.DailySteps < 0.5 ? "0" : Math.round(result.DailySteps).toString());
-  //       setSleeps(result.SleepData < 0.5 ? 0 : Math.round(result.SleepData))
-  //     }
-  //   })
-  //   .catch(err => console.log(err))
-  // }, [id, dateInput]);
+  /* ---------- To get Daily Total data ------------------- */
+  useEffect(() => {
+    fetch("/getDailyTotal/" + id + "/" + dateInput, {
+      method: "GET"
+    })
+    .then(data => data.json())
+    .then(result => {
+      if (result) {
+        setCalories(result.DailyCalories < 0.5 ? "0" : Number.parseFloat(result.DailyCalories).toFixed(1).toString());
+        setActive(result.ActiveMinutes < 0.5 ? 0 : Math.round(result.ActiveMinutes));
+        setHrate(result.DailyHeartRate < 0.5 ? "0" : Math.round(result.DailyHeartRate).toString());
+        setMiles(result.DailyDistance < 0.5 ? "0" : Number.parseFloat(result.DailyDistance).toFixed(1).toString());
+        setSteps(result.DailySteps < 0.5 ? "0" : Math.round(result.DailySteps).toString());
+        setSleeps(result.SleepData < 0.5 ? 0 : Math.round(result.SleepData))
+      }
+    })
+    .catch(err => console.log(err))
+  }, [id, dateInput]);
 
-  // /* -------- To get data for graph ---------------------- */
-  // useEffect(() => {
-  //   fetch("/getGraphData/" + id + "/" + dateInput, {
-  //     method: "GET"
-  //   })
-  //   .then(data => data.json())
-  //   .then(result => {
-  //     if (result) {
-  //       setHrCalories(result.hourlyCalories);
-  //       setHrHeartRate(result.hourlyHeartRate);
-  //       setHrMiles(result.hourlyDistance );
-  //       setHrSteps(result.hourlySteps);
-  //     }
-  //     console.log("Hr Calories: ", hrCalories);
-  //     console.log("Hr Heart Rate: ", hrHeartRate);
-  //     console.log("Hr Miles: ", hrMiles);
-  //     console.log("Hr Steps: ", hrSteps);
-  //   })
-  //   .catch(err => console.log(err))
-  // }, [id, dateInput]);
+  /* -------- To get data for graph ---------------------- */
+  useEffect(() => {
+    fetch("/getGraphData/" + id + "/" + dateInput, {
+      method: "GET"
+    })
+    .then(data => data.json())
+    .then(result => {
+      if (result) {
+        setHrCalories(result.hourlyCalories);
+        setHrHeartRate(result.hourlyHeartRate);
+        setHrMiles(result.hourlyDistance );
+        setHrSteps(result.hourlySteps);
+      }
+      console.log("Hr Calories: ", hrCalories);
+      console.log("Hr Heart Rate: ", hrHeartRate);
+      console.log("Hr Miles: ", hrMiles);
+      console.log("Hr Steps: ", hrSteps);
+    })
+    .catch(err => console.log(err))
+  }, [id, dateInput]);
 
-  // /* -------- To get data for graph ---------------------- */
-  // useEffect(() => {
-  //   fetch("/getSleepsData/" + id + "/" + dateInput, {
-  //     method: "GET"
-  //   })
-  //   .then(data => data.json())
-  //   .then(result => {
-  //     if (result) {
-  //       setSleepData([result.totalWakeMin, result.totalLightMin, result.totalDeepMin, result.totalRemMin]);
-  //     }
-  //     console.log("Sleeps Data: ", sleepData);
-  //   })
-  //   .catch(err => console.log(err))
-  // }, [id, dateInput]);
+  /* -------- To get data for graph ---------------------- */
+  useEffect(() => {
+    fetch("/getSleepsData/" + id + "/" + dateInput, {
+      method: "GET"
+    })
+    .then(data => data.json())
+    .then(result => {
+      if (result) {
+        setSleepData([result.totalWakeMin, result.totalLightMin, result.totalDeepMin, result.totalRemMin]);
+      }
+      console.log("Sleeps Data: ", sleepData);
+    })
+    .catch(err => console.log(err))
+  }, [id, dateInput]);
 
-  // /* -------- To get score history data ---------------------- */
-  // useEffect(() => {
-  //   fetch("/getScoreHistory/" + id, {
-  //     method: "GET"
-  //   })
-  //   .then(data => data.json())
-  //   .then(result => {
-  //     if (result) {
-  //       if (result.score !== 0) {
-  //         setOverallScore(result.score);
-  //       }
-  //       setScoreHistory(result.data);
-  //     }
-  //   })
-  //   .catch(err => console.log(err))
-  // }, [id]);
+  /* -------- To get score history data ---------------------- */
+  useEffect(() => {
+    fetch("/getScoreHistory/" + id, {
+      method: "GET"
+    })
+    .then(data => data.json())
+    .then(result => {
+      if (result) {
+        if (result.score !== 0) {
+          setOverallScore(result.score);
+        }
+        setScoreHistory(result.data);
+      }
+    })
+    .catch(err => console.log(err))
+  }, [id]);
   
 
   var text = "";
   var overallText = "";
   var range = "";
-  var daily_pathColor = "";
-  var pathColor = "";
   
   var feedback = "";
   var sleep_hour = Math.floor(sleeps_value / 60);
@@ -213,12 +209,12 @@ const Dashboard = () => {
                       'rgba(153, 102, 255, 1)',
                       'rgba(255, 159, 64, 1)']
 
+
   var sleep_labels = ['Wake', 'Light', 'Deep', 'Rem'];
   // Front-end stuffs .........................................................
   switch (overallScore) {
     case 0:
       range = "Score not available";
-      pathColor = "rgba(204, 0, 0, 1)";
       feedback = `Please sync your Fitbit account first and then start wearing 
                   your watch as much as possible`;
       break;
@@ -226,7 +222,6 @@ const Dashboard = () => {
     case 1:
     case 2:
       range = "Poor";
-      pathColor = "rgba(204, 0, 0, 1)";
       feedback = `Your score indicates that your health habits need significant imporvement.
                   Please start working out, and have sufficient sleeps during night.
                   Proper diet can also help to improve your score.`;
@@ -235,7 +230,6 @@ const Dashboard = () => {
     case 3:
     case 4:
       range = "Satisfatory";
-      pathColor = "rgba(204, 0, 0, 0.5)";
       feedback = `Your score is just peaking up. You still need hard work to boost your score
                   to next level. Keep working out while maintaining better diets.`;
       break;
@@ -243,7 +237,6 @@ const Dashboard = () => {
     case 5:
     case 6:
       range = "Good";
-      pathColor = "rgba(139, 240, 96, 0.5)";
       feedback = `This is a good score and it shows your effort on the right track of having 
                   better health. Again, don't forget to have enough calories burnout, as well 
                   as better sleep hours.`;
@@ -252,7 +245,6 @@ const Dashboard = () => {
     case 7:
     case 8:
       range = "Very good";
-      pathColor = "rgba(139, 240, 96, 1)";
       feedback = `Impressive!!! You do have very good health score. You can be eligible of great 
                   discounts and perks from Statefarm.`;
       break;
@@ -260,43 +252,8 @@ const Dashboard = () => {
     case 9:
     case 10:
       range = "Excellent";
-      pathColor = "rgba(3, 145, 31, 1)";
       feedback = `Excellent!!! This is just amazing. It's now time to get off of your hard works 
                   to achieve this great score. Please contact our agent to learn detail about it.`;
-      break;
-  
-    default:
-      break;
-  }
-
-  switch (score) {
-    case 0:
-      daily_pathColor = "rgba(204, 0, 0, 1)";
-      break;
-
-    case 1:
-    case 2:
-      daily_pathColor = "rgba(204, 0, 0, 1)";
-      break;
-
-    case 3:
-    case 4:
-      daily_pathColor = "rgba(204, 0, 0, 0.5)";
-      break;
-
-    case 5:
-    case 6:
-      daily_pathColor = "rgba(139, 240, 96, 0.5)";
-      break;
-    
-    case 7:
-    case 8:
-      daily_pathColor = "rgba(139, 240, 96, 1)";
-      break;
-
-    case 9:
-    case 10:
-      daily_pathColor = "rgba(3, 145, 31, 1)";
       break;
   
     default:
@@ -319,7 +276,7 @@ const Dashboard = () => {
 
   return (
     <div className="container">
-      <div className="row mb-2 align-items-center border border-bottom-2">
+      <div className="row mb-2 align-items-center border">
         <div className="col-md-4 fs-6 mb-2">
           <div className="row pt-2 text-center">
               <div className="col">
@@ -331,46 +288,21 @@ const Dashboard = () => {
           <div className="row pt-2">
             <div className="col d-flex justify-content-center">
               <div style={{ width: 150, height: 150 }}>
-              <CircularProgressbar 
-              background={true} 
-              value={score} 
-              text={text} 
-              minValue={0} 
-              maxValue={10}
-              styles={{
-                // Customize the root svg element
-                root: {},
-                // Customize the path, i.e. the "completed progress"
-                path: {
-                  // Path color
-                  stroke: daily_pathColor,
-                  // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                  strokeLinecap: 'round',
-                  // Customize transition animation
-                  transition: 'stroke-dashoffset 0.5s ease 0s',
-                },
-                // Customize the circle behind the path, i.e. the "total progress"
-                trail: {
-                  // Trail color
-                  stroke: '#b1b3af',
-                },
-                // Customize the text
-                text: {
-                  // Text color
-                  fill: '#2e2b2b',
-                  // Text size
-                  fontSize: '16px',
-                  fontWeight: 'bold'
-                },
-                background: {
-                  fill: "rgba(237, 225, 230, 0.3)",
-                },
-              }} />
+              <ProgressBar
+                background={true} 
+                value={score} 
+                text={text} 
+                minValue={0} 
+                maxValue={10}
+                startColor="#d60000"
+                endColor="#00ff00"
+                gradientId="progress"
+              />
               </div>
             </div>
           </div>
         </div>
-        <div className="col-md-4 rounded-2 mb-2 mt-2">
+        <div className="col-md-4 rounded-2 mb-2 mt-2 border-end border-start">
           <div className="row pt-2 text-center">
               <div className="col">
                 <p className="fw-bold fs-5">
@@ -384,41 +316,16 @@ const Dashboard = () => {
                   type="button"
                   data-bs-toggle="modal" 
                   data-bs-target="#scoreHistory">
-              <CircularProgressbar 
-              background={true} 
-              value={overallScore} 
-              text={overallText} 
-              minValue={0} 
-              maxValue={10}
-              styles={{
-                // Customize the root svg element
-                root: {},
-                // Customize the path, i.e. the "completed progress"
-                path: {
-                  // Path color
-                  stroke: pathColor,
-                  // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                  strokeLinecap: 'round',
-                  // Customize transition animation
-                  transition: 'stroke-dashoffset 0.5s ease 0s',
-                },
-                // Customize the circle behind the path, i.e. the "total progress"
-                trail: {
-                  // Trail color
-                  stroke: '#b1b3af',
-                },
-                // Customize the text
-                text: {
-                  // Text color
-                  fill: '#2e2b2b',
-                  // Text size
-                  fontSize: '16px',
-                  fontWeight: 'bold'
-                },
-                background: {
-                  fill: "rgba(237, 225, 230, 0.3)",
-                },
-              }} />
+              <ProgressBar
+                background={true} 
+                value={overallScore} 
+                text={overallText} 
+                minValue={0} 
+                maxValue={10}
+                startColor="#d60000"
+                endColor="#00ff00"
+                gradientId="progress"
+              />
               </div>
             </div>
           </div>
@@ -432,30 +339,35 @@ const Dashboard = () => {
         </div>
         <div className="col-md-4 pt-4">
           <div className="mx-auto" style={{maxWidth: 800}}>
-            <h5 className="header text-center">
+            <h5 className={overallScore === 0 || 1 || 2 ? "header text-center text-danger" : "header text-center text-info"}>
               {range}{" "}!!!
             </h5>
             <div className="body text-center">
-              <p>
+              <p className={
+                overallScore === 0 || 1 || 2 ? "text-danger" : "text-info"
+              }>
                 {feedback}
               </p>
             </div>
           </div>
         </div>
       </div>
-      <div className="row shadow mb-5 pb-4 pt-3 bg-body rounded">
+      <div className="row shadow mb-5 pb-4 pt-3 bg-body rounded text-light row-middle">
         <div className="col text-center">
           <div className="row pt-2">
             <div className="col">
               <p className="fw-bold">
                 Your Individual Categorical Health Status for {"  "}
-                <DatePicker
-                  selected={dateObj.item}
-                  onChange={(value) => {
-                    var dateList = value.toLocaleDateString("en-US", {year: "numeric", month: "2-digit", day: "2-digit"}).split("/");
-                    var dateStr = dateList[2] + "-" + dateList[0] + "-" + dateList[1];
-                    setDateInput(dateStr);
-                    setDateObj({item: value})
+                <TextField
+                  id="date"
+                  type="date"
+                  defaultValue={dateInput}
+                  className="ps-2 bg-light"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={(event) => {
+                    setDateInput(event.target.value);
                     }
                   }
                 /> <br /><br />
@@ -480,7 +392,7 @@ const Dashboard = () => {
                           stroke: "#02db4e"},
                           text: {
                             // Text color
-                            fill: '#2e2b2b',
+                            fill: 'white',
                             // Text size
                             fontSize: '16px',
                             fontWeight: 'bold'
@@ -515,7 +427,7 @@ const Dashboard = () => {
                           stroke: "#fce405"},
                           text: {
                             // Text color
-                            fill: '#2e2b2b',
+                            fill: 'white',
                             // Text size
                             fontSize: '16px',
                             fontWeight: 'bold'
@@ -550,7 +462,7 @@ const Dashboard = () => {
                           stroke: "#1c1533"},
                           text: {
                             // Text color
-                            fill: '#2e2b2b',
+                            fill: 'white',
                             // Text size
                             fontSize: '16px',
                             fontWeight: 'bold'
@@ -585,7 +497,7 @@ const Dashboard = () => {
                           stroke: "#a80303"},
                           text: {
                             // Text color
-                            fill: '#2e2b2b',
+                            fill: 'white',
                             // Text size
                             fontSize: '16px',
                             fontWeight: 'bold'
@@ -620,7 +532,7 @@ const Dashboard = () => {
                           stroke: "#6146e8"},
                           text: {
                             // Text color
-                            fill: '#2e2b2b',
+                            fill: 'white',
                             // Text size
                             fontSize: '16px',
                             fontWeight: 'bold'
@@ -655,7 +567,7 @@ const Dashboard = () => {
                           stroke: "#e9fa2a"},
                           text: {
                             // Text color
-                            fill: '#2e2b2b',
+                            fill: 'white',
                             // Text size
                             fontSize: '16px',
                             fontWeight: 'bold'
