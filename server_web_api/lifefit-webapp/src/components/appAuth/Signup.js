@@ -203,8 +203,8 @@ const Signup = () => {
   }
     return (
       <div className="signup">
-        <h2 style={{textAlign: "center"}}>Sign up</h2>
-        <p>* Must fill all required info.</p>
+        <h2 className="text-center signup-header p-3 text-light rounded-2">Sign up</h2>
+        <p className="text-danger">* Must fill all required info.</p>
         <Form className="form" onSubmit={(e) => submitForm(e)}>
           <Row className="name">
             <Col md={6}>
@@ -214,7 +214,7 @@ const Signup = () => {
                   type="text" 
                   name="first" 
                   id="first" 
-                  placeholder="Jeff"
+                  placeholder="Sushant"
                   invalid={fNameEmpty}
                   value={fName}
                   onChange={(e) => setFName(e.target.value)} />
@@ -231,7 +231,7 @@ const Signup = () => {
                   type="text" 
                   name="last" 
                   id="last" 
-                  placeholder="Bezos"
+                  placeholder="Gupta"
                   invalid={lNameEmpty}
                   value={lName}
                   onChange={(e) => setLName(e.target.value)} />
@@ -455,7 +455,7 @@ const Signup = () => {
           </FormGroup>
           <FormGroup row>
             <Button 
-              className="submitBtn"
+              className="submitBtn bg-danger"
               disabled={loading}
               >
                 Submit {" "} {loading && 
@@ -471,7 +471,7 @@ const Signup = () => {
               }
           </FormGroup>
         </Form>
-        <button className="resetBtn btn" onClick={(e) => redirectToLogin(e)}>
+        <button className="resetBtn btn text-danger" onClick={(e) => redirectToLogin(e)}>
             Already a member? Sign in here.
         </button>
       </div>

@@ -24,8 +24,8 @@ const HeartRateChart = (props) => {
                   backgroundColor: props.background,
                   borderColor: props.borderColor,
                   borderWidth: 1
-                },
-              ],
+                }
+              ]
             }}
             options= {{
                 scales: {

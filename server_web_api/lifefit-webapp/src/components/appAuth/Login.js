@@ -105,7 +105,7 @@ const Login = () => {
     }
     return (
       <div className="login">
-        <h2 style={{textAlign: "center"}}>Sign In</h2>
+        <h2 className="text-center signin-header p-3 text-light rounded-2">Sign In</h2>
         <Form className="form" onSubmit={(e) => submitForm(e)}>
           <FormGroup className="username">
             <Label>Username</Label>
@@ -143,7 +143,7 @@ const Login = () => {
           </FormGroup>
           <FormGroup row>
             <Button 
-              className="submitBtn"
+              className="submitBtn bg-danger"
               disabled={loading}
               >
                 Submit {" "} {loading && 
@@ -157,8 +157,8 @@ const Login = () => {
               }
           </FormGroup>
         </Form>
-        <button className="resetBtn" onClick={(e) => resetClicked(e)}>
-            Forgot Password?
+        <button className="resetBtn text-danger" onClick={(e) => resetClicked(e)}>
+            Forgot Password? Reset now!
         </button>
       </div>
     );
