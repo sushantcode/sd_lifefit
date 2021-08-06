@@ -74,7 +74,7 @@ import { Auth, API } from 'aws-amplify';
 
 
   return (
-    <div className="userProfile">
+    <div className="userProfile text-light">
       <p className="userProfile__header">User Profile</p>
 
       <img
