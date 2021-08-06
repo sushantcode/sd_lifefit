@@ -252,6 +252,24 @@ def retrieveSleepsData(uid="", date=""):
             "totalRemMin": 0
         }
 
+# Function to calculate exponential moving average
+def calculateEMA(data):
+    size = len(data)
+    currEMA = 0
+    count = 0
+    for i in data:
+        if count == 0:
+            currEMA = i
+            count += 1
+        else:
+            alpha = 2.0 / (count + 1)
+            step1 = alpha * i
+            step2 = 1 - alpha
+            currEMA = step1 + (step2 * currEMA)
+            count += 1
+    
+    return currEMA
+
 @app.route('/getScoreHistory/<string:uid>')
 def retrieveScoreHistory(uid=""):
     s3 = boto3.resource("s3")
@@ -266,7 +284,7 @@ def retrieveScoreHistory(uid=""):
             score_history.append(row['healthscore'])
             date.append(row['on_date'])
         
-        score = round(sum(score_history)/len(score_history))
+        score = round(score_history)
         return {
             "score": score,
             "data": {
