@@ -41,7 +41,7 @@ const ContactAgent = () => {
         <label>Message to Agent</label>
         <textarea name="message" rows='4' className="form-control" />
         <input type="submit" value='Send'
-          className='form-control btn btn-primary'
+          className='form-control btn btn-danger'
           style={{ marginTop: "30px" }}
         />
 
