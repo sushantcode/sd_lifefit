@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import ProgressBar from '../appUtils/ProgressBar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -22,7 +22,7 @@ const Dashboard = () => {
   var yesterdayList = yesterday.toLocaleDateString("en-US", {year: "numeric", month: "2-digit", day: "2-digit"}).split("/");
   var yesterdayStr = yesterdayList[2] + "-" + yesterdayList[0] + "-" + yesterdayList[1];
   const [dateInput, setDateInput] = useState(yesterdayStr);
-  const [id, setId] = useState("2cb32af6-acd1-43e1-91fe-db8e3b695ff5");
+  const [id, setId] = useState("");
   const [score, setScore] = useState(0);
   const [overallScore, setOverallScore] = useState(0);
   const [steps_value, setSteps] = useState("0");
