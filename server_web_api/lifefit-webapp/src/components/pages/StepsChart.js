@@ -7,7 +7,7 @@ const StepsChart = (props) => {
       <div className="row">
         <div className="col">
           <div className='header'>
-            <h2 className='title text-center'>Steps Chart</h2>
+            <h2 className='title text-center'>Hourly Steps Walked</h2>
           </div>
         </div>
       </div>

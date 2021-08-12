@@ -54,7 +54,7 @@ export default class NavMenu extends Component {
                   </NavLink>
                 </NavItem>
                 <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle className="text-dark border" nav>
+                  <DropdownToggle className="text-light border bg-danger" nav>
                     Logged in: {this.props.user_name}
                   </DropdownToggle>
                   <DropdownMenu right>

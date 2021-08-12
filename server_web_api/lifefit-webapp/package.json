@@ -32,7 +32,7 @@
         "amplify-modelgen": "node amplify\\scripts\\amplify-modelgen.js",
         "amplify-push": "node amplify\\scripts\\amplify-push.js"
     },
-    "proxy": "http://ec2-3-144-73-21.us-east-2.compute.amazonaws.com:5000",
+    "proxy": "http://ec2-18-220-215-68.us-east-2.compute.amazonaws.com:5000",
     "eslintConfig": {
         "extends": [
             "react-app",

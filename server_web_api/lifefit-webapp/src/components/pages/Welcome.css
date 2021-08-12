@@ -32,10 +32,6 @@
   padding: 15px;
 }
 
-.state__farm {
-  color: rgba(218, 36, 36, 0.8);
-}
-
 /* media query for responsiveness */
 @media (max-width: 1000px) {
   .welcome {
