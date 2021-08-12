@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 *.iml
 android_app/Code/.gradle
 android_app/Code/gradle/caches
@@ -37,6 +36,4 @@ amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
 .secret-*
-=======
 FILES_TOIGNORE/
->>>>>>> final implementation
