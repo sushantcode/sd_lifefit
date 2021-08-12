@@ -17,29 +17,29 @@ const ContactAgent = () => {
   }
 
   return (
-    <div className="container border"
+    <div className="container border mb-4"
       style={{
-        marginTop: "50px",
+        marginTop: "40px",
         width: '50%',
         backgroundImage: `url('https://img.freepik.com/free-vector/white-minimal-background_1393-354.jpg?size=626&ext=jpg')`,
         backgroundPosition: 'center',
         backgroundSize: "cover",
       }}>
-      <h1 style={{ marginTop: " 25px", textAlign:"center"}}>Contact agent form</h1>
+      <h3 style={{ marginTop: " 25px", textAlign:"center"}}>Ready for a Quote? Message an agent here...</h3>
       <form className="row" style={{ margin: "25px 85px 75px 100px" }}
         onSubmit={sendEmail}
       >
-        <label>Full Name</label>
-        <input type="text" name="name" className="form-control" />
+        <label className="ps-0 mb-1">Full Name</label>
+        <input type="text" name="name" className="form-control mb-2" />
 
-        <label>Email</label>
-        <input type="email" name="user_email" className="form-control" />
+        <label className="ps-0 mb-1">Email</label>
+        <input type="email" name="user_email" className="form-control mb-2" />
 
-        <label>Subject</label>
-        <input type='text' name='subject' className="form-control"/>
+        <label className="ps-0 mb-1">Subject</label>
+        <input type='text' name='subject' className="form-control mb-2"/>
 
-        <label>Message to Agent</label>
-        <textarea name="message" rows='4' className="form-control" />
+        <label className="ps-0 mb-1">Message to Agent</label>
+        <textarea name="message" rows='4' className="form-control mb-2" />
         <input type="submit" value='Send'
           className='form-control btn btn-danger'
           style={{ marginTop: "30px" }}
