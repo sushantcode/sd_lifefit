@@ -1,5 +1,8 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
     "features": {
         "graphqltransformer": {
             "addmissingownerfields": true,
@@ -30,6 +33,7 @@
             "generategraphqlpermissions": true
         }
     }
+<<<<<<< HEAD
 =======
   "features": {
     "graphqltransformer": {
@@ -62,4 +66,6 @@
     }
   }
 >>>>>>> final implementation
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
 }

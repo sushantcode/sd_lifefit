@@ -13,6 +13,9 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.auth.AuthUser;
@@ -20,10 +23,13 @@ import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.AmplifyModelProvider;
+<<<<<<< HEAD
 =======
 import com.amplifyframework.auth.AuthUser;
 import com.amplifyframework.core.Amplify;
 >>>>>>> final implementation
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
 import com.example.myapplication.LoginStuff.Login;
 
 public class Welcomescreen extends AppCompatActivity {
@@ -37,6 +43,9 @@ public class Welcomescreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
         try {
             AmplifyModelProvider modelProvider = AmplifyModelProvider.getInstance();
             Amplify.addPlugin(new AWSDataStorePlugin(modelProvider));
@@ -62,6 +71,7 @@ public class Welcomescreen extends AppCompatActivity {
             slide.excludeTarget(android.R.id.navigationBarBackground, true);
             window.setEnterTransition(slide);
             window.setReturnTransition(slide);
+<<<<<<< HEAD
 =======
         // check is user is logged in
         AuthUser currentUser = Amplify.Auth.getCurrentUser();
@@ -108,6 +118,8 @@ public class Welcomescreen extends AppCompatActivity {
         }
     }
 >>>>>>> final implementation
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
 
             login = findViewById(R.id.button_login);
             signup = findViewById(R.id.button_signup);

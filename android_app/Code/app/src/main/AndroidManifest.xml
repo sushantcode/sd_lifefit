@@ -10,7 +10,10 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
+<<<<<<< HEAD
         android:name=".AmplifyConfigure"
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:installLocation="preferExternal"
@@ -19,11 +22,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
 <<<<<<< HEAD
+<<<<<<< HEAD
         android:usesCleartextTraffic="true">
 =======
         android:usesCleartextTraffic="true"
         tools:replace="android:name">
 >>>>>>> final implementation
+=======
+        android:usesCleartextTraffic="true">
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
         <activity android:name=".LoginStuff.EmailVerification"></activity>
         <activity
             android:name=".active.ActiveMoreSpecificDateClicked"

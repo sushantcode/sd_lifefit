@@ -2,6 +2,7 @@
   "AppSyncApiName": "sdlifefitappAPI",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "DynamoDBEnableServerSideEncryption": false
 =======
   "DynamoDBEnableServerSideEncryption": false,
@@ -12,4 +13,7 @@
     ]
   }
 >>>>>>> final implementation
+=======
+  "DynamoDBEnableServerSideEncryption": false
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
 }

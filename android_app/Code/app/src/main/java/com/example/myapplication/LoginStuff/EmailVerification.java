@@ -2,6 +2,9 @@ package com.example.myapplication.LoginStuff;
 
 import androidx.appcompat.app.AppCompatActivity;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
 import androidx.core.content.ContextCompat;
 
 import android.app.Dialog;
@@ -38,6 +41,7 @@ public class EmailVerification extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView buttonText;
 
+<<<<<<< HEAD
 =======
 
 import android.os.Bundle;
@@ -50,11 +54,16 @@ public class EmailVerification extends AppCompatActivity {
     private TextView uName;
     private TextView uEmail;
 >>>>>>> final implementation
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email_verification);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
 
         String user[] = getIntent().getExtras().getStringArray("userInfo");
         //  Assign values to user attributes
@@ -237,6 +246,7 @@ public class EmailVerification extends AppCompatActivity {
         }, 2000);
         progressBar.setVisibility(View.GONE);
         buttonText.setText("Verify Email");
+<<<<<<< HEAD
 =======
         String user[] = getIntent().getExtras().getStringArray("userInfo");
         uName = findViewById(R.id.emailverifyUserName);
@@ -254,5 +264,7 @@ public class EmailVerification extends AppCompatActivity {
         uEmail = findViewById(R.id.emailverifyEmail);
         uEmail.setText(user[1]);
 >>>>>>> final implementation
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
     }
 }

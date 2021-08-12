@@ -170,9 +170,12 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     /** checks if all data is entered or not and processes it for submission */
     private void processRegistration() {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         //RegisterUser userRequest = new RegisterUser();
 >>>>>>> final implementation
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
         String username = editTextUsername.getEditText().getText().toString().trim();
         String password = editTextPassword.getEditText().getText().toString().trim();
         String fname = editTextFname.getEditText().getText().toString().trim();
@@ -189,6 +192,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         } else {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
             progressBar.setVisibility(View.VISIBLE);
             buttonText.setText("Please Wait");
 //            onSignUpSuccess();
@@ -199,6 +205,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                     this::onSignUpSuccess,
                     this::onSignUpError
             );
+<<<<<<< HEAD
 =======
 //            userRequest.setUname(username);
 //            userRequest.setPassword(password);
@@ -223,6 +230,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 //                    this::onSignUpError
 //            );
 >>>>>>> final implementation
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
         }
     }
 
@@ -234,6 +243,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private void onSignUpSuccess(AuthSignUpResult authSignUpResult) {
         // Start new Email verification activity on success
          Log.i("Signup", "Result: " + authSignUpResult.toString());
@@ -241,6 +251,11 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private void onSignUpSuccess() {
         // Start new Email verification activity on success
 >>>>>>> final implementation
+=======
+    private void onSignUpSuccess(AuthSignUpResult authSignUpResult) {
+        // Start new Email verification activity on success
+         Log.i("Signup", "Result: " + authSignUpResult.toString());
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
         Intent intent = new Intent(Registration.this, EmailVerification.class);
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
@@ -260,9 +275,13 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         };
         intent.putExtra("userInfo", userInfo);
 <<<<<<< HEAD
+<<<<<<< HEAD
         //progressBar.setVisibility(View.GONE);
 =======
 >>>>>>> final implementation
+=======
+        //progressBar.setVisibility(View.GONE);
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
         startActivity(intent);
     }
 

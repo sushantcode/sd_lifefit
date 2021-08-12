@@ -24,6 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     <TextView
         android:id="@+id/registration_close"
@@ -39,6 +40,8 @@
     </TextView>
 
 >>>>>>> final implementation
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -60,10 +63,14 @@
                 android:text="Hi Username!"
                 android:gravity="center"
 <<<<<<< HEAD
+<<<<<<< HEAD
                 android:textSize="17dp"
 =======
                 android:textSize="15dp"
 >>>>>>> final implementation
+=======
+                android:textSize="17dp"
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
                 android:fontFamily="@font/quicksand_medium">
             </TextView>
 
@@ -77,10 +84,14 @@
                 android:gravity="center"
                 android:text="Thank You for signing up with us. Please check your email as shown below to get the verification code."
 <<<<<<< HEAD
+<<<<<<< HEAD
                 android:textSize="17dp"
 =======
                 android:textSize="15dp"
 >>>>>>> final implementation
+=======
+                android:textSize="17dp"
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
                 android:fontFamily="@font/quicksand_medium">
             </TextView>
 
@@ -94,10 +105,14 @@
                 android:gravity="center"
                 android:text="abcde@gmail.com"
 <<<<<<< HEAD
+<<<<<<< HEAD
                 android:textSize="17dp"
 =======
                 android:textSize="15dp"
 >>>>>>> final implementation
+=======
+                android:textSize="17dp"
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
                 android:textStyle="bold"
                 android:fontFamily="@font/quicksand_medium">
             </TextView>
@@ -107,10 +122,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 <<<<<<< HEAD
+<<<<<<< HEAD
                 android:layout_marginTop="15dp"
 =======
                 android:layout_marginTop="10dp"
 >>>>>>> final implementation
+=======
+                android:layout_marginTop="15dp"
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
                 android:hint="Your Verification Code"
                 app:hintTextColor="@color/colorPrimaryDark"
                 app:boxStrokeColor="@color/colorPrimaryDark">

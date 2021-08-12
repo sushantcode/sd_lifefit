@@ -16,6 +16,9 @@ import androidx.core.content.ContextCompat;
 
 import com.amplifyframework.auth.AuthException;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
 import com.amplifyframework.auth.cognito.AWSCognitoAuthSession;
 import com.amplifyframework.auth.result.AuthSignInResult;
 import com.amplifyframework.core.Amplify;
@@ -24,10 +27,13 @@ import com.amplifyframework.datastore.DataStoreChannelEventName;
 import com.amplifyframework.datastore.DataStoreException;
 import com.amplifyframework.datastore.generated.model.UserDetails;
 import com.amplifyframework.hub.HubChannel;
+<<<<<<< HEAD
 =======
 import com.amplifyframework.auth.result.AuthSignInResult;
 import com.amplifyframework.core.Amplify;
 >>>>>>> final implementation
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
 import com.example.myapplication.R;
 import com.example.myapplication.SharedPrefManager;
 import com.example.myapplication.homescreen;
@@ -103,10 +109,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             return;
         } else {
 <<<<<<< HEAD
+<<<<<<< HEAD
             progressBar.setVisibility(View.VISIBLE);
             buttonText.setText("Please Wait");
 =======
 >>>>>>> final implementation
+=======
+            progressBar.setVisibility(View.VISIBLE);
+            buttonText.setText("Please Wait");
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
             Amplify.Auth.signIn(
                     userName,
                     password,
@@ -114,6 +125,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     this::onLoginError
             );
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
 
         }
     }
@@ -132,8 +146,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
 
+<<<<<<< HEAD
 =======
 >>>>>>> final implementation
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
 
     private void queryForRemoteData() {
         start();
@@ -145,6 +162,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
     private void queryAfterReady() {
         Amplify.Hub.subscribe(HubChannel.DATASTORE,
                 hubEvent -> DataStoreChannelEventName.SYNC_QUERIES_READY.toString().equals(hubEvent.getName()),
@@ -248,6 +268,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         );
         progressBar.setVisibility(View.GONE);
         buttonText.setText("Login");
+<<<<<<< HEAD
 =======
     private void onLoginError(AuthException e) {
         //handle the error response if the user credentials doesn't match
@@ -268,6 +289,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
 >>>>>>> final implementation
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
     }
 
 

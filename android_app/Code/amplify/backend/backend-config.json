@@ -15,6 +15,9 @@
         "authConfig": {
           "defaultAuthentication": {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
               "apiKeyExpirationDays": 30,
@@ -26,6 +29,7 @@
               "authenticationType": "AWS_IAM"
             }
           ]
+<<<<<<< HEAD
 =======
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
@@ -34,6 +38,8 @@
           },
           "additionalAuthenticationProviders": []
 >>>>>>> final implementation
+=======
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
         }
       }
     }
