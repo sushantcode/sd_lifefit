@@ -7,7 +7,7 @@ const CaloriesChart = (props) => {
       <div className="row">
         <div className="col">
           <div className='header'>
-            <h2 className='title text-center'>Calories Chart</h2>
+            <h2 className='title text-center'>Hourly Calories Burnt</h2>
           </div>
         </div>
       </div>

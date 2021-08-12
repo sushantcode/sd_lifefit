@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
+import ProgressBar from '../appUtils/ProgressBar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Auth, API } from 'aws-amplify';
 import * as queries from '../../graphql/queries';
-import DatePicker from 'react-datepicker';
+import TextField from '@material-ui/core/TextField';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Dashboard.css';
 import CaloriesChart from './CaloriesChart';
@@ -21,8 +22,7 @@ const Dashboard = () => {
   var yesterdayList = yesterday.toLocaleDateString("en-US", {year: "numeric", month: "2-digit", day: "2-digit"}).split("/");
   var yesterdayStr = yesterdayList[2] + "-" + yesterdayList[0] + "-" + yesterdayList[1];
   const [dateInput, setDateInput] = useState(yesterdayStr);
-  const [dateObj, setDateObj] = useState({item: yesterday});
-  const [id, setId] = useState("2cb32af6-acd1-43e1-91fe-db8e3b695ff5");
+  const [id, setId] = useState("");
   const [score, setScore] = useState(0);
   const [overallScore, setOverallScore] = useState(0);
   const [steps_value, setSteps] = useState("0");
@@ -70,8 +70,6 @@ const Dashboard = () => {
   // const [sleepData, setSleepData] = useState([52, 234, 89, 55]);
 
   // const [scoreHistory, setScoreHistory] = useState({"score": [3, 5, 4, 4], "date": ["2021-07-22", "2021-07-23", "2021-07-24", "2021-07-25"]});
-
-
 
   /* useState hook for type of graph selection variable */
   const [graphId, setGraphId] = useState(0);
@@ -183,8 +181,6 @@ const Dashboard = () => {
   var text = "";
   var overallText = "";
   var range = "";
-  var daily_pathColor = "";
-  var pathColor = "";
   
   var feedback = "";
   var sleep_hour = Math.floor(sleeps_value / 60);
@@ -213,12 +209,12 @@ const Dashboard = () => {
                       'rgba(153, 102, 255, 1)',
                       'rgba(255, 159, 64, 1)']
 
+
   var sleep_labels = ['Wake', 'Light', 'Deep', 'Rem'];
   // Front-end stuffs .........................................................
   switch (overallScore) {
     case 0:
       range = "Score not available";
-      pathColor = "rgba(204, 0, 0, 1)";
       feedback = `Please sync your Fitbit account first and then start wearing 
                   your watch as much as possible`;
       break;
@@ -226,7 +222,6 @@ const Dashboard = () => {
     case 1:
     case 2:
       range = "Poor";
-      pathColor = "rgba(204, 0, 0, 1)";
       feedback = `Your score indicates that your health habits need significant imporvement.
                   Please start working out, and have sufficient sleeps during night.
                   Proper diet can also help to improve your score.`;
@@ -235,7 +230,6 @@ const Dashboard = () => {
     case 3:
     case 4:
       range = "Satisfatory";
-      pathColor = "rgba(204, 0, 0, 0.5)";
       feedback = `Your score is just peaking up. You still need hard work to boost your score
                   to next level. Keep working out while maintaining better diets.`;
       break;
@@ -243,7 +237,6 @@ const Dashboard = () => {
     case 5:
     case 6:
       range = "Good";
-      pathColor = "rgba(139, 240, 96, 0.5)";
       feedback = `This is a good score and it shows your effort on the right track of having 
                   better health. Again, don't forget to have enough calories burnout, as well 
                   as better sleep hours.`;
@@ -252,7 +245,6 @@ const Dashboard = () => {
     case 7:
     case 8:
       range = "Very good";
-      pathColor = "rgba(139, 240, 96, 1)";
       feedback = `Impressive!!! You do have very good health score. You can be eligible of great 
                   discounts and perks from Statefarm.`;
       break;
@@ -260,43 +252,8 @@ const Dashboard = () => {
     case 9:
     case 10:
       range = "Excellent";
-      pathColor = "rgba(3, 145, 31, 1)";
       feedback = `Excellent!!! This is just amazing. It's now time to get off of your hard works 
                   to achieve this great score. Please contact our agent to learn detail about it.`;
-      break;
-  
-    default:
-      break;
-  }
-
-  switch (score) {
-    case 0:
-      daily_pathColor = "rgba(204, 0, 0, 1)";
-      break;
-
-    case 1:
-    case 2:
-      daily_pathColor = "rgba(204, 0, 0, 1)";
-      break;
-
-    case 3:
-    case 4:
-      daily_pathColor = "rgba(204, 0, 0, 0.5)";
-      break;
-
-    case 5:
-    case 6:
-      daily_pathColor = "rgba(139, 240, 96, 0.5)";
-      break;
-    
-    case 7:
-    case 8:
-      daily_pathColor = "rgba(139, 240, 96, 1)";
-      break;
-
-    case 9:
-    case 10:
-      daily_pathColor = "rgba(3, 145, 31, 1)";
       break;
   
     default:
@@ -319,146 +276,117 @@ const Dashboard = () => {
 
   return (
     <div className="container">
-      <div className="row shadow-lg p-3 mb-2 bg-body rounded align-items-center">
-        <div className="col-md-3 fs-6 mb-2">
+      <div className="row mb-4 align-items-center">
+        <div className="col-md-4 fs-6 mb-2">
           <div className="row pt-2 text-center">
               <div className="col">
                 <p className="fw-bold">
-                  Your score on {curr_date} is:
+                  Your score on <span className="text-danger">{curr_date}</span>
+                  {" ["}
+                  <button
+                    type="button"
+                    className="btn btn-link p-0"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#dailyScoreInfo" 
+                  >
+                    <i class="fas fa-info-circle"></i>
+                  </button>
+                  {"]"}
                 </p>
               </div>
           </div>
-          <div className="row pt-2">
-            <div className="col d-flex justify-content-center">
+          <div className="row">
+            <div className="col d-flex flex-col justify-content-center">
               <div style={{ width: 150, height: 150 }}>
-              <CircularProgressbar 
-              background={true} 
-              value={score} 
-              text={text} 
-              minValue={0} 
-              maxValue={10}
-              styles={{
-                // Customize the root svg element
-                root: {},
-                // Customize the path, i.e. the "completed progress"
-                path: {
-                  // Path color
-                  stroke: daily_pathColor,
-                  // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                  strokeLinecap: 'round',
-                  // Customize transition animation
-                  transition: 'stroke-dashoffset 0.5s ease 0s',
-                },
-                // Customize the circle behind the path, i.e. the "total progress"
-                trail: {
-                  // Trail color
-                  stroke: '#b1b3af',
-                },
-                // Customize the text
-                text: {
-                  // Text color
-                  fill: '#2e2b2b',
-                  // Text size
-                  fontSize: '16px',
-                  fontWeight: 'bold'
-                },
-                background: {
-                  fill: "rgba(237, 225, 230, 0.3)",
-                },
-              }} />
+              <ProgressBar
+                background={true} 
+                value={score} 
+                text={text} 
+                minValue={0} 
+                maxValue={10}
+                startColor="#d60000"
+                endColor="#00ff00"
+                gradientId="progress"
+              />
               </div>
             </div>
           </div>
         </div>
-        <div className="col-md-4 border border-primary rounded-2 mb-2 mt-2">
+        <div className="col-md-4 rounded-2 p-3 mb-4 mt-4 border-start border-end">
           <div className="row pt-2 text-center">
               <div className="col">
                 <p className="fw-bold fs-5">
-                  As of today, your overall score is:
+                  As of today, <span className="text-danger">Your Overall Score </span> 
+                  <span className="fs-6">
+                  {" ["}
+                  <button
+                    type="button"
+                    className="btn btn-link p-0"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#overallScoreInfo" 
+                  >
+                    <i class="fas fa-info-circle"></i>
+                  </button>
+                  {"]"}
+                  </span> 
                 </p>
               </div>
           </div>
-          <div className="row pt-2 pb-4">
-            <div className="col d-flex justify-content-center">
+          <div className="row pb-4">
+            <div className="col d-flex justify-content-center" 
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Click to view day-to-day score history"
+            >
               <div style={{ width: 180, height: 180 }}
                   type="button"
                   data-bs-toggle="modal" 
                   data-bs-target="#scoreHistory">
-              <CircularProgressbar 
-              background={true} 
-              value={overallScore} 
-              text={overallText} 
-              minValue={0} 
-              maxValue={10}
-              styles={{
-                // Customize the root svg element
-                root: {},
-                // Customize the path, i.e. the "completed progress"
-                path: {
-                  // Path color
-                  stroke: pathColor,
-                  // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                  strokeLinecap: 'round',
-                  // Customize transition animation
-                  transition: 'stroke-dashoffset 0.5s ease 0s',
-                },
-                // Customize the circle behind the path, i.e. the "total progress"
-                trail: {
-                  // Trail color
-                  stroke: '#f2eeed',
-                },
-                // Customize the text
-                text: {
-                  // Text color
-                  fill: '#fffe',
-                  // Text size
-                  fontSize: '16px',
-                  fontWeight: 'bold'
-                },
-                background: {
-                  fill: "rgba(240, 23, 22, 0.8)",
-                },
-              }} />
+              <ProgressBar
+                background={true} 
+                value={overallScore} 
+                text={overallText} 
+                minValue={0} 
+                maxValue={10}
+                startColor="#d60000"
+                endColor="#00ff00"
+                gradientId="progress"
+              />
               </div>
             </div>
           </div>
-          <div className="row pt-2 text-center">
-              <div className="col">
-                <p className="fw-bold fs-6">
-                  (Click to view day-to-day score history)
-                </p>
-              </div>
-          </div>
         </div>
-        <div className="col-md-5 pt-4">
-          <div className="card mx-auto" style={{maxWidth: 800}}>
-            <h5 className="card-header text-center bg-info">
-              What does your score says?
+        <div className="col-md-4 pt-4">
+          <div className="mx-auto" style={{maxWidth: 800}}>
+            <h5 className={overallScore === 0 || 1 || 2 ? "header text-center text-danger" : "header text-center text-info"}>
+              {range}{" "}!!!
             </h5>
-            <div className="card-body text-center">
-              <h5>
-                {range}{" "}!!!
-              </h5>
-              <p className="card-text">
+            <div className="body text-center">
+              <p className={
+                overallScore === 0 || 1 || 2 ? "text-danger" : "text-info"
+              }>
                 {feedback}
               </p>
             </div>
           </div>
         </div>
       </div>
-      <div className="row shadow mb-5 pb-4 pt-3 bg-body rounded">
+      <div className="row shadow mb-5 pb-4 pt-4 bg-body rounded text-light row-middle">
         <div className="col text-center">
           <div className="row pt-2">
             <div className="col">
               <p className="fw-bold">
-                Your Individual Categorical Health Status for {"  "}
-                <DatePicker
-                  selected={dateObj.item}
-                  onChange={(value) => {
-                    var dateList = value.toLocaleDateString("en-US", {year: "numeric", month: "2-digit", day: "2-digit"}).split("/");
-                    var dateStr = dateList[2] + "-" + dateList[0] + "-" + dateList[1];
-                    setDateInput(dateStr);
-                    setDateObj({item: value})
+                Your Individual Categorical Health Status for
+                <TextField
+                  id="date"
+                  type="date"
+                  defaultValue={dateInput}
+                  className="ms-2 bg-light ps-2"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={(event) => {
+                    setDateInput(event.target.value);
                     }
                   }
                 /> <br /><br />
@@ -468,7 +396,7 @@ const Dashboard = () => {
           </div>
           <div className="row pt-2">
             <div className="col-md-2 steps" onClick={() => setGraphId(0)}>
-              <div className={`border border-3 rounded-3 m-1 ${graphId === 0? "border-primary  border-5" : "border-secondary  border-3"}`}>
+              <div className={`border border-3 rounded-3 m-1 ${graphId === 0? "border-light  border-5" : "border-secondary  border-3"}`}>
                 <div className="row pt-3">
                   <div className="col d-flex justify-content-center">
                     <div style={{ width: 100, height: 100 }}>
@@ -483,7 +411,7 @@ const Dashboard = () => {
                           stroke: "#02db4e"},
                           text: {
                             // Text color
-                            fill: '#2e2b2b',
+                            fill: 'white',
                             // Text size
                             fontSize: '16px',
                             fontWeight: 'bold'
@@ -503,7 +431,7 @@ const Dashboard = () => {
             </div>
 
             <div className="col-md-2 miles" onClick={() => setGraphId(1)}>
-              <div className={`border border-3 rounded-3 m-1 ${graphId === 1? "border-primary  border-5" : "border-secondary  border-3"}`}>
+              <div className={`border border-3 rounded-3 m-1 ${graphId === 1? "border-light  border-5" : "border-secondary  border-3"}`}>
                 <div className="row pt-3">
                   <div className="col d-flex justify-content-center">
                     <div style={{ width: 100, height: 100 }}>
@@ -518,7 +446,7 @@ const Dashboard = () => {
                           stroke: "#fce405"},
                           text: {
                             // Text color
-                            fill: '#2e2b2b',
+                            fill: 'white',
                             // Text size
                             fontSize: '16px',
                             fontWeight: 'bold'
@@ -538,7 +466,7 @@ const Dashboard = () => {
             </div>
 
             <div className="col-md-2 calories" onClick={() => setGraphId(2)}>
-              <div className={`border border-3 rounded-3 m-1 ${graphId === 2? "border-primary  border-5" : "border-secondary  border-3"}`}>
+              <div className={`border border-3 rounded-3 m-1 ${graphId === 2? "border-light  border-5" : "border-secondary  border-3"}`}>
                 <div className="row pt-3">
                   <div className="col d-flex justify-content-center">
                     <div style={{ width: 100, height: 100 }}>
@@ -553,7 +481,7 @@ const Dashboard = () => {
                           stroke: "#1c1533"},
                           text: {
                             // Text color
-                            fill: '#2e2b2b',
+                            fill: 'white',
                             // Text size
                             fontSize: '16px',
                             fontWeight: 'bold'
@@ -573,7 +501,7 @@ const Dashboard = () => {
             </div>
 
             <div className="col-md-2 heart-rate" onClick={() => setGraphId(3)}>
-              <div className={`border rounded-3 m-1 ${graphId === 3? "border-primary  border-5" : "border-secondary  border-3"}`}>
+              <div className={`border rounded-3 m-1 ${graphId === 3? "border-light  border-5" : "border-secondary  border-3"}`}>
                 <div className="row pt-3">
                   <div className="col d-flex justify-content-center">
                     <div style={{ width: 100, height: 100 }}>
@@ -588,7 +516,7 @@ const Dashboard = () => {
                           stroke: "#a80303"},
                           text: {
                             // Text color
-                            fill: '#2e2b2b',
+                            fill: 'white',
                             // Text size
                             fontSize: '16px',
                             fontWeight: 'bold'
@@ -608,7 +536,7 @@ const Dashboard = () => {
             </div>
 
             <div className="col-md-2 sleeps" onClick={() => setGraphId(4)}>
-              <div className={`border rounded-3 m-1 ${graphId === 4? "border-primary  border-5" : "border-secondary  border-3"}`}>
+              <div className={`border rounded-3 m-1 ${graphId === 4? "border-light  border-5" : "border-secondary  border-3"}`}>
                 <div className="row pt-3">
                   <div className="col d-flex justify-content-center">
                     <div style={{ width: 100, height: 100 }} >
@@ -623,7 +551,7 @@ const Dashboard = () => {
                           stroke: "#6146e8"},
                           text: {
                             // Text color
-                            fill: '#2e2b2b',
+                            fill: 'white',
                             // Text size
                             fontSize: '16px',
                             fontWeight: 'bold'
@@ -658,7 +586,7 @@ const Dashboard = () => {
                           stroke: "#e9fa2a"},
                           text: {
                             // Text color
-                            fill: '#2e2b2b',
+                            fill: 'white',
                             // Text size
                             fontSize: '16px',
                             fontWeight: 'bold'
@@ -688,15 +616,49 @@ const Dashboard = () => {
           {graphId === 4 && <SleepChart label={sleep_labels} data={sleepData} background={background} borderColor={borderColor} />}
         </div>
       </div>
-      <div class="modal fade" id="scoreHistory" tabindex="-1" aria-labelledby="scoreHistoryLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Score History</h5>
+      <div className="modal fade" id="scoreHistory" tabindex="-1" aria-labelledby="scoreHistoryLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="scoreHistoryLabel">Score History</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <ScoreChart label={scoreHistory.dates} data={scoreHistory.scores} background={background} borderColor={borderColor} />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="modal fade" id="dailyScoreInfo" tabindex="-1" aria-labelledby="dailyScoreInfoLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="dailyScoreInfoLabel">What is daily score?</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              <p>
+                This score is calculated based on the health data generated on the specific date mentioned above the 
+                chart. The date is usually the last day our system receives your data from Fitbit watch. This data is 
+                used to calculate your overal score over a period of time.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="modal fade" id="overallScoreInfo" tabindex="-1" aria-labelledby="overallScoreInfoLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="overallScoreInfoLabel">What is overall score?</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              <p>
+                This is your overall score that is calculated using your daily score over a period of time. This is the 
+                actual score that is considered while quoting your health and/or life insurance from State Farm. If you feel
+                you have got enough score to have better quote, please message our agent to discussion more.
+              </p>
             </div>
           </div>
         </div>

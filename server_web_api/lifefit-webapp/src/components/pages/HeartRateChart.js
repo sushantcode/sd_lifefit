@@ -7,7 +7,7 @@ const HeartRateChart = (props) => {
       <div className="row">
         <div className="col">
           <div className='header'>
-            <h2 className='title text-center'>Heart Rate Chart</h2>
+            <h2 className='title text-center'>Hourly Heart-Rate Numbers</h2>
           </div>
         </div>
       </div>
@@ -18,14 +18,14 @@ const HeartRateChart = (props) => {
               labels: props.label,
               datasets: [
                 {
-                  label: 'Amount of Heart Rate',
+                  label: 'Heart-beats per minutes',
                   data: props.data,
                   fill: false,
                   backgroundColor: props.background,
                   borderColor: props.borderColor,
                   borderWidth: 1
-                },
-              ],
+                }
+              ]
             }}
             options= {{
                 scales: {

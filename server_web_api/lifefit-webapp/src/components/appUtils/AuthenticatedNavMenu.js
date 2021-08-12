@@ -35,46 +35,41 @@ export default class NavMenu extends Component {
   render () {
     return (
       <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
+        <Navbar className="navbar-expand-md navbar-toggleable-md ng-white border-bottom box-shadow mb-1" light>
           <Container>
             <NavbarBrand tag={RRNavLink} to="/">
               <img className="navbar-brand" src={logo} alt="StateFarm" style={{maxWidth: 250}} />
             </NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-            <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
+            <Collapse className="d-md-inline-flex flex-md-row-reverse" isOpen={!this.state.collapsed} navbar>
               <ul className="navbar-nav flex-grow">
                 <NavItem>
-                  <NavLink onClick={this.closeMenu} tag={RRNavLink} className="text-dark navLink-custom" to="/dashboard" activeClassName="custom-active">Dashboard</NavLink>
+                  <NavLink onClick={this.closeMenu} tag={RRNavLink} className="text-dark navLink-custom me-4" activeClassName="custom-active" to="/dashboard">
+                    <span className="menu-item">Dashboard</span>
+                  </NavLink>
                 </NavItem>
-                &ensp; 
-                &ensp;
-                &ensp; 
-                &ensp;
                 <NavItem>
-                  <NavLink onClick={this.closeMenu} tag={RRNavLink} className="text-dark navLink-custom" activeClassName="custom-active" to="/contactagent">Contact Agent</NavLink>
+                  <NavLink onClick={this.closeMenu} tag={RRNavLink} className="text-dark navLink-custom me-4" activeClassName="custom-active" to="/contactagent">
+                    <span className="menu-item">Contact Agent</span>
+                  </NavLink>
                 </NavItem>
-                &ensp; 
-                &ensp;
-                &ensp; 
-                &ensp;
                 <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle className="text-dark border" nav>
+                  <DropdownToggle className="text-light border bg-danger" nav>
                     Logged in: {this.props.user_name}
                   </DropdownToggle>
                   <DropdownMenu right>
                     <DropdownItem>
                       <NavItem>
-                        <NavLink onClick={this.closeMenu} tag={RRNavLink} className="text-dark" activeClassName="custom-active" to="/profile">View Profile</NavLink>
+                        <NavLink onClick={this.closeMenu} tag={RRNavLink} className="text-dark" activeClassName="custom-active" to="/profile">
+                          <span className="menu-item">View Profile</span>
+                        </NavLink>
                       </NavItem>
                     </DropdownItem>
                     <DropdownItem>
                       <NavItem>
-                        <NavLink onClick={this.closeMenu} tag={RRNavLink} className="text-dark" activeClassName="custom-active" to="/changepassword">Change Password</NavLink>
-                      </NavItem>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <NavItem>
-                        <NavLink onClick={this.closeMenu} tag={RRNavLink} className="text-dark" activeClassName="custom-active" to="/syncfitbit">Sync Fitbit</NavLink>
+                        <NavLink onClick={this.closeMenu} tag={RRNavLink} className="text-dark" activeClassName="custom-active" to="/syncfitbit">
+                          <span className="menu-item">Sync Fitbit</span>
+                        </NavLink>
                       </NavItem>
                     </DropdownItem>
                     <DropdownItem divider />

@@ -3,10 +3,20 @@
 }
 
 .navLink-custom:hover {
-  border-bottom: 4px solid rgb(202, 126, 126);
+  border-bottom: 4px solid rgba(252,41,41,255);
   transition: all 0.2s ease-out;
 }
 
-.custom-active {
+.custom-active .menu-item {
   font-weight: bold;
+  color: rgba(252,41,41,255);
+}
+
+.custom-active {
+  border-bottom: 4px solid rgba(252,41,41,255);
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: none;
 }

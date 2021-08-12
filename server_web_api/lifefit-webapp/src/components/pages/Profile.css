@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
 }
 
 .userProfile__image {
@@ -18,30 +17,17 @@
 
 .userProfile__changeImage {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-top: 4rem;
 }
 
-
-.userProfile__changeImage > label {
-  margin-left: 0%;
-  font-size: 1.5rem;
-}
-
-.userProfile__changeImage > input {
-  margin-left: 10rem;
+.userProfile__changeImage {
   margin-top: 2rem;
-  font-size: 1rem;
+  margin-bottom: 2rem;
 }
 
 .userProfile__changeImage > button {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  height: 2rem;
-  width: 6.5rem;
-  display: flex;
   text-align: center;
   align-items: center;
   color: rgba(218, 36, 36, 0.8);
@@ -70,6 +56,7 @@
   flex-direction: column;
   width: 50vw;
   padding: 20px;
+  background: linear-gradient(180deg,rgba(222,5,0,0.9906337535014006) 0%, rgba(255,0,63,0.68363095238095233) 100%);
 }
 
 .userDetails {
@@ -85,6 +72,7 @@
 
 .userDetails_field {
   text-align: left;
+  font-weight: bold;
 }
 
 .user_value {

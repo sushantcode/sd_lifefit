@@ -17,3 +17,12 @@
 .sleeps:hover {
   cursor: pointer;
 }
+
+.row-middle {
+  background: linear-gradient(180deg, rgba(222,5,0,0.8906337535014006) 0%, rgba(255,0,63,0.68363095238095233) 100%);
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}

@@ -6,7 +6,6 @@ import { Auth, API } from 'aws-amplify';
   const Profile = () => {
   const [username, setUsername] = useState("");
   const [fullname, setFullname] = useState("");
-  const [healthscore, sethealthscore] = useState("");
   const [gender,setGender]= useState("");
   const [age, setAge] = useState("");
   const [address, setAddress] = useState("");
@@ -35,10 +34,9 @@ import { Auth, API } from 'aws-amplify';
       const userinfo =  userdetails.data.getUserDetails
       const fullName = (userinfo.fName + userinfo.lName);
       setFullname(fullName); 
-      sethealthscore(userinfo.score);
       setGender(userinfo.gender);
       setAge(userinfo.age);
-      const addr = (userinfo.street + userinfo.city + userinfo.state + userinfo.zipcode);
+      const addr = (userinfo.street + ", " + userinfo.city + ", " + userinfo.state + " " + userinfo.zipcode);
       setAddress(addr);
       setEmail(userinfo.email);
       setImage(userinfo.profile_pic);
@@ -49,13 +47,11 @@ import { Auth, API } from 'aws-amplify';
   const edit = () => {
     let username = prompt("Enter new Username");
     let fullname = prompt("Enter new Full name");
-    let healthscore = prompt("Enter new Full name");
     let gender = prompt("Enter your gender");
     let age = prompt("Enter new Age");
     let address = prompt("Enter new Address");
     setUsername(username);
     setFullname(fullname);
-    sethealthscore(healthscore);
     setGender(gender);
     setAge(age);
     setAddress(address);
@@ -74,24 +70,18 @@ import { Auth, API } from 'aws-amplify';
 
 
   return (
-    <div className="userProfile">
-      <p className="userProfile__header">User Profile</p>
-
+    <div className="userProfile pb-4">
       <img
         className="userProfile__image"
         src="https://i.picsum.photos/id/643/200/200.jpg?hmac=ouS38xYuy8iE3e24i3dNN11vJoBa6kKr3HzduEJ5Msk"
         alt="DP"
       />
       <div className="userProfile__changeImage">
-        <label>Change Profile Picture</label>
+        <lable className="fw-bold fs-5 pe-5">Change Profile </lable>
         <input type="file" onLoadedData={onChangeHandler} />
-        <button onClick={uploadPic}>upload</button>
+        <button onClick={uploadPic}>Upload</button>
       </div>
-      
-      {/* <button className="edit__button" onClick={edit}>
-        edit
-      </button> */}
-      <div className="userProfile__details">
+      <div className="userProfile__details text-light">
         <span className="userDetails">
           <span className="userDetails_field">Username:</span>
           <span className="user_value">{username}</span>
@@ -101,12 +91,6 @@ import { Auth, API } from 'aws-amplify';
         <span className="userDetails">
           <span className="userDetails_field">Full name:</span>
           <span className="user_value">{fullname}</span>
-        </span>
-        <hr />
-
-        <span className="userDetails">
-          <span className="userDetails_field">Health score:</span>
-          <span className="user_value">{healthscore}</span>
         </span>
         <hr />
 
@@ -136,8 +120,8 @@ import { Auth, API } from 'aws-amplify';
 
         <span className="userDetails">
           <span className="userDetails_field">Password:</span>
-          <span className="user_value">
-            <a href="/changepassword">change password</a>
+          <span className="user_value border">
+            <a href="/changepassword" className="text-decoration-none ps-2 pe-2 text-light">Change Password</a>
           </span>
         </span>
       </div>
