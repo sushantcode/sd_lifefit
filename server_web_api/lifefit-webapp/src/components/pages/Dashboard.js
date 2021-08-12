@@ -317,7 +317,7 @@ const Dashboard = () => {
               <div className="col">
                 <p className="fw-bold fs-5">
                   As of today, <span className="text-danger">Your Overall Score </span> 
-                  <span className="fw-normal fs-6">
+                  <span className="fs-6">
                   {" ["}
                   <button
                     type="button"
