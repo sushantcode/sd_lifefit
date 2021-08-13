@@ -227,6 +227,8 @@ def retrieveSleepsData(uid="", date=""):
         light = []
         deep = []
         rem = []
+        asleep = []
+        restless = []
 
         for index, row in foo.iterrows():
             if row['level'] == "wake":
@@ -237,19 +239,27 @@ def retrieveSleepsData(uid="", date=""):
                 deep.append(row['seconds'])
             elif row['level'] == "rem":
                 rem.append(row['seconds'])
+            elif row['level'] == "asleep":
+                asleep.append(row['seconds'])
+            elif row['level'] == "restless":
+                restless.append(row['seconds'])
         
         return {
             "totalWakeMin": sum(wake)//60,
             "totalLightMin": sum(light)//60,
             "totalDeepMin": sum(deep)//60,
-            "totalRemMin": sum(rem)//60
+            "totalRemMin": sum(rem)//60,
+            "totalAsleepMin": sum(asleep)//60,
+            "totalRestlessMin": sum(restless)//60
         }
     except: # Will go here if no data on S3 for current day
         return {
             "totalWakeMin": 0,
             "totalLightMin": 0,
             "totalDeepMin": 0,
-            "totalRemMin": 0
+            "totalRemMin": 0,
+            "totalAsleepMin": 0,
+            "totalRestlessMin": 0
         }
 
 # Function to calculate exponential moving average
