@@ -22,7 +22,7 @@ const Dashboard = () => {
   var yesterdayList = yesterday.toLocaleDateString("en-US", {year: "numeric", month: "2-digit", day: "2-digit"}).split("/");
   var yesterdayStr = yesterdayList[2] + "-" + yesterdayList[0] + "-" + yesterdayList[1];
   const [dateInput, setDateInput] = useState(yesterdayStr);
-  const [id, setId] = useState("2cb32af6-acd1-43e1-91fe-db8e3b695ff5");
+  const [id, setId] = useState("");
   const [score, setScore] = useState(0);
   const [overallScore, setOverallScore] = useState(0);
   const [steps_value, setSteps] = useState("0");
@@ -43,7 +43,7 @@ const Dashboard = () => {
 
   const [hrHeartRate, setHrHeartRate] = useState(hrDefault);
 
-  const [sleepData, setSleepData] = useState([0, 0, 0, 0]);
+  const [sleepData, setSleepData] = useState([0, 0, 0, 0, 0, 0]);
 
   const [scoreHistory, setScoreHistory] = useState({"score": [0], "date": ["YYYY-MM-DD"]});
 
@@ -153,7 +153,7 @@ const Dashboard = () => {
     .then(data => data.json())
     .then(result => {
       if (result) {
-        setSleepData([result.totalWakeMin, result.totalLightMin, result.totalDeepMin, result.totalRemMin]);
+        setSleepData([result.totalWakeMin, result.totalLightMin, result.totalDeepMin, result.totalRemMin, result.totalAsleepMin, result.totalRestlessMin]);
       }
       console.log("Sleeps Data: ", sleepData);
     })
@@ -196,12 +196,12 @@ const Dashboard = () => {
                 '06:00 AM', '07:00 AM', '08:00 AM', '09:00 AM', '10:00 AM', '11:00 AM',
                 '12:00 PM', '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM',
                 '06:00 PM', '07:00 PM', '08:00 PM', '09:00 PM', '10:00 PM', '11:00 PM'];
-  var background = ['rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'];
+  var background = ['rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.7)'];
   var borderColor = ['rgba(255, 99, 132, 1)',
                       'rgba(54, 162, 235, 1)',
                       'rgba(255, 206, 86, 1)',
@@ -210,7 +210,7 @@ const Dashboard = () => {
                       'rgba(255, 159, 64, 1)']
 
 
-  var sleep_labels = ['Wake', 'Light', 'Deep', 'Rem'];
+  var sleep_labels = ['Wake', 'Light', 'Deep', 'Rem', 'Asleep', 'Restless'];
   // Front-end stuffs .........................................................
   switch (overallScore) {
     case 0:
@@ -276,17 +276,27 @@ const Dashboard = () => {
 
   return (
     <div className="container">
-      <div className="row mb-2 align-items-center border">
+      <div className="row mb-4 align-items-center">
         <div className="col-md-4 fs-6 mb-2">
           <div className="row pt-2 text-center">
               <div className="col">
                 <p className="fw-bold">
-                  Your score on {curr_date} is:
+                  Your score on <span className="text-danger">{curr_date}</span>
+                  {" ["}
+                  <button
+                    type="button"
+                    className="btn btn-link p-0"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#dailyScoreInfo" 
+                  >
+                    <i class="fas fa-info-circle"></i>
+                  </button>
+                  {"]"}
                 </p>
               </div>
           </div>
-          <div className="row pt-2">
-            <div className="col d-flex justify-content-center">
+          <div className="row">
+            <div className="col d-flex flex-col justify-content-center">
               <div style={{ width: 150, height: 150 }}>
               <ProgressBar
                 background={true} 
@@ -302,16 +312,32 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="col-md-4 rounded-2 mb-2 mt-2 border-end border-start">
+        <div className="col-md-4 rounded-2 p-3 mb-4 mt-4 border-start border-end">
           <div className="row pt-2 text-center">
               <div className="col">
                 <p className="fw-bold fs-5">
-                  As of today, your overall score is:
+                  As of today, <span className="text-danger">Your Overall Score </span> 
+                  <span className="fs-6">
+                  {" ["}
+                  <button
+                    type="button"
+                    className="btn btn-link p-0"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#overallScoreInfo" 
+                  >
+                    <i class="fas fa-info-circle"></i>
+                  </button>
+                  {"]"}
+                  </span> 
                 </p>
               </div>
           </div>
-          <div className="row pt-2 pb-4">
-            <div className="col d-flex justify-content-center">
+          <div className="row pb-4">
+            <div className="col d-flex justify-content-center" 
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Click to view day-to-day score history"
+            >
               <div style={{ width: 180, height: 180 }}
                   type="button"
                   data-bs-toggle="modal" 
@@ -329,13 +355,6 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="row pt-2 text-center">
-              <div className="col">
-                <p className="fw-bold fs-6">
-                  (Click to view day-to-day score history)
-                </p>
-              </div>
-          </div>
         </div>
         <div className="col-md-4 pt-4">
           <div className="mx-auto" style={{maxWidth: 800}}>
@@ -352,17 +371,17 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="row shadow mb-5 pb-4 pt-3 bg-body rounded text-light row-middle">
+      <div className="row shadow mb-5 pb-4 pt-4 bg-body rounded text-light row-middle">
         <div className="col text-center">
           <div className="row pt-2">
             <div className="col">
               <p className="fw-bold">
-                Your Individual Categorical Health Status for {"  "}
+                Your Individual Categorical Health Status for
                 <TextField
                   id="date"
                   type="date"
                   defaultValue={dateInput}
-                  className="ps-2 bg-light"
+                  className="ms-2 bg-light ps-2"
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -377,7 +396,7 @@ const Dashboard = () => {
           </div>
           <div className="row pt-2">
             <div className="col-md-2 steps" onClick={() => setGraphId(0)}>
-              <div className={`border border-3 rounded-3 m-1 ${graphId === 0? "border-primary  border-5" : "border-secondary  border-3"}`}>
+              <div className={`border border-3 rounded-3 m-1 ${graphId === 0? "border-light  border-5" : "border-secondary  border-3"}`}>
                 <div className="row pt-3">
                   <div className="col d-flex justify-content-center">
                     <div style={{ width: 100, height: 100 }}>
@@ -412,7 +431,7 @@ const Dashboard = () => {
             </div>
 
             <div className="col-md-2 miles" onClick={() => setGraphId(1)}>
-              <div className={`border border-3 rounded-3 m-1 ${graphId === 1? "border-primary  border-5" : "border-secondary  border-3"}`}>
+              <div className={`border border-3 rounded-3 m-1 ${graphId === 1? "border-light  border-5" : "border-secondary  border-3"}`}>
                 <div className="row pt-3">
                   <div className="col d-flex justify-content-center">
                     <div style={{ width: 100, height: 100 }}>
@@ -447,7 +466,7 @@ const Dashboard = () => {
             </div>
 
             <div className="col-md-2 calories" onClick={() => setGraphId(2)}>
-              <div className={`border border-3 rounded-3 m-1 ${graphId === 2? "border-primary  border-5" : "border-secondary  border-3"}`}>
+              <div className={`border border-3 rounded-3 m-1 ${graphId === 2? "border-light  border-5" : "border-secondary  border-3"}`}>
                 <div className="row pt-3">
                   <div className="col d-flex justify-content-center">
                     <div style={{ width: 100, height: 100 }}>
@@ -482,7 +501,7 @@ const Dashboard = () => {
             </div>
 
             <div className="col-md-2 heart-rate" onClick={() => setGraphId(3)}>
-              <div className={`border rounded-3 m-1 ${graphId === 3? "border-primary  border-5" : "border-secondary  border-3"}`}>
+              <div className={`border rounded-3 m-1 ${graphId === 3? "border-light  border-5" : "border-secondary  border-3"}`}>
                 <div className="row pt-3">
                   <div className="col d-flex justify-content-center">
                     <div style={{ width: 100, height: 100 }}>
@@ -517,7 +536,7 @@ const Dashboard = () => {
             </div>
 
             <div className="col-md-2 sleeps" onClick={() => setGraphId(4)}>
-              <div className={`border rounded-3 m-1 ${graphId === 4? "border-primary  border-5" : "border-secondary  border-3"}`}>
+              <div className={`border rounded-3 m-1 ${graphId === 4? "border-light  border-5" : "border-secondary  border-3"}`}>
                 <div className="row pt-3">
                   <div className="col d-flex justify-content-center">
                     <div style={{ width: 100, height: 100 }} >
@@ -597,15 +616,49 @@ const Dashboard = () => {
           {graphId === 4 && <SleepChart label={sleep_labels} data={sleepData} background={background} borderColor={borderColor} />}
         </div>
       </div>
-      <div class="modal fade" id="scoreHistory" tabindex="-1" aria-labelledby="scoreHistoryLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Score History</h5>
+      <div className="modal fade" id="scoreHistory" tabindex="-1" aria-labelledby="scoreHistoryLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="scoreHistoryLabel">Score History</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <ScoreChart label={scoreHistory.dates} data={scoreHistory.scores} background={background} borderColor={borderColor} />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="modal fade" id="dailyScoreInfo" tabindex="-1" aria-labelledby="dailyScoreInfoLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="dailyScoreInfoLabel">What is daily score?</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              <p>
+                This score is calculated based on the health data generated on the specific date mentioned above the 
+                chart. The date is usually the last day our system receives your data from Fitbit watch. This data is 
+                used to calculate your overal score over a period of time.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="modal fade" id="overallScoreInfo" tabindex="-1" aria-labelledby="overallScoreInfoLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="overallScoreInfoLabel">What is overall score?</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              <p>
+                This is your overall score that is calculated using your daily score over a period of time. This is the 
+                actual score that is considered while quoting your health and/or life insurance from State Farm. If you feel
+                you have got enough score to have better quote, please message our agent to discussion more.
+              </p>
             </div>
           </div>
         </div>

@@ -7,7 +7,7 @@ const MilesChart = (props) => {
       <div className="row">
         <div className="col">
           <div className='header'>
-            <h2 className='title text-center'>Miles Chart</h2>
+            <h2 className='title text-center'>Hourly Miles Travelled</h2>
           </div>
         </div>
       </div>

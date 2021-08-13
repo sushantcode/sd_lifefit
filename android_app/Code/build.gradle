@@ -7,7 +7,15 @@ buildscript {
         
     }
     dependencies {
+<<<<<<< HEAD
+<<<<<<< HEAD
         classpath 'com.android.tools.build:gradle:4.2.1'
+=======
+        classpath 'com.android.tools.build:gradle:4.1.2'
+>>>>>>> final implementation
+=======
+        classpath 'com.android.tools.build:gradle:4.2.1'
+>>>>>>> 809bdb204432155dd1e0395fc126a258378deb8d
 
         // Add this line into `dependencies` in `buildscript`
         classpath 'com.amplifyframework:amplify-tools-gradle-plugin:1.0.2'

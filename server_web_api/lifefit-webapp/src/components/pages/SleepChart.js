@@ -1,5 +1,5 @@
 import React from 'react';
-import { PolarArea } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 
 const SleepChart = (props) => {
   return (
@@ -7,13 +7,13 @@ const SleepChart = (props) => {
       <div className="row">
         <div className="col">
           <div className='header'>
-            <h2 className='title text-center'>Sleep Chart</h2>
+            <h2 className='title text-center'>Sleeping Pattern</h2>
           </div>
         </div>
       </div>
       <div className="row">
         <div className="col d-flex justify-content-center">
-          <PolarArea 
+          <Pie 
             data= {{
               labels: props.label,
               datasets: [
