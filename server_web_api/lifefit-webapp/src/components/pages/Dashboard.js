@@ -43,7 +43,7 @@ const Dashboard = () => {
 
   const [hrHeartRate, setHrHeartRate] = useState(hrDefault);
 
-  const [sleepData, setSleepData] = useState([0, 0, 0, 0]);
+  const [sleepData, setSleepData] = useState([0, 0, 0, 0, 0, 0]);
 
   const [scoreHistory, setScoreHistory] = useState({"score": [0], "date": ["YYYY-MM-DD"]});
 
@@ -153,7 +153,7 @@ const Dashboard = () => {
     .then(data => data.json())
     .then(result => {
       if (result) {
-        setSleepData([result.totalWakeMin, result.totalLightMin, result.totalDeepMin, result.totalRemMin]);
+        setSleepData([result.totalWakeMin, result.totalLightMin, result.totalDeepMin, result.totalRemMin, result.totalAsleepMin, result.totalRestlessMin]);
       }
       console.log("Sleeps Data: ", sleepData);
     })
@@ -196,12 +196,12 @@ const Dashboard = () => {
                 '06:00 AM', '07:00 AM', '08:00 AM', '09:00 AM', '10:00 AM', '11:00 AM',
                 '12:00 PM', '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM',
                 '06:00 PM', '07:00 PM', '08:00 PM', '09:00 PM', '10:00 PM', '11:00 PM'];
-  var background = ['rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'];
+  var background = ['rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.6)'];
   var borderColor = ['rgba(255, 99, 132, 1)',
                       'rgba(54, 162, 235, 1)',
                       'rgba(255, 206, 86, 1)',
@@ -210,7 +210,7 @@ const Dashboard = () => {
                       'rgba(255, 159, 64, 1)']
 
 
-  var sleep_labels = ['Wake', 'Light', 'Deep', 'Rem'];
+  var sleep_labels = ['Wake', 'Light', 'Deep', 'Rem', 'Asleep', 'Restless'];
   // Front-end stuffs .........................................................
   switch (overallScore) {
     case 0:
