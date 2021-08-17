@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/senior-design-codebase.iml" filepath="$PROJECT_DIR$/.idea/modules/senior-design-codebase.iml" group="senior-design-codebase" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/My_Application.iml" filepath="$PROJECT_DIR$/.idea/modules/My_Application.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/My_Application.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/My_Application.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fitapp/My_Application.fitapp.iml" filepath="$PROJECT_DIR$/.idea/modules/fitapp/My_Application.fitapp.iml" />
     </modules>
   </component>
 </project>
